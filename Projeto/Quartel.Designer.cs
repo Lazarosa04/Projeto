@@ -1,4 +1,4 @@
-﻿namespace Projeto
+namespace Projeto
 {
     partial class Quartel
     {
