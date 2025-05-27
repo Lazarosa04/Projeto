@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -28,13 +28,14 @@ namespace Projeto
 
         private void BOcor_Click(object sender, EventArgs e)
         {
-
+            Ocorrencias ocorrencias = new Ocorrencias();
+            ocorrencias.ShowDialog();
         }
 
         private void BViat_Click(object sender, EventArgs e)
         {
             Viatura viatura = new Viatura();
-            viatura.ShowDialog();
+            viatura.Show();
             this.Hide();
         }
 
