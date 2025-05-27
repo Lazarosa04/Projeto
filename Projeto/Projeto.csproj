@@ -52,6 +52,12 @@
     <Compile Include="Bombeiro.Designer.cs">
       <DependentUpon>Bombeiro.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ocorrencias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ocorrencias.Designer.cs">
+      <DependentUpon>Ocorrencias.cs</DependentUpon>
+    </Compile>
     <Compile Include="Viatura.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -68,6 +74,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Bombeiro.resx">
       <DependentUpon>Bombeiro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ocorrencias.resx">
+      <DependentUpon>Ocorrencias.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Quartel.resx">
       <DependentUpon>Quartel.cs</DependentUpon>
