@@ -110,6 +110,7 @@ namespace Projeto
             this.Controls.Add(this.listBox1);
             this.Name = "Bombeiro";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Bombeiro_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

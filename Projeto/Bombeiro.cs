@@ -56,6 +56,11 @@ namespace Projeto
                 MessageBox.Show($"Erro ao carregar dados: {ex.Message}");
             }
         }
+
+        private void Bombeiro_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
