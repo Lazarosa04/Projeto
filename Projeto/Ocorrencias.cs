@@ -21,5 +21,10 @@ namespace Projeto
         {
             this.Close();
         }
+
+        private void Ocorrencias_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

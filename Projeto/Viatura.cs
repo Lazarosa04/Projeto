@@ -16,12 +16,13 @@ namespace Projeto
         public Viatura()
         {
             InitializeComponent();
+            this.BVReturn.Click += new EventHandler(BVReturn_Click);
             CarregarDados();
         }
 
         private void CarregarDados()
         {
-            string connectionString = "Data Source=Laptop-Lazaro;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
             string query = "SELECT * FROM Viatura";
 
             try
@@ -63,6 +64,11 @@ namespace Projeto
         private void BVReturn_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void LBV_List_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

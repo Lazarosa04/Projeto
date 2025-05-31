@@ -1,30 +1,23 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Data.SqlClient;
-
+using System.Windows.Forms;
 
 namespace Projeto
 {
-    public partial class Bombeiro : Form
+    public partial class Equipamento : Form
     {
-        public Bombeiro()
+        public Equipamento()
         {
             InitializeComponent();
             CarregarDados();
-            this.BBReturn.Click += new EventHandler(BBReturn_Click); // Associa o evento
+            this.BEReturn.Click += new EventHandler(BEReturn_Click);
         }
 
         private void CarregarDados()
         {
             string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
-            string query = "SELECT * FROM Bombeiro";
+            string query = "SELECT * FROM Equipamento";
 
             try
             {
@@ -38,7 +31,6 @@ namespace Projeto
                         {
                             while (reader.Read())
                             {
-                                // Monta uma string com todos os campos da linha
                                 var campos = new List<string>();
                                 for (int i = 0; i < reader.FieldCount; i++)
                                 {
@@ -58,15 +50,14 @@ namespace Projeto
             }
         }
 
-        private void BBReturn_Click(object sender, EventArgs e)
+        private void BEReturn_Click(object sender, EventArgs e)
         {
-            this.Close(); // Fecha o formulário ao clicar em "Voltar"
+            this.Close();
         }
 
-        private void Bombeiro_Load(object sender, EventArgs e)
+        private void Equipamento_Load(object sender, EventArgs e)
         {
 
         }
     }
 }
-

@@ -52,6 +52,12 @@
     <Compile Include="Bombeiro.Designer.cs">
       <DependentUpon>Bombeiro.cs</DependentUpon>
     </Compile>
+    <Compile Include="Equipamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Equipamento.Designer.cs">
+      <DependentUpon>Equipamento.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ocorrencias.cs">
       <SubType>Form</SubType>
     </Compile>
