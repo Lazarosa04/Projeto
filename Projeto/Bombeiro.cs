@@ -22,7 +22,7 @@ namespace Projeto
 
         private void CarregarDados()
         {
-            string connectionString = "Data Source=Laptop-Lazaro;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
             string query = "SELECT * FROM Bombeiro";
 
             try
