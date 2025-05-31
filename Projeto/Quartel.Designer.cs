@@ -37,9 +37,9 @@ namespace Projeto
             // 
             // BBomb
             // 
-            this.BBomb.Location = new System.Drawing.Point(126, 64);
+            this.BBomb.Location = new System.Drawing.Point(131, 73);
             this.BBomb.Name = "BBomb";
-            this.BBomb.Size = new System.Drawing.Size(168, 84);
+            this.BBomb.Size = new System.Drawing.Size(252, 146);
             this.BBomb.TabIndex = 0;
             this.BBomb.Text = "Bombeiros";
             this.BBomb.UseVisualStyleBackColor = true;
@@ -47,9 +47,9 @@ namespace Projeto
             // 
             // BViat
             // 
-            this.BViat.Location = new System.Drawing.Point(323, 64);
+            this.BViat.Location = new System.Drawing.Point(389, 73);
             this.BViat.Name = "BViat";
-            this.BViat.Size = new System.Drawing.Size(168, 84);
+            this.BViat.Size = new System.Drawing.Size(241, 147);
             this.BViat.TabIndex = 1;
             this.BViat.Text = "Viaturas";
             this.BViat.UseVisualStyleBackColor = true;
@@ -57,9 +57,9 @@ namespace Projeto
             // 
             // BOcor
             // 
-            this.BOcor.Location = new System.Drawing.Point(126, 177);
+            this.BOcor.Location = new System.Drawing.Point(131, 225);
             this.BOcor.Name = "BOcor";
-            this.BOcor.Size = new System.Drawing.Size(168, 84);
+            this.BOcor.Size = new System.Drawing.Size(252, 153);
             this.BOcor.TabIndex = 2;
             this.BOcor.Text = "Ocorrências";
             this.BOcor.UseVisualStyleBackColor = true;
@@ -77,9 +77,9 @@ namespace Projeto
             // 
             // BEquip
             // 
-            this.BEquip.Location = new System.Drawing.Point(323, 177);
+            this.BEquip.Location = new System.Drawing.Point(389, 226);
             this.BEquip.Name = "BEquip";
-            this.BEquip.Size = new System.Drawing.Size(168, 84);
+            this.BEquip.Size = new System.Drawing.Size(241, 152);
             this.BEquip.TabIndex = 4;
             this.BEquip.Text = "Equipamento";
             this.BEquip.UseVisualStyleBackColor = true;
