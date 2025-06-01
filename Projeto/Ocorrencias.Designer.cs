@@ -33,69 +33,119 @@ namespace Projeto
             this.LBOcorrVia = new System.Windows.Forms.ListBox();
             this.LBOcorrEquip = new System.Windows.Forms.ListBox();
             this.BOcorrReturn = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // LBOcorrList
             // 
             this.LBOcorrList.FormattingEnabled = true;
-            this.LBOcorrList.Location = new System.Drawing.Point(9, 10);
-            this.LBOcorrList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.LBOcorrList.ItemHeight = 16;
+            this.LBOcorrList.Location = new System.Drawing.Point(12, 28);
+            this.LBOcorrList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LBOcorrList.Name = "LBOcorrList";
-            this.LBOcorrList.Size = new System.Drawing.Size(255, 160);
+            this.LBOcorrList.Size = new System.Drawing.Size(339, 196);
             this.LBOcorrList.TabIndex = 4;
             // 
             // LBOcorrBomb
             // 
             this.LBOcorrBomb.FormattingEnabled = true;
-            this.LBOcorrBomb.Location = new System.Drawing.Point(308, 10);
-            this.LBOcorrBomb.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.LBOcorrBomb.ItemHeight = 16;
+            this.LBOcorrBomb.Location = new System.Drawing.Point(416, 28);
+            this.LBOcorrBomb.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LBOcorrBomb.Name = "LBOcorrBomb";
-            this.LBOcorrBomb.Size = new System.Drawing.Size(138, 160);
+            this.LBOcorrBomb.Size = new System.Drawing.Size(183, 196);
             this.LBOcorrBomb.TabIndex = 5;
             // 
             // LBOcorrVia
             // 
             this.LBOcorrVia.FormattingEnabled = true;
-            this.LBOcorrVia.Location = new System.Drawing.Point(454, 10);
-            this.LBOcorrVia.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.LBOcorrVia.ItemHeight = 16;
+            this.LBOcorrVia.Location = new System.Drawing.Point(605, 28);
+            this.LBOcorrVia.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LBOcorrVia.Name = "LBOcorrVia";
-            this.LBOcorrVia.Size = new System.Drawing.Size(138, 160);
+            this.LBOcorrVia.Size = new System.Drawing.Size(183, 196);
             this.LBOcorrVia.TabIndex = 6;
             // 
             // LBOcorrEquip
             // 
             this.LBOcorrEquip.FormattingEnabled = true;
-            this.LBOcorrEquip.Location = new System.Drawing.Point(146, 188);
-            this.LBOcorrEquip.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.LBOcorrEquip.ItemHeight = 16;
+            this.LBOcorrEquip.Location = new System.Drawing.Point(225, 243);
+            this.LBOcorrEquip.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LBOcorrEquip.Name = "LBOcorrEquip";
-            this.LBOcorrEquip.Size = new System.Drawing.Size(255, 160);
+            this.LBOcorrEquip.Size = new System.Drawing.Size(339, 196);
             this.LBOcorrEquip.TabIndex = 7;
             // 
             // BOcorrReturn
             // 
-            this.BOcorrReturn.Location = new System.Drawing.Point(715, 410);
+            this.BOcorrReturn.Location = new System.Drawing.Point(953, 505);
+            this.BOcorrReturn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.BOcorrReturn.Name = "BOcorrReturn";
-            this.BOcorrReturn.Size = new System.Drawing.Size(55, 23);
+            this.BOcorrReturn.Size = new System.Drawing.Size(73, 28);
             this.BOcorrReturn.TabIndex = 8;
             this.BOcorrReturn.Text = "Voltar";
             this.BOcorrReturn.UseVisualStyleBackColor = true;
             this.BOcorrReturn.Click += new System.EventHandler(this.BOcorrReturn_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(80, 16);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Ocorrências";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(413, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(73, 16);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Bombeiros";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(602, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(56, 16);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Viaturas";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(222, 225);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(91, 16);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Equpamentos";
+            // 
             // Ocorrencias
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 366);
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.BOcorrReturn);
             this.Controls.Add(this.LBOcorrEquip);
             this.Controls.Add(this.LBOcorrVia);
             this.Controls.Add(this.LBOcorrBomb);
             this.Controls.Add(this.LBOcorrList);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Ocorrencias";
             this.Text = "Ocorrencias";
             this.Load += new System.EventHandler(this.Ocorrencias_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -106,5 +156,9 @@ namespace Projeto
         private System.Windows.Forms.ListBox LBOcorrVia;
         private System.Windows.Forms.ListBox LBOcorrEquip;
         private System.Windows.Forms.Button BOcorrReturn;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }
