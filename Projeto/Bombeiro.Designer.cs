@@ -107,7 +107,7 @@ namespace Projeto
             // 
             this.BBAdd.Location = new System.Drawing.Point(418, 410);
             this.BBAdd.Name = "BBAdd";
-            this.BBAdd.Size = new System.Drawing.Size(75, 23);
+            this.BBAdd.Size = new System.Drawing.Size(80, 23);
             this.BBAdd.TabIndex = 8;
             this.BBAdd.Text = "Adicionar";
             this.BBAdd.UseVisualStyleBackColor = true;

@@ -14,11 +14,24 @@ namespace Projeto
 {
     public partial class Bombeiro : Form
     {
+        // Adicione este campo à sua classe para armazenar os bombeiros
+        private List<BombeiroInfo> bombeiros = new List<BombeiroInfo>();
+
+        // Classe para armazenar os dados do bombeiro
+        private class BombeiroInfo
+        {
+            public int Id { get; set; }
+            public string Nome { get; set; }
+            
+            public override string ToString() => $"{Nome} ({Id})";
+        }
+
         public Bombeiro()
         {
             InitializeComponent();
             CarregarDados();
-            this.BBReturn.Click += new EventHandler(BBReturn_Click); // Associa o evento
+            this.BBReturn.Click += new EventHandler(BBReturn_Click);
+            this.listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged; // Associa o evento
         }
 
         private void CarregarDados()
@@ -29,6 +42,7 @@ namespace Projeto
             try
             {
                 listBox1.Items.Clear();
+                bombeiros.Clear();
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
@@ -38,15 +52,14 @@ namespace Projeto
                         {
                             while (reader.Read())
                             {
-                                // Monta uma string com todos os campos da linha
-                                var campos = new List<string>();
-                                for (int i = 0; i < reader.FieldCount; i++)
+                                var info = new BombeiroInfo
                                 {
-                                    string nomeCampo = reader.GetName(i);
-                                    string valorCampo = reader[i]?.ToString() ?? "";
-                                    campos.Add($"{nomeCampo}: {valorCampo}");
-                                }
-                                listBox1.Items.Add(string.Join(" | ", campos));
+                                    Id = Convert.ToInt32(reader["ID_Bombeiro"]),
+                                    Nome = reader["Nome_Bombeiro"].ToString()
+                                    // Adicione outros campos aqui se necessário
+                                };
+                                bombeiros.Add(info);
+                                listBox1.Items.Add(info);
                             }
                         }
                     }
@@ -55,6 +68,17 @@ namespace Projeto
             catch (Exception ex)
             {
                 MessageBox.Show($"Erro ao carregar dados: {ex.Message}");
+            }
+        }
+
+        // Evento para exibir os dados ao selecionar um bombeiro
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedIndex >= 0)
+            {
+                var selecionado = bombeiros[listBox1.SelectedIndex];
+                TBV1.Text = selecionado.Nome;
+                // Exiba outros dados em outros controles, se necessário
             }
         }
 
