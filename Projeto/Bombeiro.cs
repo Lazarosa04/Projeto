@@ -38,6 +38,7 @@ namespace Projeto
             CarregarDados();
             this.BBReturn.Click += new EventHandler(BBReturn_Click);
             this.listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged; // Associa o evento
+            this.BBRem.Click += new EventHandler(BBRem_Click); // Associa o evento do botão remover
         }
 
         private void CarregarDados()
@@ -105,6 +106,78 @@ namespace Projeto
         private void Bombeiro_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void BBRem_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedIndex < 0)
+            {
+                MessageBox.Show("Selecione um bombeiro para remover.");
+                return;
+            }
+
+            var selecionado = bombeiros[listBox1.SelectedIndex];
+            var confirm = MessageBox.Show($"Tem certeza que deseja remover '{selecionado.Nome}'?", "Confirmar Remoção", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (confirm == DialogResult.Yes)
+            {
+                string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        connection.Open();
+
+                        // 1. Remover as ligações com Formação
+                        using (SqlCommand cmd = new SqlCommand("DELETE FROM Bombeiro_Formação WHERE ID_Bombeiro = @id", connection))
+                        {
+                            cmd.Parameters.AddWithValue("@id", selecionado.Id);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // 2. Remover as ligações com Ocorrência
+                        using (SqlCommand cmd = new SqlCommand("DELETE FROM Bombeiro_Ocorrência WHERE ID_Bombeiro = @id", connection))
+                        {
+                            cmd.Parameters.AddWithValue("@id", selecionado.Id);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // 3. Remover as ligações com Especialização
+                        using (SqlCommand cmd = new SqlCommand("DELETE FROM Bombeiro_Especialização WHERE ID_Bombeiro = @id", connection))
+                        {
+                            cmd.Parameters.AddWithValue("@id", selecionado.Id);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // 4. Remover Baixas
+                        using (SqlCommand cmd = new SqlCommand("DELETE FROM Baixa WHERE ID_Bombeiro = @id", connection))
+                        {
+                            cmd.Parameters.AddWithValue("@id", selecionado.Id);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // 5. Remover Férias
+                        using (SqlCommand cmd = new SqlCommand("DELETE FROM Férias WHERE ID_Bombeiro = @id", connection))
+                        {
+                            cmd.Parameters.AddWithValue("@id", selecionado.Id);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // 6. Por fim, remover o bombeiro
+                        using (SqlCommand cmd = new SqlCommand("DELETE FROM Bombeiro WHERE ID_Bombeiro = @id", connection))
+                        {
+                            cmd.Parameters.AddWithValue("@id", selecionado.Id);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    MessageBox.Show("Bombeiro removido com sucesso.");
+                    CarregarDados(); // Atualiza a lista
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao remover bombeiro: {ex.Message}");
+                }
+            }
         }
     }
 }

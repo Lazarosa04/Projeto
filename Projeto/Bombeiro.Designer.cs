@@ -79,7 +79,7 @@ namespace Projeto
             // 
             this.BBRem.Location = new System.Drawing.Point(609, 410);
             this.BBRem.Name = "BBRem";
-            this.BBRem.Size = new System.Drawing.Size(75, 23);
+            this.BBRem.Size = new System.Drawing.Size(80, 23);
             this.BBRem.TabIndex = 11;
             this.BBRem.Text = "Remover";
             this.BBRem.UseVisualStyleBackColor = true;
