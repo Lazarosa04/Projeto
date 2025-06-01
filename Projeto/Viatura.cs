@@ -13,10 +13,26 @@ namespace Projeto
 {
     public partial class Viatura : Form
     {
+        // 1. Lista para armazenar as viaturas
+        private List<ViaturaInfo> viaturas = new List<ViaturaInfo>();
+
+        // 2. Classe para os dados da viatura
+        private class ViaturaInfo
+        {
+            public int Id { get; set; }
+            public string Tipo { get; set; }
+            public string Matricula { get; set; }
+            public string Ano { get; set; }
+            // Adicione outros campos conforme sua tabela
+
+            public override string ToString() => $"{Tipo} {Matricula}";
+        }
+
         public Viatura()
         {
             InitializeComponent();
             this.BVReturn.Click += new EventHandler(BVReturn_Click);
+            this.LBV_List.SelectedIndexChanged += LBV_List_SelectedIndexChanged; // Associa o evento
             CarregarDados();
         }
 
@@ -28,6 +44,7 @@ namespace Projeto
             try
             {
                 LBV_List.Items.Clear();
+                viaturas.Clear();
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
@@ -37,14 +54,16 @@ namespace Projeto
                         {
                             while (reader.Read())
                             {
-                                var campos = new List<string>();
-                                for (int i = 0; i < reader.FieldCount; i++)
+                                var info = new ViaturaInfo
                                 {
-                                    string nomeCampo = reader.GetName(i);
-                                    string valorCampo = reader[i]?.ToString() ?? "";
-                                    campos.Add($"{nomeCampo}: {valorCampo}");
-                                }
-                                LBV_List.Items.Add(string.Join(" | ", campos));
+                                    Id = Convert.ToInt32(reader["ID_Viatura"]),
+                                    Tipo = reader["ID_TipoViatura"].ToString(),
+                                    Matricula = reader["Matricula"].ToString(),
+                                    Ano = reader["Ano"].ToString()
+                                    // Adicione outros campos conforme necessário
+                                };
+                                viaturas.Add(info);
+                                LBV_List.Items.Add(info);
                             }
                         }
                     }
@@ -56,6 +75,19 @@ namespace Projeto
             }
         }
 
+        // 3. Evento para exibir os dados ao selecionar uma viatura
+        private void LBV_List_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (LBV_List.SelectedIndex >= 0)
+            {
+                var selecionada = viaturas[LBV_List.SelectedIndex];
+        
+                TBV1.Text = selecionada.Matricula;
+                TBV2.Text = selecionada.Ano;
+                // Exiba outros campos conforme necessário
+            }
+        }
+
         private void Viatura_Load(object sender, EventArgs e)
         {
 
@@ -63,12 +95,8 @@ namespace Projeto
 
         private void BVReturn_Click(object sender, EventArgs e)
         {
+ 
             this.Close();
-        }
-
-        private void LBV_List_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
