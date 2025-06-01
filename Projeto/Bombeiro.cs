@@ -62,7 +62,7 @@ namespace Projeto
                                 {
                                     Id = Convert.ToInt32(reader["ID_Bombeiro"]),
                                     Nome = reader["Nome_Bombeiro"].ToString(),
-                                    Nascimento = reader["Data_Nascimento"].ToString(),
+                                    Nascimento = Convert.ToDateTime(reader["Data_Nascimento"]).ToString("dd/MM/yyyy"),
                                     Morada = reader["Morada"].ToString(),
                                     Email = reader["Email"].ToString(),
                                     NIF = reader["NIF"].ToString(),
