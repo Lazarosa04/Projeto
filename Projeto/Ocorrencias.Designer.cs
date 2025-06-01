@@ -43,7 +43,7 @@ namespace Projeto
             // 
             this.LBOcorrList.FormattingEnabled = true;
             this.LBOcorrList.ItemHeight = 16;
-            this.LBOcorrList.Location = new System.Drawing.Point(12, 28);
+            this.LBOcorrList.Location = new System.Drawing.Point(16, 25);
             this.LBOcorrList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LBOcorrList.Name = "LBOcorrList";
             this.LBOcorrList.Size = new System.Drawing.Size(339, 196);
@@ -53,7 +53,7 @@ namespace Projeto
             // 
             this.LBOcorrBomb.FormattingEnabled = true;
             this.LBOcorrBomb.ItemHeight = 16;
-            this.LBOcorrBomb.Location = new System.Drawing.Point(416, 28);
+            this.LBOcorrBomb.Location = new System.Drawing.Point(413, 27);
             this.LBOcorrBomb.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LBOcorrBomb.Name = "LBOcorrBomb";
             this.LBOcorrBomb.Size = new System.Drawing.Size(183, 196);
@@ -63,7 +63,7 @@ namespace Projeto
             // 
             this.LBOcorrVia.FormattingEnabled = true;
             this.LBOcorrVia.ItemHeight = 16;
-            this.LBOcorrVia.Location = new System.Drawing.Point(605, 28);
+            this.LBOcorrVia.Location = new System.Drawing.Point(605, 27);
             this.LBOcorrVia.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LBOcorrVia.Name = "LBOcorrVia";
             this.LBOcorrVia.Size = new System.Drawing.Size(183, 196);
@@ -73,7 +73,7 @@ namespace Projeto
             // 
             this.LBOcorrEquip.FormattingEnabled = true;
             this.LBOcorrEquip.ItemHeight = 16;
-            this.LBOcorrEquip.Location = new System.Drawing.Point(225, 243);
+            this.LBOcorrEquip.Location = new System.Drawing.Point(225, 242);
             this.LBOcorrEquip.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LBOcorrEquip.Name = "LBOcorrEquip";
             this.LBOcorrEquip.Size = new System.Drawing.Size(339, 196);
@@ -81,8 +81,8 @@ namespace Projeto
             // 
             // BOcorrReturn
             // 
-            this.BOcorrReturn.Location = new System.Drawing.Point(953, 505);
-            this.BOcorrReturn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BOcorrReturn.Location = new System.Drawing.Point(715, 410);
+            this.BOcorrReturn.Margin = new System.Windows.Forms.Padding(4);
             this.BOcorrReturn.Name = "BOcorrReturn";
             this.BOcorrReturn.Size = new System.Drawing.Size(73, 28);
             this.BOcorrReturn.TabIndex = 8;
@@ -130,7 +130,7 @@ namespace Projeto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(798, 450);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
