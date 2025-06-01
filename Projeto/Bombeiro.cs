@@ -39,6 +39,8 @@ namespace Projeto
             this.BBReturn.Click += new EventHandler(BBReturn_Click);
             this.listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged; // Associa o evento
             this.BBRem.Click += new EventHandler(BBRem_Click); // Associa o evento do botão remover
+            this.button1.Click += new EventHandler(button1_Click);
+            this.BBAdd.Click += new EventHandler(BBAdd_Click);
         }
 
         private void CarregarDados()
@@ -106,6 +108,80 @@ namespace Projeto
         private void Bombeiro_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            listBox1.SelectedIndex = -1;
+            // Opcional: Limpar os campos de texto
+            TBV1.Clear();
+            textBox1.Clear();
+            textBox2.Clear();
+            textBox3.Clear();
+            textBox4.Clear();
+            textBox5.Clear();
+        }
+
+
+        private void BBAdd_Click(object sender, EventArgs e)
+        {
+            // Captura os valores dos campos
+            string nome = TBV1.Text.Trim();
+            string morada = textBox1.Text.Trim();
+            string email = textBox2.Text.Trim();
+            string nif = textBox3.Text.Trim();
+            string telemovel = textBox4.Text.Trim();
+            string nascimento = textBox5.Text.Trim();
+
+            // Validação simples (pode ser expandida)
+            if (string.IsNullOrWhiteSpace(nome) || string.IsNullOrWhiteSpace(nascimento))
+            {
+                MessageBox.Show("Preencha pelo menos o nome e a data de nascimento.");
+                return;
+            }
+
+            DateTime dataNascimento;
+            if (!DateTime.TryParse(nascimento, out dataNascimento))
+            {
+                MessageBox.Show("Data de nascimento inválida.");
+                return;
+            }
+
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+            string query = @"INSERT INTO Bombeiro 
+        (Nome_Bombeiro, Data_Nascimento, Morada, Email, NIF, Telemóvel)
+        VALUES (@nome, @nascimento, @morada, @email, @nif, @telemovel)";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@nome", nome);
+                        command.Parameters.AddWithValue("@nascimento", dataNascimento);
+                        command.Parameters.AddWithValue("@morada", morada);
+                        command.Parameters.AddWithValue("@email", email);
+                        command.Parameters.AddWithValue("@nif", nif);
+                        command.Parameters.AddWithValue("@telemovel", telemovel);
+                        command.ExecuteNonQuery();
+                    }
+                }
+                MessageBox.Show("Bombeiro adicionado com sucesso!");
+                CarregarDados(); // Atualiza a lista
+                                 // Limpa os campos após adicionar
+                TBV1.Clear();
+                textBox1.Clear();
+                textBox2.Clear();
+                textBox3.Clear();
+                textBox4.Clear();
+                textBox5.Clear();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao adicionar bombeiro: {ex.Message}");
+            }
         }
 
         private void BBRem_Click(object sender, EventArgs e)
