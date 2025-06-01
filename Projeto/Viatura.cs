@@ -34,6 +34,7 @@ namespace Projeto
             this.BVReturn.Click += new EventHandler(BVReturn_Click);
             this.LBV_List.SelectedIndexChanged += LBV_List_SelectedIndexChanged; // Associa o evento
             this.BVRem.Click += new EventHandler(BVRem_Click);
+            this.BVAdd.Click += new EventHandler(BVAdd_Click);
             CarregarDados();
         }
 
@@ -120,6 +121,69 @@ namespace Projeto
         {
  
             this.Close();
+        }
+
+        private void BVAdd_Click(object sender, EventArgs e)
+        {
+            // Captura os valores dos campos
+            string matricula = TBV1.Text.Trim();
+            string anoStr = TBV2.Text.Trim();
+            string tipoSelecionado = comboBox1.SelectedItem?.ToString();
+
+            // Validação simples
+            if (string.IsNullOrWhiteSpace(matricula) || string.IsNullOrWhiteSpace(anoStr) || string.IsNullOrWhiteSpace(tipoSelecionado))
+            {
+                MessageBox.Show("Preencha todos os campos obrigatórios.");
+                return;
+            }
+
+            int ano;
+            if (!int.TryParse(anoStr, out ano))
+            {
+                MessageBox.Show("Ano inválido.");
+                return;
+            }
+
+            // Encontrar o ID do tipo selecionado
+            int idTipo = tiposViatura.FirstOrDefault(x => x.Value == tipoSelecionado).Key;
+            if (idTipo == 0)
+            {
+                MessageBox.Show("Tipo de viatura inválido.");
+                return;
+            }
+
+            // Defina o ID_Quartel conforme sua lógica (exemplo: 1)
+            int idQuartel = 11111;
+
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+            string query = @"INSERT INTO Viatura (ID_Quartel, ID_TipoViatura, Matricula, Ano)
+                     VALUES (@idQuartel, @idTipo, @matricula, @ano)";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@idQuartel", idQuartel);
+                        command.Parameters.AddWithValue("@idTipo", idTipo);
+                        command.Parameters.AddWithValue("@matricula", matricula);
+                        command.Parameters.AddWithValue("@ano", ano);
+                        command.ExecuteNonQuery();
+                    }
+                }
+                MessageBox.Show("Viatura adicionada com sucesso!");
+                CarregarDados(); // Atualiza a lista
+                                 // Limpa os campos após adicionar
+                TBV1.Clear();
+                TBV2.Clear();
+                comboBox1.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao adicionar viatura: {ex.Message}");
+            }
         }
 
         private void BVRem_Click(object sender, EventArgs e)
