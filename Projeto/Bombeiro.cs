@@ -22,7 +22,13 @@ namespace Projeto
         {
             public int Id { get; set; }
             public string Nome { get; set; }
-            
+            public string Nascimento { get; set; }
+            public string Morada    { get; set; }
+            public string Email { get; set; }
+            public string NIF { get; set; }
+            public string Telemovel { get; set; }
+
+
             public override string ToString() => $"{Nome} ({Id})";
         }
 
@@ -55,8 +61,12 @@ namespace Projeto
                                 var info = new BombeiroInfo
                                 {
                                     Id = Convert.ToInt32(reader["ID_Bombeiro"]),
-                                    Nome = reader["Nome_Bombeiro"].ToString()
-                                    // Adicione outros campos aqui se necessário
+                                    Nome = reader["Nome_Bombeiro"].ToString(),
+                                    Nascimento = reader["Data_Nascimento"].ToString(),
+                                    Morada = reader["Morada"].ToString(),
+                                    Email = reader["Email"].ToString(),
+                                    NIF = reader["NIF"].ToString(),
+                                    Telemovel = reader["Telemóvel"].ToString()
                                 };
                                 bombeiros.Add(info);
                                 listBox1.Items.Add(info);
@@ -78,6 +88,11 @@ namespace Projeto
             {
                 var selecionado = bombeiros[listBox1.SelectedIndex];
                 TBV1.Text = selecionado.Nome;
+                textBox1.Text = selecionado.Morada;
+                textBox2.Text = selecionado.Email;
+                textBox3.Text = selecionado.NIF;
+                textBox4.Text = selecionado.Telemovel;
+                textBox5.Text = selecionado.Nascimento;
                 // Exiba outros dados em outros controles, se necessário
             }
         }
