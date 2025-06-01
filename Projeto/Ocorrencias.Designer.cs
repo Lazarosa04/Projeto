@@ -1,4 +1,4 @@
-﻿namespace Projeto
+namespace Projeto
 {
     partial class Ocorrencias
     {
@@ -73,8 +73,7 @@
             // 
             // BOcorrReturn
             // 
-            this.BOcorrReturn.Location = new System.Drawing.Point(470, 309);
-            this.BOcorrReturn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BOcorrReturn.Location = new System.Drawing.Point(715, 410);
             this.BOcorrReturn.Name = "BOcorrReturn";
             this.BOcorrReturn.Size = new System.Drawing.Size(55, 23);
             this.BOcorrReturn.TabIndex = 8;
