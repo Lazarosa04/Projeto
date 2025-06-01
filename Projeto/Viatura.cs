@@ -33,6 +33,7 @@ namespace Projeto
             InitializeComponent();
             this.BVReturn.Click += new EventHandler(BVReturn_Click);
             this.LBV_List.SelectedIndexChanged += LBV_List_SelectedIndexChanged; // Associa o evento
+            this.BVRem.Click += new EventHandler(BVRem_Click);
             CarregarDados();
         }
 
@@ -119,6 +120,68 @@ namespace Projeto
         {
  
             this.Close();
+        }
+
+        private void BVRem_Click(object sender, EventArgs e)
+        {
+            if (LBV_List.SelectedIndex < 0)
+            {
+                MessageBox.Show("Selecione uma viatura para remover.");
+                return;
+            }
+
+            var selecionada = viaturas[LBV_List.SelectedIndex];
+            var confirm = MessageBox.Show(
+                $"Tem certeza que deseja remover a viatura '{selecionada.Matricula}'?",
+                "Confirmar Remoção",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (confirm == DialogResult.Yes)
+            {
+                string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        connection.Open();
+
+                        // 1. Remover ocorrências associadas à viatura
+                        using (SqlCommand cmd = new SqlCommand("DELETE FROM Viatura_Ocorrência WHERE ID_Viatura = @id", connection))
+                        {
+                            cmd.Parameters.AddWithValue("@id", selecionada.Id);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // 2. Remover manutenções associadas à viatura
+                        using (SqlCommand cmd = new SqlCommand("DELETE FROM Manutenção WHERE ID_Viatura = @id", connection))
+                        {
+                            cmd.Parameters.AddWithValue("@id", selecionada.Id);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // 3. Desassociar equipamentos da viatura (não apagar o equipamento)
+                        using (SqlCommand cmd = new SqlCommand("UPDATE Equipamento SET ID_Viatura = NULL WHERE ID_Viatura = @id", connection))
+                        {
+                            cmd.Parameters.AddWithValue("@id", selecionada.Id);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // 4. Remover a viatura
+                        using (SqlCommand cmd = new SqlCommand("DELETE FROM Viatura WHERE ID_Viatura = @id", connection))
+                        {
+                            cmd.Parameters.AddWithValue("@id", selecionada.Id);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    MessageBox.Show("Viatura removida com sucesso.");
+                    CarregarDados(); // Atualiza a lista
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao remover viatura: {ex.Message}");
+                }
+            }
         }
     }
 }
