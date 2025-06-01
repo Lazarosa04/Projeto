@@ -37,9 +37,10 @@ namespace Projeto
             // 
             // BBomb
             // 
-            this.BBomb.Location = new System.Drawing.Point(131, 73);
+            this.BBomb.Location = new System.Drawing.Point(28, 24);
+            this.BBomb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.BBomb.Name = "BBomb";
-            this.BBomb.Size = new System.Drawing.Size(252, 146);
+            this.BBomb.Size = new System.Drawing.Size(336, 180);
             this.BBomb.TabIndex = 0;
             this.BBomb.Text = "Bombeiros";
             this.BBomb.UseVisualStyleBackColor = true;
@@ -47,9 +48,10 @@ namespace Projeto
             // 
             // BViat
             // 
-            this.BViat.Location = new System.Drawing.Point(389, 73);
+            this.BViat.Location = new System.Drawing.Point(372, 24);
+            this.BViat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.BViat.Name = "BViat";
-            this.BViat.Size = new System.Drawing.Size(241, 147);
+            this.BViat.Size = new System.Drawing.Size(321, 181);
             this.BViat.TabIndex = 1;
             this.BViat.Text = "Viaturas";
             this.BViat.UseVisualStyleBackColor = true;
@@ -57,9 +59,10 @@ namespace Projeto
             // 
             // BOcor
             // 
-            this.BOcor.Location = new System.Drawing.Point(131, 225);
+            this.BOcor.Location = new System.Drawing.Point(28, 211);
+            this.BOcor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.BOcor.Name = "BOcor";
-            this.BOcor.Size = new System.Drawing.Size(252, 153);
+            this.BOcor.Size = new System.Drawing.Size(336, 188);
             this.BOcor.TabIndex = 2;
             this.BOcor.Text = "Ocorrências";
             this.BOcor.UseVisualStyleBackColor = true;
@@ -67,10 +70,10 @@ namespace Projeto
             // 
             // BExit
             // 
-            this.BExit.Location = new System.Drawing.Point(520, 327);
-            this.BExit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BExit.Location = new System.Drawing.Point(713, 416);
+            this.BExit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BExit.Name = "BExit";
-            this.BExit.Size = new System.Drawing.Size(56, 19);
+            this.BExit.Size = new System.Drawing.Size(75, 23);
             this.BExit.TabIndex = 3;
             this.BExit.Text = "Exit";
             this.BExit.UseVisualStyleBackColor = true;
@@ -78,9 +81,10 @@ namespace Projeto
             // 
             // BEquip
             // 
-            this.BEquip.Location = new System.Drawing.Point(389, 226);
+            this.BEquip.Location = new System.Drawing.Point(372, 212);
+            this.BEquip.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.BEquip.Name = "BEquip";
-            this.BEquip.Size = new System.Drawing.Size(241, 152);
+            this.BEquip.Size = new System.Drawing.Size(321, 187);
             this.BEquip.TabIndex = 4;
             this.BEquip.Text = "Equipamento";
             this.BEquip.UseVisualStyleBackColor = true;
@@ -88,15 +92,15 @@ namespace Projeto
             // 
             // Quartel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 366);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.BEquip);
             this.Controls.Add(this.BExit);
             this.Controls.Add(this.BOcor);
             this.Controls.Add(this.BViat);
             this.Controls.Add(this.BBomb);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Quartel";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Quartel_Load);
