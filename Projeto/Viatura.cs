@@ -36,31 +36,52 @@ namespace Projeto
             CarregarDados();
         }
 
+        private Dictionary<int, string> tiposViatura = new Dictionary<int, string>();
+
         private void CarregarDados()
         {
             string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
-            string query = "SELECT * FROM Viatura";
+            string queryViaturas = "SELECT * FROM Viatura";
+            string queryTipos = "SELECT * FROM TipoViatura";
 
             try
             {
                 LBV_List.Items.Clear();
                 viaturas.Clear();
+                tiposViatura.Clear();
+
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
+
+                    // 1. Carregar tipos de viatura
+                    using (SqlCommand cmdTipos = new SqlCommand(queryTipos, connection))
                     {
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        using (SqlDataReader readerTipos = cmdTipos.ExecuteReader())
+                        {
+                            while (readerTipos.Read())
+                            {
+                                int idTipo = Convert.ToInt32(readerTipos["ID_TipoViatura"]);
+                                string nomeTipo = readerTipos["Nome_TipoViatura"].ToString();
+                                tiposViatura[idTipo] = nomeTipo;
+                            }
+                        }
+                    }
+
+                    // 2. Carregar viaturas
+                    using (SqlCommand cmdViaturas = new SqlCommand(queryViaturas, connection))
+                    {
+                        using (SqlDataReader reader = cmdViaturas.ExecuteReader())
                         {
                             while (reader.Read())
                             {
+                                int idTipo = Convert.ToInt32(reader["ID_TipoViatura"]);
                                 var info = new ViaturaInfo
                                 {
                                     Id = Convert.ToInt32(reader["ID_Viatura"]),
-                                    Tipo = reader["ID_TipoViatura"].ToString(),
+                                    Tipo = tiposViatura.ContainsKey(idTipo) ? tiposViatura[idTipo] : "Desconhecido",
                                     Matricula = reader["Matricula"].ToString(),
                                     Ano = reader["Ano"].ToString()
-                                    // Adicione outros campos conforme necessário
                                 };
                                 viaturas.Add(info);
                                 LBV_List.Items.Add(info);
@@ -84,7 +105,8 @@ namespace Projeto
         
                 TBV1.Text = selecionada.Matricula;
                 TBV2.Text = selecionada.Ano;
-                // Exiba outros campos conforme necessário
+                comboBox1.SelectedItem = selecionada.Tipo;
+                
             }
         }
 
