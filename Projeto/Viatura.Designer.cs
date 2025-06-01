@@ -49,7 +49,7 @@ namespace Projeto
             this.BVAdd.TabIndex = 0;
             this.BVAdd.Text = "Adicionar";
             this.BVAdd.UseVisualStyleBackColor = true;
-            this.BVAdd.Click += new System.EventHandler(this.BVAdd_Click);
+            
             // 
             // comboBox1
             // 
