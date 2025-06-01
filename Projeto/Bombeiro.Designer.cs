@@ -48,6 +48,7 @@ namespace Projeto
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.ficheiroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,7 +60,6 @@ namespace Projeto
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(313, 404);
             this.listBox1.TabIndex = 0;
-            
             // 
             // TBV1
             // 
@@ -79,14 +79,14 @@ namespace Projeto
             // 
             this.BBRem.Location = new System.Drawing.Point(609, 410);
             this.BBRem.Name = "BBRem";
-            this.BBRem.Size = new System.Drawing.Size(80, 23);
+            this.BBRem.Size = new System.Drawing.Size(75, 23);
             this.BBRem.TabIndex = 11;
             this.BBRem.Text = "Remover";
             this.BBRem.UseVisualStyleBackColor = true;
             // 
             // BBEdit
             // 
-            this.BBEdit.Location = new System.Drawing.Point(511, 410);
+            this.BBEdit.Location = new System.Drawing.Point(528, 410);
             this.BBEdit.Name = "BBEdit";
             this.BBEdit.Size = new System.Drawing.Size(75, 23);
             this.BBEdit.TabIndex = 10;
@@ -105,7 +105,7 @@ namespace Projeto
             // 
             // BBAdd
             // 
-            this.BBAdd.Location = new System.Drawing.Point(418, 410);
+            this.BBAdd.Location = new System.Drawing.Point(438, 410);
             this.BBAdd.Name = "BBAdd";
             this.BBAdd.Size = new System.Drawing.Size(80, 23);
             this.BBAdd.TabIndex = 8;
@@ -219,13 +219,22 @@ namespace Projeto
             this.ficheiroToolStripMenuItem.Name = "ficheiroToolStripMenuItem";
             this.ficheiroToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
             this.ficheiroToolStripMenuItem.Text = "Ficheiro";
-            
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(352, 410);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(80, 23);
+            this.button1.TabIndex = 24;
+            this.button1.Text = "Novo";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // Bombeiro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -277,5 +286,6 @@ namespace Projeto
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.MenuStrip menuStrip2;
         private System.Windows.Forms.ToolStripMenuItem ficheiroToolStripMenuItem;
+        private System.Windows.Forms.Button button1;
     }
 }
