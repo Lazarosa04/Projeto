@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +15,11 @@ namespace Projeto
         public Chamada()
         {
             InitializeComponent();
+        }
+
+        private void BBReturn_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
