@@ -94,7 +94,7 @@ namespace Projeto
         private void CarregarChamadasDaOcorrencia(int idOcorrencia)
         {
             string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
-            string query = @"SELECT Número, Nome, Localização, Descrição, Data_Hora_Chamada
+            string query = @"SELECT ID_Chamada, Número, Nome, Localização, Descrição, Data_Hora_Chamada
                      FROM Chamada
                      WHERE ID_Ocorrência = @idOcorrencia";
 
@@ -113,7 +113,7 @@ namespace Projeto
                             while (reader.Read())
                             {
                                 // Exemplo: mostra o número e o nome de quem reportou
-                                string chamadaInfo = $"Nº: {reader["Número"]} - {reader["Nome"]} - {reader["Data_Hora_Chamada"]:dd/MM/yyyy HH:mm}";
+                                string chamadaInfo = $"({reader["ID_Chamada"]}) {reader["Nome"]}: {reader["Número"]}";
                                 LBOcorrCham.Items.Add(chamadaInfo);
                             }
                         }
