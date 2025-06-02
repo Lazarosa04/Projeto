@@ -126,6 +126,80 @@ namespace Projeto
             }
         }
 
+        private void CarregarBombeirosDaOcorrencia(int idOcorrencia)
+        {
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+            string query = @"
+        SELECT b.ID_Bombeiro, b.Nome_Bombeiro, b.NIF, b.Email, b.Telemóvel
+        FROM Bombeiro b
+        INNER JOIN Bombeiro_Ocorrência bo ON b.ID_Bombeiro = bo.ID_Bombeiro
+        WHERE bo.ID_Ocorrência = @idOcorrencia";
+
+            LBOcorrBomb.Items.Clear();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@idOcorrencia", idOcorrencia);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string bombeiroInfo = $"({reader["ID_Bombeiro"]}) {reader["Nome_Bombeiro"]}";
+                                LBOcorrBomb.Items.Add(bombeiroInfo);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar bombeiros: {ex.Message}");
+            }
+        }
+
+        private void CarregarViaturasDaOcorrencia(int idOcorrencia)
+        {
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+            string query = @"
+        SELECT v.ID_Viatura, v.Matricula, v.Ano, t.Nome_TipoViatura
+        FROM Viatura v
+        INNER JOIN Viatura_Ocorrência vo ON v.ID_Viatura = vo.ID_Viatura
+        INNER JOIN TipoViatura t ON v.ID_TipoViatura = t.ID_TipoViatura
+        WHERE vo.ID_Ocorrência = @idOcorrencia";
+
+            LBOcorrVia.Items.Clear();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@idOcorrencia", idOcorrencia);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string viaturaInfo = $"({reader["ID_Viatura"]}) {reader["Nome_TipoViatura"]} {reader["Matricula"]} {reader["Ano"]}";
+                                LBOcorrVia.Items.Add(viaturaInfo);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar viaturas: {ex.Message}");
+            }
+        }
+
+
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (LBOcorrList.SelectedIndex >= 0)
@@ -135,7 +209,11 @@ namespace Projeto
 
                 // Carrega as chamadas associadas
                 CarregarChamadasDaOcorrencia(selecionada.Id);
+                CarregarBombeirosDaOcorrencia(selecionada.Id);
+                CarregarViaturasDaOcorrencia(selecionada.Id);
             }
         }
+
+
     }
 }

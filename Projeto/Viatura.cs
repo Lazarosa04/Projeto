@@ -25,7 +25,7 @@ namespace Projeto
             public string Ano { get; set; }
             // Adicione outros campos conforme sua tabela
 
-            public override string ToString() => $"{Tipo} {Matricula}";
+            public override string ToString() => $"({Id}) {Tipo} {Matricula}";
         }
 
         public Viatura()

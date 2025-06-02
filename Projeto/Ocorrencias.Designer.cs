@@ -86,7 +86,7 @@ namespace Projeto
             this.LBOcorrEquip.Location = new System.Drawing.Point(437, 204);
             this.LBOcorrEquip.Margin = new System.Windows.Forms.Padding(2);
             this.LBOcorrEquip.Name = "LBOcorrEquip";
-            this.LBOcorrEquip.Size = new System.Drawing.Size(250, 160);
+            this.LBOcorrEquip.Size = new System.Drawing.Size(266, 160);
             this.LBOcorrEquip.TabIndex = 7;
             // 
             // BOcorrReturn
@@ -259,7 +259,7 @@ namespace Projeto
             this.LBOcorrCham.Location = new System.Drawing.Point(532, 20);
             this.LBOcorrCham.Margin = new System.Windows.Forms.Padding(2);
             this.LBOcorrCham.Name = "LBOcorrCham";
-            this.LBOcorrCham.Size = new System.Drawing.Size(155, 160);
+            this.LBOcorrCham.Size = new System.Drawing.Size(171, 160);
             this.LBOcorrCham.TabIndex = 38;
             // 
             // Ocorrencias
