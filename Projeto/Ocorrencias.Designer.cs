@@ -49,6 +49,8 @@ namespace Projeto
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.LBOcorrCham = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // LBOcorrList
@@ -63,7 +65,7 @@ namespace Projeto
             // LBOcorrBomb
             // 
             this.LBOcorrBomb.FormattingEnabled = true;
-            this.LBOcorrBomb.Location = new System.Drawing.Point(293, 20);
+            this.LBOcorrBomb.Location = new System.Drawing.Point(246, 20);
             this.LBOcorrBomb.Margin = new System.Windows.Forms.Padding(2);
             this.LBOcorrBomb.Name = "LBOcorrBomb";
             this.LBOcorrBomb.Size = new System.Drawing.Size(138, 160);
@@ -72,7 +74,7 @@ namespace Projeto
             // LBOcorrVia
             // 
             this.LBOcorrVia.FormattingEnabled = true;
-            this.LBOcorrVia.Location = new System.Drawing.Point(437, 20);
+            this.LBOcorrVia.Location = new System.Drawing.Point(390, 20);
             this.LBOcorrVia.Margin = new System.Windows.Forms.Padding(2);
             this.LBOcorrVia.Name = "LBOcorrVia";
             this.LBOcorrVia.Size = new System.Drawing.Size(138, 160);
@@ -110,7 +112,7 @@ namespace Projeto
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(293, 5);
+            this.label2.Location = new System.Drawing.Point(246, 5);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(56, 13);
@@ -120,7 +122,7 @@ namespace Projeto
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(435, 5);
+            this.label3.Location = new System.Drawing.Point(388, 5);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 13);
@@ -241,11 +243,32 @@ namespace Projeto
             this.textBox4.Size = new System.Drawing.Size(180, 20);
             this.textBox4.TabIndex = 34;
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(530, 5);
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(57, 13);
+            this.label9.TabIndex = 39;
+            this.label9.Text = "Chamadas";
+            // 
+            // LBOcorrCham
+            // 
+            this.LBOcorrCham.FormattingEnabled = true;
+            this.LBOcorrCham.Location = new System.Drawing.Point(532, 20);
+            this.LBOcorrCham.Margin = new System.Windows.Forms.Padding(2);
+            this.LBOcorrCham.Name = "LBOcorrCham";
+            this.LBOcorrCham.Size = new System.Drawing.Size(138, 160);
+            this.LBOcorrCham.TabIndex = 38;
+            // 
             // Ocorrencias
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(716, 477);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.LBOcorrCham);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.label8);
@@ -299,5 +322,7 @@ namespace Projeto
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ListBox LBOcorrCham;
     }
 }
