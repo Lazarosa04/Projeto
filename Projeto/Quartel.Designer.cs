@@ -69,7 +69,7 @@ namespace Projeto
             // BExit
             // 
             this.BExit.Location = new System.Drawing.Point(733, 252);
-            this.BExit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BExit.Margin = new System.Windows.Forms.Padding(2);
             this.BExit.Name = "BExit";
             this.BExit.Size = new System.Drawing.Size(56, 19);
             this.BExit.TabIndex = 3;
@@ -95,6 +95,7 @@ namespace Projeto
             this.BChamadas.TabIndex = 5;
             this.BChamadas.Text = "Chamadas";
             this.BChamadas.UseVisualStyleBackColor = true;
+            this.BChamadas.Click += new System.EventHandler(this.BChamadas_Click_1);
             // 
             // Quartel
             // 
@@ -107,7 +108,7 @@ namespace Projeto
             this.Controls.Add(this.BOcor);
             this.Controls.Add(this.BViat);
             this.Controls.Add(this.BBomb);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Quartel";
             this.Text = "Quartel Bombeiros";
             this.Load += new System.EventHandler(this.Quartel_Load);
