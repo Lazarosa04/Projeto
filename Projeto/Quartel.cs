@@ -54,5 +54,11 @@ namespace Projeto
         {
 
         }
+
+        private void BChamadas_Click(object sender, EventArgs e)
+        {
+            Chamada chamada = new Chamada();
+            chamada.ShowDialog();
+        }
     }
 }
