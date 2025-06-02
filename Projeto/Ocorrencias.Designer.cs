@@ -259,14 +259,14 @@ namespace Projeto
             this.LBOcorrCham.Location = new System.Drawing.Point(532, 20);
             this.LBOcorrCham.Margin = new System.Windows.Forms.Padding(2);
             this.LBOcorrCham.Name = "LBOcorrCham";
-            this.LBOcorrCham.Size = new System.Drawing.Size(138, 160);
+            this.LBOcorrCham.Size = new System.Drawing.Size(246, 160);
             this.LBOcorrCham.TabIndex = 38;
             // 
             // Ocorrencias
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(716, 477);
+            this.ClientSize = new System.Drawing.Size(789, 477);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.LBOcorrCham);
             this.Controls.Add(this.label7);
