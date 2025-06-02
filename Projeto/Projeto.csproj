@@ -87,6 +87,9 @@
     <EmbeddedResource Include="Bombeiro.resx">
       <DependentUpon>Bombeiro.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Chamada.resx">
+      <DependentUpon>Chamada.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ocorrencias.resx">
       <DependentUpon>Ocorrencias.cs</DependentUpon>
     </EmbeddedResource>
