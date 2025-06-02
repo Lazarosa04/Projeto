@@ -23,6 +23,8 @@ namespace Projeto
             public string Descricao { get; set; }
             public string Data { get; set; }
             public string Local { get; set; }
+            public string Reportada_por { get; set; } 
+            public string Numero { get; set; }
 
             public override string ToString() => $"{Descricao} ({Id})";
         }
@@ -32,17 +34,20 @@ namespace Projeto
             InitializeComponent();
             CarregarOcorrencias();
             this.BOcorrReturn.Click += new EventHandler(BOcorrReturn_Click);
-            this.listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
+            this.LBOcorrList.SelectedIndexChanged += listBox1_SelectedIndexChanged;
         }
 
         private void CarregarOcorrencias()
         {
             string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
-            string query = "SELECT * FROM Ocorrencia";
+            string query = @"
+        SELECT o.ID_Ocorrência, d.Descrição, d.Localização, d.Nome, d.Número, o.Data_Hora
+        FROM Ocorrência o
+        INNER JOIN Chamada d ON o.ID_Ocorrência = d.ID_Ocorrência";
 
             try
             {
-                listBox1.Items.Clear();
+                LBOcorrList.Items.Clear();
                 ocorrencias.Clear();
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
@@ -55,13 +60,15 @@ namespace Projeto
                             {
                                 var info = new OcorrenciaInfo
                                 {
-                                    Id = Convert.ToInt32(reader["ID_Ocorrencia"]),
-                                    Descricao = reader["Descricao"].ToString(),
-                                    Data = Convert.ToDateTime(reader["Data_Ocorrencia"]).ToString("dd/MM/yyyy"),
-                                    Local = reader["Local"].ToString()
+                                    Id = Convert.ToInt32(reader["ID_Ocorrência"]),
+                                    Descricao = reader["Descrição"].ToString(),
+                                    Data = Convert.ToDateTime(reader["Data_Hora"]).ToString("dd/MM/yyyy"),
+                                    Local = reader["Localização"].ToString(),
+                                    Reportada_por = reader["Nome"].ToString(),
+                                    Numero = reader["Número"].ToString()
                                 };
                                 ocorrencias.Add(info);
-                                listBox1.Items.Add(info);
+                                LBOcorrList.Items.Add(info);
                             }
                         }
                     }
@@ -75,13 +82,10 @@ namespace Projeto
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex >= 0)
+            if (LBOcorrList.SelectedIndex >= 0)
             {
-                var selecionada = ocorrencias[listBox1.SelectedIndex];
+                var selecionada = ocorrencias[LBOcorrList.SelectedIndex];
                 // Exemplo de preenchimento de campos (ajuste conforme seus TextBox)
-                textBoxDescricao.Text = selecionada.Descricao;
-                textBoxData.Text = selecionada.Data;
-                textBoxLocal.Text = selecionada.Local;
             }
         }
 
