@@ -80,14 +80,6 @@ namespace Projeto
             }
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (LBOcorrList.SelectedIndex >= 0)
-            {
-                var selecionada = ocorrencias[LBOcorrList.SelectedIndex];
-                // Exemplo de preenchimento de campos (ajuste conforme seus TextBox)
-            }
-        }
 
         private void BOcorrReturn_Click(object sender, EventArgs e)
         {
@@ -97,6 +89,53 @@ namespace Projeto
         private void Ocorrencias_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void CarregarChamadasDaOcorrencia(int idOcorrencia)
+        {
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+            string query = @"SELECT Número, Nome, Localização, Descrição, Data_Hora_Chamada
+                     FROM Chamada
+                     WHERE ID_Ocorrência = @idOcorrencia";
+
+            LBOcorrCham.Items.Clear();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@idOcorrencia", idOcorrencia);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                // Exemplo: mostra o número e o nome de quem reportou
+                                string chamadaInfo = $"Nº: {reader["Número"]} - {reader["Nome"]} - {reader["Data_Hora_Chamada"]:dd/MM/yyyy HH:mm}";
+                                LBOcorrCham.Items.Add(chamadaInfo);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar chamadas: {ex.Message}");
+            }
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (LBOcorrList.SelectedIndex >= 0)
+            {
+                var selecionada = ocorrencias[LBOcorrList.SelectedIndex];
+                // Preencha outros campos conforme necessário
+
+                // Carrega as chamadas associadas
+                CarregarChamadasDaOcorrencia(selecionada.Id);
+            }
         }
     }
 }
