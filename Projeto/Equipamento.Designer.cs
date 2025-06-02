@@ -179,7 +179,7 @@ namespace Projeto
             this.Controls.Add(this.TEV1);
             this.Controls.Add(this.listBox1);
             this.Name = "Equipamento";
-            this.Text = "v";
+            this.Text = "Equipamentos";
             this.Load += new System.EventHandler(this.Equipamento_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
