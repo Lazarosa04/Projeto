@@ -26,7 +26,7 @@ namespace Projeto
             public string Reportada_por { get; set; } 
             public string Numero { get; set; }
 
-            public override string ToString() => $"{Descricao} ({Id})";
+            public override string ToString() => $"({Id}) {Descricao}";
         }
 
         public Ocorrencias()
