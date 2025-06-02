@@ -35,6 +35,8 @@ namespace Projeto
             CarregarOcorrencias();
             this.BOcorrReturn.Click += new EventHandler(BOcorrReturn_Click);
             this.LBOcorrList.SelectedIndexChanged += listBox1_SelectedIndexChanged;
+            this.LBOcorrVia.SelectedIndexChanged += LBOcorrVia_SelectedIndexChanged;
+
         }
 
         private void CarregarOcorrencias()
@@ -205,8 +207,8 @@ namespace Projeto
             string query = @"
         SELECT e.ID_Equipamento, e.Nome_Equipamento, e.Quantidade
         FROM Equipamento e
-        INNER JOIN Equipamento_Viatura ev ON e.ID_Equipamento = ev.ID_Equipamento
-        INNER JOIN Viatura_Ocorrência vo ON ev.ID_Viatura = vo.ID_Viatura
+        INNER JOIN Viatura v ON e.ID_Viatura = v.ID_Viatura
+        INNER JOIN Viatura_Ocorrência vo ON v.ID_Viatura = vo.ID_Viatura
         WHERE vo.ID_Ocorrência = @idOcorrencia";
 
             LBOcorrEquip.Items.Clear();
@@ -235,6 +237,62 @@ namespace Projeto
                 MessageBox.Show($"Erro ao carregar equipamentos: {ex.Message}");
             }
         }
+
+
+        private void CarregarEquipamentosDaViatura(int idViatura)
+        {
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+            string query = @"
+        SELECT ID_Equipamento, Nome_Equipamento, Quantidade
+        FROM Equipamento
+        WHERE ID_Viatura = @idViatura";
+
+            LBOcorrEquip.Items.Clear();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@idViatura", idViatura);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string equipamentoInfo = $"({reader["ID_Equipamento"]}) {reader["Nome_Equipamento"]} - Quantidade: {reader["Quantidade"]}";
+                                LBOcorrEquip.Items.Add(equipamentoInfo);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar equipamentos da viatura: {ex.Message}");
+            }
+        }
+
+        private void LBOcorrVia_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (LBOcorrVia.SelectedIndex >= 0)
+            {
+                string itemSelecionado = LBOcorrVia.SelectedItem.ToString();
+
+                // Extrair o ID da viatura do início da string: "({ID}) ..."
+                int idInicio = itemSelecionado.IndexOf('(') + 1;
+                int idFim = itemSelecionado.IndexOf(')');
+                string idString = itemSelecionado.Substring(idInicio, idFim - idInicio);
+
+                if (int.TryParse(idString, out int idViatura))
+                {
+                    CarregarEquipamentosDaViatura(idViatura);
+                }
+            }
+        }
+
+
 
 
 
