@@ -61,7 +61,7 @@ namespace Projeto
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(287, 260);
+            this.label6.Location = new System.Drawing.Point(311, 260);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(44, 13);
@@ -71,7 +71,7 @@ namespace Projeto
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(285, 64);
+            this.label4.Location = new System.Drawing.Point(309, 64);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(35, 13);
@@ -80,7 +80,7 @@ namespace Projeto
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(285, 80);
+            this.textBox5.Location = new System.Drawing.Point(309, 80);
             this.textBox5.Margin = new System.Windows.Forms.Padding(2);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(250, 20);
@@ -89,7 +89,7 @@ namespace Projeto
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(287, 190);
+            this.label3.Location = new System.Drawing.Point(311, 190);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 13);
@@ -99,7 +99,7 @@ namespace Projeto
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(287, 124);
+            this.label2.Location = new System.Drawing.Point(311, 124);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(64, 13);
@@ -109,7 +109,7 @@ namespace Projeto
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(285, 12);
+            this.label1.Location = new System.Drawing.Point(309, 12);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 13);
@@ -118,7 +118,7 @@ namespace Projeto
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(287, 205);
+            this.textBox2.Location = new System.Drawing.Point(311, 205);
             this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(250, 20);
@@ -167,7 +167,7 @@ namespace Projeto
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(287, 139);
+            this.textBox1.Location = new System.Drawing.Point(311, 139);
             this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(250, 20);
@@ -175,7 +175,7 @@ namespace Projeto
             // 
             // TBV1
             // 
-            this.TBV1.Location = new System.Drawing.Point(285, 28);
+            this.TBV1.Location = new System.Drawing.Point(309, 28);
             this.TBV1.Margin = new System.Windows.Forms.Padding(2);
             this.TBV1.Name = "TBV1";
             this.TBV1.Size = new System.Drawing.Size(250, 20);
@@ -187,12 +187,12 @@ namespace Projeto
             this.listBox1.Location = new System.Drawing.Point(11, 21);
             this.listBox1.Margin = new System.Windows.Forms.Padding(2);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(236, 329);
+            this.listBox1.Size = new System.Drawing.Size(274, 329);
             this.listBox1.TabIndex = 25;
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(287, 275);
+            this.textBox3.Location = new System.Drawing.Point(311, 275);
             this.textBox3.Margin = new System.Windows.Forms.Padding(2);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(250, 20);
