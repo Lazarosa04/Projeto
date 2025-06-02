@@ -180,7 +180,7 @@ namespace Projeto
             this.Controls.Add(this.BVAdd);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Viatura";
-            this.Text = "Form1";
+            this.Text = "Viaturas";
             this.Load += new System.EventHandler(this.Viatura_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

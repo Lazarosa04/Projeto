@@ -256,7 +256,7 @@ namespace Projeto
             this.Controls.Add(this.menuStrip2);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Bombeiro";
-            this.Text = "Form1";
+            this.Text = "Bombeiros";
             this.menuStrip2.ResumeLayout(false);
             this.menuStrip2.PerformLayout();
             this.ResumeLayout(false);
