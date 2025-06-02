@@ -36,6 +36,7 @@ namespace Projeto
             this.BVRem.Click += new EventHandler(BVRem_Click);
             this.BVAdd.Click += new EventHandler(BVAdd_Click);
             this.BVEdit.Click += new EventHandler(BVEdit_Click);
+            this.button1.Click += new EventHandler(button1_Click);
             CarregarDados();
         }
 
@@ -122,6 +123,14 @@ namespace Projeto
         {
  
             this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LBV_List.SelectedIndex = -1;
+            TBV1.Clear();
+            TBV2.Clear();
+            comboBox1.SelectedIndex = -1;
         }
 
         private void BVAdd_Click(object sender, EventArgs e)
