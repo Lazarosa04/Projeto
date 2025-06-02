@@ -199,6 +199,46 @@ namespace Projeto
             }
         }
 
+        private void CarregarEquipamentosDaOcorrencia(int idOcorrencia)
+        {
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+            string query = @"
+        SELECT e.ID_Equipamento, e.Nome_Equipamento, e.Quantidade
+        FROM Equipamento e
+        INNER JOIN Equipamento_Viatura ev ON e.ID_Equipamento = ev.ID_Equipamento
+        INNER JOIN Viatura_Ocorrência vo ON ev.ID_Viatura = vo.ID_Viatura
+        WHERE vo.ID_Ocorrência = @idOcorrencia";
+
+            LBOcorrEquip.Items.Clear();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@idOcorrencia", idOcorrencia);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string equipamentoInfo = $"({reader["ID_Equipamento"]}) {reader["Nome_Equipamento"]} - Quantidade: {reader["Quantidade"]}";
+                                LBOcorrEquip.Items.Add(equipamentoInfo);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar equipamentos: {ex.Message}");
+            }
+        }
+
+
+
+
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -211,8 +251,11 @@ namespace Projeto
                 CarregarChamadasDaOcorrencia(selecionada.Id);
                 CarregarBombeirosDaOcorrencia(selecionada.Id);
                 CarregarViaturasDaOcorrencia(selecionada.Id);
+                CarregarEquipamentosDaOcorrencia(selecionada.Id);
             }
         }
+
+
 
 
     }
