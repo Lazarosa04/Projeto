@@ -41,22 +41,30 @@ namespace Projeto
             this.BERem = new System.Windows.Forms.Button();
             this.BEEdit = new System.Windows.Forms.Button();
             this.BEAdd = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // LBOcorrList
             // 
             this.LBOcorrList.FormattingEnabled = true;
             this.LBOcorrList.Location = new System.Drawing.Point(12, 20);
-            this.LBOcorrList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.LBOcorrList.Margin = new System.Windows.Forms.Padding(2);
             this.LBOcorrList.Name = "LBOcorrList";
-            this.LBOcorrList.Size = new System.Drawing.Size(255, 160);
+            this.LBOcorrList.Size = new System.Drawing.Size(181, 160);
             this.LBOcorrList.TabIndex = 4;
             // 
             // LBOcorrBomb
             // 
             this.LBOcorrBomb.FormattingEnabled = true;
             this.LBOcorrBomb.Location = new System.Drawing.Point(293, 20);
-            this.LBOcorrBomb.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.LBOcorrBomb.Margin = new System.Windows.Forms.Padding(2);
             this.LBOcorrBomb.Name = "LBOcorrBomb";
             this.LBOcorrBomb.Size = new System.Drawing.Size(138, 160);
             this.LBOcorrBomb.TabIndex = 5;
@@ -65,7 +73,7 @@ namespace Projeto
             // 
             this.LBOcorrVia.FormattingEnabled = true;
             this.LBOcorrVia.Location = new System.Drawing.Point(437, 20);
-            this.LBOcorrVia.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.LBOcorrVia.Margin = new System.Windows.Forms.Padding(2);
             this.LBOcorrVia.Name = "LBOcorrVia";
             this.LBOcorrVia.Size = new System.Drawing.Size(138, 160);
             this.LBOcorrVia.TabIndex = 6;
@@ -74,14 +82,14 @@ namespace Projeto
             // 
             this.LBOcorrEquip.FormattingEnabled = true;
             this.LBOcorrEquip.Location = new System.Drawing.Point(437, 204);
-            this.LBOcorrEquip.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.LBOcorrEquip.Margin = new System.Windows.Forms.Padding(2);
             this.LBOcorrEquip.Name = "LBOcorrEquip";
-            this.LBOcorrEquip.Size = new System.Drawing.Size(138, 160);
+            this.LBOcorrEquip.Size = new System.Drawing.Size(233, 160);
             this.LBOcorrEquip.TabIndex = 7;
             // 
             // BOcorrReturn
             // 
-            this.BOcorrReturn.Location = new System.Drawing.Point(322, 331);
+            this.BOcorrReturn.Location = new System.Drawing.Point(305, 436);
             this.BOcorrReturn.Name = "BOcorrReturn";
             this.BOcorrReturn.Size = new System.Drawing.Size(60, 19);
             this.BOcorrReturn.TabIndex = 8;
@@ -125,13 +133,13 @@ namespace Projeto
             this.label4.Location = new System.Drawing.Point(435, 189);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(72, 13);
+            this.label4.Size = new System.Drawing.Size(74, 13);
             this.label4.TabIndex = 12;
-            this.label4.Text = "Equpamentos";
+            this.label4.Text = "Equipamentos";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(44, 331);
+            this.button1.Location = new System.Drawing.Point(27, 436);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(51, 19);
@@ -141,7 +149,7 @@ namespace Projeto
             // 
             // BERem
             // 
-            this.BERem.Location = new System.Drawing.Point(243, 331);
+            this.BERem.Location = new System.Drawing.Point(226, 436);
             this.BERem.Margin = new System.Windows.Forms.Padding(2);
             this.BERem.Name = "BERem";
             this.BERem.Size = new System.Drawing.Size(74, 19);
@@ -151,7 +159,7 @@ namespace Projeto
             // 
             // BEEdit
             // 
-            this.BEEdit.Location = new System.Drawing.Point(169, 331);
+            this.BEEdit.Location = new System.Drawing.Point(152, 436);
             this.BEEdit.Margin = new System.Windows.Forms.Padding(2);
             this.BEEdit.Name = "BEEdit";
             this.BEEdit.Size = new System.Drawing.Size(69, 19);
@@ -161,7 +169,7 @@ namespace Projeto
             // 
             // BEAdd
             // 
-            this.BEAdd.Location = new System.Drawing.Point(100, 331);
+            this.BEAdd.Location = new System.Drawing.Point(83, 436);
             this.BEAdd.Margin = new System.Windows.Forms.Padding(2);
             this.BEAdd.Name = "BEAdd";
             this.BEAdd.Size = new System.Drawing.Size(65, 19);
@@ -169,11 +177,83 @@ namespace Projeto
             this.BEAdd.Text = "Adicionar";
             this.BEAdd.UseVisualStyleBackColor = true;
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(13, 219);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(180, 20);
+            this.textBox1.TabIndex = 30;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 203);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(70, 13);
+            this.label5.TabIndex = 31;
+            this.label5.Text = "ID Bombeiros";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(14, 255);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(59, 13);
+            this.label6.TabIndex = 33;
+            this.label6.Text = "ID Viaturas";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(15, 271);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(178, 20);
+            this.textBox2.TabIndex = 32;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(227, 255);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(66, 13);
+            this.label7.TabIndex = 37;
+            this.label7.Text = "ID Chamada";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(228, 271);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(178, 20);
+            this.textBox3.TabIndex = 36;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(225, 203);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(88, 13);
+            this.label8.TabIndex = 35;
+            this.label8.Text = "ID Equipamentos";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(226, 219);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(180, 20);
+            this.textBox4.TabIndex = 34;
+            // 
             // Ocorrencias
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(598, 366);
+            this.ClientSize = new System.Drawing.Size(716, 477);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.BERem);
             this.Controls.Add(this.BEEdit);
@@ -187,7 +267,7 @@ namespace Projeto
             this.Controls.Add(this.LBOcorrVia);
             this.Controls.Add(this.LBOcorrBomb);
             this.Controls.Add(this.LBOcorrList);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Ocorrencias";
             this.Text = "Ocorrências";
             this.Load += new System.EventHandler(this.Ocorrencias_Load);
@@ -211,5 +291,13 @@ namespace Projeto
         private System.Windows.Forms.Button BERem;
         private System.Windows.Forms.Button BEEdit;
         private System.Windows.Forms.Button BEAdd;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBox4;
     }
 }
