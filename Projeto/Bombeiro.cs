@@ -41,6 +41,7 @@ namespace Projeto
             this.BBRem.Click += new EventHandler(BBRem_Click); // Associa o evento do botão remover
             this.button1.Click += new EventHandler(button1_Click);
             this.BBAdd.Click += new EventHandler(BBAdd_Click);
+            this.BBEdit.Click += new EventHandler(BBEdit_Click);
         }
 
         private void CarregarDados()
@@ -253,6 +254,73 @@ namespace Projeto
                 {
                     MessageBox.Show($"Erro ao remover bombeiro: {ex.Message}");
                 }
+            }
+        }
+
+        private void BBEdit_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedIndex < 0)
+            {
+                MessageBox.Show("Selecione um bombeiro para editar.");
+                return;
+            }
+
+            var selecionado = bombeiros[listBox1.SelectedIndex];
+
+            // Captura os valores dos campos
+            string nome = TBV1.Text.Trim();
+            string morada = textBox1.Text.Trim();
+            string email = textBox2.Text.Trim();
+            string nif = textBox3.Text.Trim();
+            string telemovel = textBox4.Text.Trim();
+            string nascimento = textBox5.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(nome) || string.IsNullOrWhiteSpace(nascimento))
+            {
+                MessageBox.Show("Preencha pelo menos o nome e a data de nascimento.");
+                return;
+            }
+
+            DateTime dataNascimento;
+            if (!DateTime.TryParse(nascimento, out dataNascimento))
+            {
+                MessageBox.Show("Data de nascimento inválida.");
+                return;
+            }
+
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+            string query = @"UPDATE Bombeiro SET 
+                        Nome_Bombeiro = @nome, 
+                        Data_Nascimento = @nascimento, 
+                        Morada = @morada, 
+                        Email = @email, 
+                        NIF = @nif, 
+                        Telemóvel = @telemovel
+                    WHERE ID_Bombeiro = @id";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@nome", nome);
+                        command.Parameters.AddWithValue("@nascimento", dataNascimento);
+                        command.Parameters.AddWithValue("@morada", morada);
+                        command.Parameters.AddWithValue("@email", email);
+                        command.Parameters.AddWithValue("@nif", nif);
+                        command.Parameters.AddWithValue("@telemovel", telemovel);
+                        command.Parameters.AddWithValue("@id", selecionado.Id);
+                        command.ExecuteNonQuery();
+                    }
+                }
+                MessageBox.Show("Bombeiro atualizado com sucesso!");
+                CarregarDados(); // Atualiza a lista
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao atualizar bombeiro: {ex.Message}");
             }
         }
     }

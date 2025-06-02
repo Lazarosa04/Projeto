@@ -35,6 +35,7 @@ namespace Projeto
             this.LBV_List.SelectedIndexChanged += LBV_List_SelectedIndexChanged; // Associa o evento
             this.BVRem.Click += new EventHandler(BVRem_Click);
             this.BVAdd.Click += new EventHandler(BVAdd_Click);
+            this.BVEdit.Click += new EventHandler(BVEdit_Click);
             CarregarDados();
         }
 
@@ -152,7 +153,7 @@ namespace Projeto
                 return;
             }
 
-            // Defina o ID_Quartel conforme sua lógica (exemplo: 1)
+            
             int idQuartel = 11111;
 
             string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
@@ -245,6 +246,72 @@ namespace Projeto
                 {
                     MessageBox.Show($"Erro ao remover viatura: {ex.Message}");
                 }
+            }
+        }
+        private void BVEdit_Click(object sender, EventArgs e)
+        {
+            if (LBV_List.SelectedIndex < 0)
+            {
+                MessageBox.Show("Selecione uma viatura para editar.");
+                return;
+            }
+
+            var selecionada = viaturas[LBV_List.SelectedIndex];
+
+            // Captura os valores dos campos
+            string matricula = TBV1.Text.Trim();
+            string anoStr = TBV2.Text.Trim();
+            string tipoSelecionado = comboBox1.SelectedItem?.ToString();
+
+            // Validação simples
+            if (string.IsNullOrWhiteSpace(matricula) || string.IsNullOrWhiteSpace(anoStr) || string.IsNullOrWhiteSpace(tipoSelecionado))
+            {
+                MessageBox.Show("Preencha todos os campos obrigatórios.");
+                return;
+            }
+
+            int ano;
+            if (!int.TryParse(anoStr, out ano))
+            {
+                MessageBox.Show("Ano inválido.");
+                return;
+            }
+
+            // Encontrar o ID do tipo selecionado
+            int idTipo = tiposViatura.FirstOrDefault(x => x.Value == tipoSelecionado).Key;
+            if (idTipo == 0)
+            {
+                MessageBox.Show("Tipo de viatura inválido.");
+                return;
+            }
+
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+            string query = @"UPDATE Viatura SET 
+                        ID_TipoViatura = @idTipo, 
+                        Matricula = @matricula, 
+                        Ano = @ano
+                    WHERE ID_Viatura = @id";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@idTipo", idTipo);
+                        command.Parameters.AddWithValue("@matricula", matricula);
+                        command.Parameters.AddWithValue("@ano", ano);
+                        command.Parameters.AddWithValue("@id", selecionada.Id);
+                        command.ExecuteNonQuery();
+                    }
+                }
+                MessageBox.Show("Viatura atualizada com sucesso!");
+                CarregarDados(); // Atualiza a lista
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao atualizar viatura: {ex.Message}");
             }
         }
     }
