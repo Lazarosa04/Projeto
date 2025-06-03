@@ -72,6 +72,8 @@ namespace Projeto
                         }
                     }
 
+
+
                     // 2. Carregar viaturas
                     using (SqlCommand cmdViaturas = new SqlCommand(queryViaturas, connection))
                     {

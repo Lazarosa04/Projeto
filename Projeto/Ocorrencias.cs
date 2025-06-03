@@ -36,6 +36,7 @@ namespace Projeto
             this.BOcorrReturn.Click += new EventHandler(BOcorrReturn_Click);
             this.LBOcorrList.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             this.LBOcorrVia.SelectedIndexChanged += LBOcorrVia_SelectedIndexChanged;
+            this.BEAdd.Click += new EventHandler(BEAdd_Click);
 
         }
 
@@ -293,7 +294,90 @@ namespace Projeto
         }
 
 
+        private void BEAdd_Click(object sender, EventArgs e)
+        {
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
 
+            string bombeirosInput = textBox1.Text.Trim();
+            string viaturasInput = textBox2.Text.Trim();
+            string chamadaInput = textBox3.Text.Trim(); // Aqui é só o ID da chamada
+
+            if (!int.TryParse(chamadaInput, out int idChamada))
+            {
+                MessageBox.Show("Insira um ID de chamada válido.");
+                return;
+            }
+
+            int idOcorrencia = 0;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlTransaction transaction = connection.BeginTransaction();
+
+                try
+                {
+                    // 1. Inserir Ocorrência
+                    string insertOcorrencia = "INSERT INTO Ocorrência (ID_Quartel, Data_Hora) OUTPUT INSERTED.ID_Ocorrência VALUES (11111, GETDATE())";
+                    using (SqlCommand cmd = new SqlCommand(insertOcorrencia, connection, transaction))
+                    {
+                        idOcorrencia = (int)cmd.ExecuteScalar();
+                    }
+
+                    // 2. Atualizar chamada existente para associar à nova ocorrência
+                    string updateChamada = "UPDATE Chamada SET ID_Ocorrência = @idOcorrencia WHERE ID_Chamada = @idChamada";
+                    using (SqlCommand cmd = new SqlCommand(updateChamada, connection, transaction))
+                    {
+                        cmd.Parameters.AddWithValue("@idOcorrencia", idOcorrencia);
+                        cmd.Parameters.AddWithValue("@idChamada", idChamada);
+                        int rows = cmd.ExecuteNonQuery();
+                        if (rows == 0)
+                        {
+                            throw new Exception("ID de chamada não encontrado.");
+                        }
+                    }
+
+                    // 3. Associar Bombeiros
+                    foreach (var idStr in bombeirosInput.Split(','))
+                    {
+                        if (int.TryParse(idStr.Trim(), out int idBombeiro))
+                        {
+                            string insertBO = "INSERT INTO Bombeiro_Ocorrência (ID_Ocorrência, ID_Bombeiro) VALUES (@idO, @idB)";
+                            using (SqlCommand cmd = new SqlCommand(insertBO, connection, transaction))
+                            {
+                                cmd.Parameters.AddWithValue("@idO", idOcorrencia);
+                                cmd.Parameters.AddWithValue("@idB", idBombeiro);
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+                    }
+
+                    // 4. Associar Viaturas
+                    foreach (var idStr in viaturasInput.Split(','))
+                    {
+                        if (int.TryParse(idStr.Trim(), out int idViatura))
+                        {
+                            string insertVO = "INSERT INTO Viatura_Ocorrência (ID_Ocorrência, ID_Viatura) VALUES (@idO, @idV)";
+                            using (SqlCommand cmd = new SqlCommand(insertVO, connection, transaction))
+                            {
+                                cmd.Parameters.AddWithValue("@idO", idOcorrencia);
+                                cmd.Parameters.AddWithValue("@idV", idViatura);
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+                    }
+
+                    transaction.Commit();
+                    MessageBox.Show("Ocorrência adicionada com sucesso!");
+                    CarregarOcorrencias();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show($"Erro ao adicionar ocorrência: {ex.Message}");
+                }
+            }
+        }
 
 
 
