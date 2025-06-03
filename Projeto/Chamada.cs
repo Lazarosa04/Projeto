@@ -42,6 +42,8 @@ namespace Projeto
             this.Load += new System.EventHandler(this.Chamada_Load);
             listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             this.BBAdd.Click += new EventHandler(BBAdd_Click);
+            this.BBRem.Click += new EventHandler(BBRemove_Click);
+            this.button1.Click += new EventHandler(BBNovo_Click);
         }
 
 
@@ -90,6 +92,22 @@ namespace Projeto
             }
         }
 
+        private void LimparCampos()
+        {
+            listBox1.ClearSelected();
+            textBox1.Clear();
+            textBox2.Clear();
+            textBox3.Clear();
+            textBox5.Clear();
+            TBV1.Clear();
+            richTextBox1.Clear();
+        }
+
+        private void BBNovo_Click(object sender, EventArgs e)
+        {
+            LimparCampos();
+        }
+
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBox1.SelectedItem is ChamadaInfo chamada)
@@ -125,6 +143,47 @@ namespace Projeto
         private void BBReturn_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void BBRemove_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItem is ChamadaInfo chamadaSelecionada)
+            {
+                var confirm = MessageBox.Show(
+                    $"Tem certeza que deseja remover a chamada \"{chamadaSelecionada.Nome}\"?",
+                    "Confirmação",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (confirm == DialogResult.Yes)
+                {
+                    string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+                    string query = "DELETE FROM Chamada WHERE ID_Chamada = @id";
+
+                    try
+                    {
+                        using (SqlConnection connection = new SqlConnection(connectionString))
+                        {
+                            connection.Open();
+                            using (SqlCommand command = new SqlCommand(query, connection))
+                            {
+                                command.Parameters.AddWithValue("@id", chamadaSelecionada.Id);
+                                command.ExecuteNonQuery();
+                            }
+                        }
+                        MessageBox.Show("Chamada removida com sucesso!");
+                        CarregarChamadas();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Erro ao remover chamada: {ex.Message}");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Selecione uma chamada para remover.");
+            }
         }
 
 

@@ -14,6 +14,8 @@ namespace Projeto
             this.BEReturn.Click += new EventHandler(BEReturn_Click);
             this.listBox1.SelectedIndexChanged += new EventHandler(listBox1_SelectedIndexChanged);
             this.BEAdd.Click += new EventHandler(BEAdd_Click);
+            this.BERem.Click += new EventHandler(BERemove_Click);
+            this.button1.Click += new EventHandler(BENovo_Click);
 
         }
 
@@ -70,7 +72,18 @@ namespace Projeto
                 MessageBox.Show($"Erro ao carregar dados: {ex.Message}");
             }
         }
+        private void LimparCampos()
+        {
+            listBox1.ClearSelected();
+            TEV1.Clear();
+            textBox1.Clear();
+            textBox2.Clear();
+        }
 
+        private void BENovo_Click(object sender, EventArgs e)
+        {
+            LimparCampos();
+        }
 
 
 
@@ -130,6 +143,53 @@ namespace Projeto
                 TEV1.Text = eq.Nome_Equipamento;
                 textBox1.Text = eq.Quantidade.ToString();
                 textBox2.Text = eq.ID_Viatura.ToString();
+            }
+        }
+
+        private void BERemove_Click(object sender, EventArgs e)
+        {
+            int idx = listBox1.SelectedIndex;
+            if (idx >= 0 && idx < equipamentos.Count)
+            {
+                var equipamentoSelecionado = equipamentos[idx];
+                var confirm = MessageBox.Show(
+                    $"Tem certeza que deseja remover o equipamento \"{equipamentoSelecionado.Nome_Equipamento}\"?",
+                    "Confirmação",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (confirm == DialogResult.Yes)
+                {
+                    string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+                    string query = "DELETE FROM Equipamento WHERE ID_Equipamento = @id";
+
+                    try
+                    {
+                        using (SqlConnection connection = new SqlConnection(connectionString))
+                        {
+                            connection.Open();
+                            using (SqlCommand command = new SqlCommand(query, connection))
+                            {
+                                command.Parameters.AddWithValue("@id", equipamentoSelecionado.ID_Equipamento);
+                                command.ExecuteNonQuery();
+                            }
+                        }
+                        MessageBox.Show("Equipamento removido com sucesso!");
+                        CarregarDados();
+                        // Limpa os campos após remoção
+                        TEV1.Clear();
+                        textBox1.Clear();
+                        textBox2.Clear();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Erro ao remover equipamento: {ex.Message}");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Selecione um equipamento para remover.");
             }
         }
 

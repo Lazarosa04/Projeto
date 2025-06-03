@@ -37,6 +37,8 @@ namespace Projeto
             this.LBOcorrList.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             this.LBOcorrVia.SelectedIndexChanged += LBOcorrVia_SelectedIndexChanged;
             this.BEAdd.Click += new EventHandler(BEAdd_Click);
+            this.button1.Click += new EventHandler(BOcorrNovo_Click);
+            this.BERem.Click += new EventHandler(BOcorrRem_Click);
 
         }
 
@@ -199,6 +201,90 @@ namespace Projeto
             catch (Exception ex)
             {
                 MessageBox.Show($"Erro ao carregar viaturas: {ex.Message}");
+            }
+        }
+
+        private void LimparCampos()
+        {
+            LBOcorrList.ClearSelected();
+            LBOcorrCham.Items.Clear();
+            LBOcorrBomb.Items.Clear();
+            LBOcorrVia.Items.Clear();
+            LBOcorrEquip.Items.Clear();
+            textBox1.Clear();
+            textBox2.Clear();
+            textBox3.Clear();
+            // Limpe outros campos de texto se existirem
+        }
+
+        private void BOcorrNovo_Click(object sender, EventArgs e)
+        {
+            LimparCampos();
+        }
+
+        private void BOcorrRem_Click(object sender, EventArgs e)
+        {
+            int idx = LBOcorrList.SelectedIndex;
+            if (idx >= 0 && idx < ocorrencias.Count)
+            {
+                var ocorrenciaSelecionada = ocorrencias[idx];
+                var confirm = MessageBox.Show(
+                    $"Tem certeza que deseja remover a ocorrência \"{ocorrenciaSelecionada.Descricao}\"?",
+                    "Confirmação",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (confirm == DialogResult.Yes)
+                {
+                    string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+
+                    try
+                    {
+                        using (SqlConnection connection = new SqlConnection(connectionString))
+                        {
+                            connection.Open();
+                            using (SqlTransaction transaction = connection.BeginTransaction())
+                            {
+                                // Remove referências em Bombeiro_Ocorrência
+                                using (SqlCommand cmd = new SqlCommand("DELETE FROM Bombeiro_Ocorrência WHERE ID_Ocorrência = @id", connection, transaction))
+                                {
+                                    cmd.Parameters.AddWithValue("@id", ocorrenciaSelecionada.Id);
+                                    cmd.ExecuteNonQuery();
+                                }
+                                // Remove referências em Viatura_Ocorrência
+                                using (SqlCommand cmd = new SqlCommand("DELETE FROM Viatura_Ocorrência WHERE ID_Ocorrência = @id", connection, transaction))
+                                {
+                                    cmd.Parameters.AddWithValue("@id", ocorrenciaSelecionada.Id);
+                                    cmd.ExecuteNonQuery();
+                                }
+                                // Desvincula a ocorrência das chamadas (não apaga a chamada!)
+                                using (SqlCommand cmd = new SqlCommand("UPDATE Chamada SET ID_Ocorrência = NULL WHERE ID_Ocorrência = @id", connection, transaction))
+                                {
+                                    cmd.Parameters.AddWithValue("@id", ocorrenciaSelecionada.Id);
+                                    cmd.ExecuteNonQuery();
+                                }
+                                // Remove a ocorrência
+                                using (SqlCommand cmd = new SqlCommand("DELETE FROM Ocorrência WHERE ID_Ocorrência = @id", connection, transaction))
+                                {
+                                    cmd.Parameters.AddWithValue("@id", ocorrenciaSelecionada.Id);
+                                    cmd.ExecuteNonQuery();
+                                }
+                                transaction.Commit();
+                            }
+                        }
+                        MessageBox.Show("Ocorrência removida com sucesso!");
+                        CarregarOcorrencias();
+                        LimparCampos();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Erro ao remover ocorrência: {ex.Message}");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Selecione uma ocorrência para remover.");
             }
         }
 
