@@ -71,10 +71,10 @@ namespace Projeto
                             {
                                 Id = Convert.ToInt32(reader["ID_Chamada"]),
                                 Nome = reader["Nome"].ToString(),
-                                Descricao = reader["Descri��o"].ToString(),
+                                Descricao = reader["Descrição"].ToString(),
                                 DataHora = Convert.ToDateTime(reader["Data_Hora_Chamada"]),
-                                Numero = reader["N�mero"].ToString(),
-                                Localizacao = reader["Localiza��o"].ToString(),
+                                Numero = reader["Número"].ToString(),
+                                Localizacao = reader["Localização"].ToString(),
                                 Origem = origem
                             };
 
@@ -127,9 +127,70 @@ namespace Projeto
             this.Close();
         }
 
-        private void listBox1_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
 
+        private void BBAdd_Click(object sender, EventArgs e)
+        {
+            // Captura os valores dos campos
+            string nome = textBox5.Text.Trim();
+            string descricao = richTextBox1.Text.Trim();
+            string dataHoraStr = textBox2.Text.Trim();
+            string numero = textBox3.Text.Trim();
+            string localizacao = textBox1.Text.Trim();
+            string origemTexto = TBV1.Text.Trim();
+
+            // Validação simples
+            if (string.IsNullOrWhiteSpace(nome) || string.IsNullOrWhiteSpace(descricao) ||
+                string.IsNullOrWhiteSpace(dataHoraStr) || string.IsNullOrWhiteSpace(numero) ||
+                string.IsNullOrWhiteSpace(localizacao) || string.IsNullOrWhiteSpace(origemTexto))
+            {
+                MessageBox.Show("Preencha todos os campos obrigatórios.");
+                return;
+            }
+
+            DateTime dataHora;
+            if (!DateTime.TryParse(dataHoraStr, out dataHora))
+            {
+                MessageBox.Show("Data/Hora inválida.");
+                return;
+            }
+
+            // Determina o valor de origem (0 = Direta, 1 = Redirecionada)
+            int origem = origemTexto.Equals("Redirecionada", StringComparison.OrdinalIgnoreCase) ? 1 : 0;
+
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+            string query = @"INSERT INTO Chamada (Nome, [Descrição], Data_Hora_Chamada, [Número], [Localização], Origem)
+                     VALUES (@nome, @descricao, @dataHora, @numero, @localizacao, @origem)";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@nome", nome);
+                        command.Parameters.AddWithValue("@descricao", descricao);
+                        command.Parameters.AddWithValue("@dataHora", dataHora);
+                        command.Parameters.AddWithValue("@numero", numero);
+                        command.Parameters.AddWithValue("@localizacao", localizacao);
+                        command.Parameters.AddWithValue("@origem", origem);
+                        command.ExecuteNonQuery();
+                    }
+                }
+                MessageBox.Show("Chamada adicionada com sucesso!");
+                CarregarChamadas(); // Atualiza a lista
+                                    // Limpa os campos após adicionar
+                textBox5.Clear();
+                richTextBox1.Clear();
+                textBox2.Clear();
+                textBox3.Clear();
+                textBox1.Clear();
+                TBV1.Clear();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao adicionar chamada: {ex.Message}");
+            }
         }
     }
 }

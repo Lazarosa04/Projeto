@@ -190,7 +190,7 @@ namespace Projeto
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(544, 629);
             this.listBox1.TabIndex = 25;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged_1);
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // textBox3
             // 
@@ -245,7 +245,6 @@ namespace Projeto
             this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "Chamada";
             this.Text = "Chamada";
-            this.Load += new System.EventHandler(this.Chamada_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 
