@@ -80,6 +80,7 @@ namespace Projeto
                 TBV1.Text = v.Matricula;
                 TBV2.Text = v.Ano;
                 comboBox1.SelectedItem = v.Tipo;
+                CarregarEquipamentosDaViatura(v.Id);
             }
         }
 
@@ -198,5 +199,41 @@ namespace Projeto
             }
             catch (Exception ex) { MessageBox.Show($"Erro ao atualizar: {ex.Message}"); }
         }
+
+        private void CarregarEquipamentosDaViatura(int idViatura)
+        {
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+            string query = @"
+        SELECT ID_Equipamento, Nome_Equipamento, Quantidade
+        FROM Equipamento
+        WHERE ID_Viatura = @idViatura";
+
+            LBVEquip.Items.Clear();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@idViatura", idViatura);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string equipamentoInfo = $"({reader["ID_Equipamento"]}) {reader["Nome_Equipamento"]} - Quantidade: {reader["Quantidade"]}";
+                                LBVEquip.Items.Add(equipamentoInfo);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar equipamentos da viatura: {ex.Message}");
+            }
+        }
+
     }
 }
