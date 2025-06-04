@@ -399,6 +399,33 @@ BEGIN
 END;
 GO
 
+--Adicionar Baixa
+CREATE or ALTER PROCEDURE spAdicionarBaixa
+    @ID_Bombeiro INT,
+    @Data_Inicio DATE,
+    @Data_Fim DATE,
+    @Razao NVARCHAR(MAX)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO Baixa (ID_Bombeiro, Data_Inicio, Data_Fim, Razão)
+    VALUES (@ID_Bombeiro, @Data_Inicio, @Data_Fim, @Razao);
+END
+
+--Listar baixas
+CREATE or ALTER PROCEDURE spListarBaixasPorBombeiro
+    @idBombeiro INT
+AS
+BEGIN
+    SELECT Data_Inicio, Data_Fim, Razão
+    FROM Baixa
+    WHERE ID_Bombeiro = @idBombeiro
+    ORDER BY Data_Inicio DESC
+END
+
+
+
 
 DECLARE @sql NVARCHAR(MAX) = N'';
 

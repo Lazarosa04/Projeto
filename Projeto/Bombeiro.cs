@@ -10,6 +10,20 @@ namespace Projeto
     {
         private List<BombeiroInfo> bombeiros = new List<BombeiroInfo>();
 
+
+        private class BaixaInfo
+        {
+            public DateTime DataInicio { get; set; }
+            public DateTime DataFim { get; set; }
+            public string Razao { get; set; }
+
+            public override string ToString()
+            {
+                return $"{DataInicio:dd/MM/yyyy} a {DataFim:dd/MM/yyyy} - {Razao}";
+            }
+        }
+
+
         private class BombeiroInfo
         {
             public int Id { get; set; }
@@ -75,6 +89,51 @@ namespace Projeto
             }
         }
 
+        private void CarregarBaixas(int idBombeiro)
+        {
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+            List<BaixaInfo> baixas = new List<BaixaInfo>();
+
+            try
+            {
+                LBBaixa.Items.Clear();
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand("spListarBaixasPorBombeiro", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@idBombeiro", idBombeiro);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                BaixaInfo baixa = new BaixaInfo
+                                {
+                                    DataInicio = Convert.ToDateTime(reader["Data_Inicio"]),
+                                    DataFim = Convert.ToDateTime(reader["Data_Fim"]),
+                                    Razao = reader["Razão"].ToString()
+                                };
+                                baixas.Add(baixa);
+                            }
+                        }
+                    }
+                }
+
+                foreach (var baixa in baixas)
+                {
+                   LBBaixa.Items.Add(baixa);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar baixas: {ex.Message}");
+            }
+        }
+
+
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBox1.SelectedIndex >= 0)
@@ -86,8 +145,15 @@ namespace Projeto
                 textBox3.Text = selecionado.NIF;
                 textBox4.Text = selecionado.Telemovel;
                 textBox5.Text = selecionado.Nascimento;
+
+                CarregarBaixas(selecionado.Id);
+            }
+            else
+            {
+                LBBaixa.Items.Clear();
             }
         }
+        
 
         private void BBReturn_Click(object sender, EventArgs e) => this.Close();
 
@@ -252,23 +318,23 @@ namespace Projeto
 
         }
 
-        private void BAddBaixa_Click(object sender, EventArgs e)
-        {
-            Baixa baixa = new Baixa();
-            baixa.ShowDialog();
-        }
-
-        private void BAddFerias_Click(object sender, EventArgs e)
-        {
-            Férias ferias = new Férias();
-            ferias.ShowDialog();    
-        }
-
         private void BAddBaixa_Click_1(object sender, EventArgs e)
         {
-            Baixa baixa = new Baixa();
+            if (listBox1.SelectedIndex < 0)
+            {
+                MessageBox.Show("Selecione um bombeiro antes de adicionar baixa.");
+                return;
+            }
+
+            var selecionado = bombeiros[listBox1.SelectedIndex];
+            Baixa baixa = new Baixa(selecionado.Id);
             baixa.ShowDialog();
+
+            CarregarBaixas(selecionado.Id);
         }
+
+
+
 
         private void BAddFerias_Click_1(object sender, EventArgs e)
         {

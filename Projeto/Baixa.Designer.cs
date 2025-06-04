@@ -2,15 +2,8 @@ namespace Projeto
 {
     partial class Baixa
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,14 +15,10 @@ namespace Projeto
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            this.TBBaixaDataIn = new System.Windows.Forms.TextBox();
-            this.TBBaixaDataFim = new System.Windows.Forms.TextBox();
+            this.dateTimePickerInicio = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerFim = new System.Windows.Forms.DateTimePicker();
             this.BBaixaVoltar = new System.Windows.Forms.Button();
             this.BBaixaAdd = new System.Windows.Forms.Button();
             this.RBBaixaRazao = new System.Windows.Forms.RichTextBox();
@@ -38,26 +27,25 @@ namespace Projeto
             this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // TBBaixaDataIn
+            // dateTimePickerInicio
             // 
-            this.TBBaixaDataIn.Location = new System.Drawing.Point(96, 106);
-            this.TBBaixaDataIn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.TBBaixaDataIn.Name = "TBBaixaDataIn";
-            this.TBBaixaDataIn.Size = new System.Drawing.Size(292, 31);
-            this.TBBaixaDataIn.TabIndex = 0;
+            this.dateTimePickerInicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePickerInicio.Location = new System.Drawing.Point(96, 106);
+            this.dateTimePickerInicio.Name = "dateTimePickerInicio";
+            this.dateTimePickerInicio.Size = new System.Drawing.Size(292, 31);
+            this.dateTimePickerInicio.TabIndex = 0;
             // 
-            // TBBaixaDataFim
+            // dateTimePickerFim
             // 
-            this.TBBaixaDataFim.Location = new System.Drawing.Point(96, 214);
-            this.TBBaixaDataFim.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.TBBaixaDataFim.Name = "TBBaixaDataFim";
-            this.TBBaixaDataFim.Size = new System.Drawing.Size(292, 31);
-            this.TBBaixaDataFim.TabIndex = 1;
+            this.dateTimePickerFim.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePickerFim.Location = new System.Drawing.Point(96, 214);
+            this.dateTimePickerFim.Name = "dateTimePickerFim";
+            this.dateTimePickerFim.Size = new System.Drawing.Size(292, 31);
+            this.dateTimePickerFim.TabIndex = 1;
             // 
             // BBaixaVoltar
             // 
             this.BBaixaVoltar.Location = new System.Drawing.Point(278, 606);
-            this.BBaixaVoltar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.BBaixaVoltar.Name = "BBaixaVoltar";
             this.BBaixaVoltar.Size = new System.Drawing.Size(112, 36);
             this.BBaixaVoltar.TabIndex = 2;
@@ -68,18 +56,15 @@ namespace Projeto
             // BBaixaAdd
             // 
             this.BBaixaAdd.Location = new System.Drawing.Point(96, 606);
-            this.BBaixaAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.BBaixaAdd.Name = "BBaixaAdd";
             this.BBaixaAdd.Size = new System.Drawing.Size(112, 36);
             this.BBaixaAdd.TabIndex = 3;
             this.BBaixaAdd.Text = "Adicionar";
             this.BBaixaAdd.UseVisualStyleBackColor = true;
-            this.BBaixaAdd.Click += new System.EventHandler(this.BBaixaAdd_Click);
             // 
             // RBBaixaRazao
             // 
             this.RBBaixaRazao.Location = new System.Drawing.Point(96, 306);
-            this.RBBaixaRazao.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.RBBaixaRazao.Name = "RBBaixaRazao";
             this.RBBaixaRazao.Size = new System.Drawing.Size(292, 257);
             this.RBBaixaRazao.TabIndex = 4;
@@ -89,7 +74,6 @@ namespace Projeto
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(92, 77);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(113, 25);
             this.label1.TabIndex = 5;
@@ -99,7 +83,6 @@ namespace Projeto
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(92, 184);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(98, 25);
             this.label2.TabIndex = 6;
@@ -109,7 +92,6 @@ namespace Projeto
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(92, 277);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(74, 25);
             this.label3.TabIndex = 7;
@@ -126,11 +108,11 @@ namespace Projeto
             this.Controls.Add(this.RBBaixaRazao);
             this.Controls.Add(this.BBaixaAdd);
             this.Controls.Add(this.BBaixaVoltar);
-            this.Controls.Add(this.TBBaixaDataFim);
-            this.Controls.Add(this.TBBaixaDataIn);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Controls.Add(this.dateTimePickerFim);
+            this.Controls.Add(this.dateTimePickerInicio);
             this.Name = "Baixa";
             this.Text = "Baixa";
+            this.Load += new System.EventHandler(this.Baixa_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -138,8 +120,8 @@ namespace Projeto
 
         #endregion
 
-        private System.Windows.Forms.TextBox TBBaixaDataIn;
-        private System.Windows.Forms.TextBox TBBaixaDataFim;
+        private System.Windows.Forms.DateTimePicker dateTimePickerInicio;
+        private System.Windows.Forms.DateTimePicker dateTimePickerFim;
         private System.Windows.Forms.Button BBaixaVoltar;
         private System.Windows.Forms.Button BBaixaAdd;
         private System.Windows.Forms.RichTextBox RBBaixaRazao;

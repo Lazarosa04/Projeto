@@ -1,4 +1,5 @@
-use Teste;
+create database QuartelBombeiros
+use QuartelBombeiros
 
 --tipo viatura
 create table TipoViatura(
@@ -10,7 +11,7 @@ create table TipoViatura(
 create table Quartel(
 	ID_Quartel			int primary key,
 	Nome_Quartel		varchar(100),
-	Endereço			varchar(300),
+	Endereï¿½o			varchar(300),
 	Telefone			char(12)
 );
 
@@ -33,13 +34,13 @@ create table Equipamento(
 	Quantidade			int
 );
 
---manutenção
-create table Manutenção(
-	ID_Manutenção		int Identity(1,1) primary key,
+--manutenï¿½ï¿½o
+create table Manutenï¿½ï¿½o(
+	ID_Manutenï¿½ï¿½o		int Identity(1,1) primary key,
 	ID_Viatura			int references Viatura(ID_Viatura),
 	ID_Equipamento		int references Equipamento(ID_Equipamento),
-	Data_Manutenção		date,
-	Descrição			varchar(300)
+	Data_Manutenï¿½ï¿½o		date,
+	Descriï¿½ï¿½o			varchar(300)
 );
 
 --bombeiro
@@ -51,39 +52,40 @@ create table Bombeiro(
 	Morada				varchar(300),
 	Email				varchar(100),
 	NIF					char(9),
-	Telemóvel			char(12)
+	Telemï¿½vel			char(12)
 );
 
---formação
-create table Formação(
-	ID_Formação			int Identity(1,1) primary key,
+--formaï¿½ï¿½o
+create table Formaï¿½ï¿½o(
+	ID_Formaï¿½ï¿½o			int Identity(1,1) primary key,
 	ID_Quartel			int references Quartel(ID_Quartel),
 	Data_Inicio			date,
 	Data_Fim			date
 );
 
---uma formação pode ser participada por vários bombeiros
---um bombeiro pode participar de várias Formações
-create table Bombeiro_Formação(
+--uma formaï¿½ï¿½o pode ser participada por vï¿½rios bombeiros
+--um bombeiro pode participar de vï¿½rias Formaï¿½ï¿½es
+create table Bombeiro_Formaï¿½ï¿½o(
 	ID_Bombeiro			int references Bombeiro(ID_Bombeiro),
-	ID_Formação			int references Formação(ID_Formação),
+	ID_Formaï¿½ï¿½o			int references Formaï¿½ï¿½o(ID_Formaï¿½ï¿½o),
 );
 
---especialização
-create table Especialização(
-	ID_Especialização	int Identity(1,1) primary key,
-	Nome_Especialização	varchar(100)
+--especializaï¿½ï¿½o
+create table Especializaï¿½ï¿½o(
+	ID_Especializaï¿½ï¿½o	int Identity(1,1) primary key,
+	Nome_Especializaï¿½ï¿½o	varchar(100)
 );
 
---uma especialização pode ser tirada por vários bombeiros
---cada bombeiro pode ter várias especializações
-create table Bombeiro_Especialização(
+--uma especializaï¿½ï¿½o pode ser tirada por vï¿½rios bombeiros
+--cada bombeiro pode ter vï¿½rias especializaï¿½ï¿½es
+create table Bombeiro_Especializaï¿½ï¿½o(
 	ID_Bombeiro			int references Bombeiro(ID_Bombeiro),
-	ID_Especialização	int references Especialização(ID_Especialização)
+	ID_Especializaï¿½ï¿½o	int references Especializaï¿½ï¿½o(ID_Especializaï¿½ï¿½o)
 );
 
---férias
-create table Férias(
+--fï¿½rias
+create table FÃ©rias(
+	ID_FÃ©rias			int Identity(1,1) primary key,
 	ID_Bombeiro			int references Bombeiro(ID_Bombeiro),
 	Data_Inicio			date primary key,
 	Data_Fim			date
@@ -91,41 +93,42 @@ create table Férias(
 
 --baixa
 create table Baixa(
+	ID_Baixa			int Identity(1,1) primary key,
 	ID_Bombeiro			int references Bombeiro(ID_Bombeiro),
 	Data_Inicio			date primary key,
 	Data_Fim			date,
-	Razão				varchar(300)
+	RazÃ£o				varchar(300)
 );
 
---ocorrência
-create table Ocorrência(
-	ID_Ocorrência		int Identity(1,1) primary key,
+--ocorrï¿½ncia
+create table OcorrÃªncia(
+	ID_OcorrÃªncia		int Identity(1,1) primary key,
 	ID_Quartel			int references Quartel(ID_Quartel),
 	Data_Hora			DateTime
 );
 
---vários bombeiros podem acudir a uma ocorrência
---um bombeiro pode acudir a várias ocorrências
-create table Bombeiro_Ocorrência(
-	ID_Ocorrência		int references Ocorrência(ID_Ocorrência),
+--vï¿½rios bombeiros podem acudir a uma ocorrï¿½ncia
+--um bombeiro pode acudir a vï¿½rias ocorrï¿½ncias
+create table Bombeiro_OcorrÃªncia(
+	ID_OcorrÃªncia		int references OcorrÃªncia(ID_OcorrÃªncia),
 	ID_Bombeiro			int references Bombeiro(ID_Bombeiro),
 );
 
---várias viaturas podem acudir a uma ocorrência
---uma viatura pode acudir a várias ocorrências
-create table Viatura_Ocorrência(
-	ID_Ocorrência		int references Ocorrência(ID_Ocorrência),
+--vï¿½rias viaturas podem acudir a uma ocorrï¿½ncia
+--uma viatura pode acudir a vï¿½rias ocorrï¿½ncias
+create table Viatura_Ocorrï¿½ncia(
+	ID_Ocorrï¿½ncia		int references Ocorrï¿½ncia(ID_Ocorrï¿½ncia),
 	ID_Viatura			int references Viatura(ID_Viatura)
 );
 
 --chamada
 create table Chamada(
 	ID_Chamada			int Identity(1,1) primary key,
-	ID_Ocorrência		int references Ocorrência(ID_Ocorrência),
+	ID_Ocorrï¿½ncia		int references Ocorrï¿½ncia(ID_Ocorrï¿½ncia),
 	Origem				binary(1),	--chamada direta ou redirecionada
-	Descrição			varchar(300),
+	Descriï¿½ï¿½o			varchar(300),
 	Nome				varchar(100),
 	Data_Hora_Chamada	DateTime,
-	Localização			varchar(300),
-	Número				char(12)
+	Localizaï¿½ï¿½o			varchar(300),
+	Nï¿½mero				char(12)
 );
