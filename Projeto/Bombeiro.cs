@@ -96,7 +96,7 @@ namespace Projeto
 
             try
             {
-                LBBaixa.Items.Clear();
+                LBBBaixa.Items.Clear();
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
@@ -124,7 +124,7 @@ namespace Projeto
 
                 foreach (var baixa in baixas)
                 {
-                   LBBaixa.Items.Add(baixa);
+                   LBBBaixa.Items.Add(baixa);
                 }
             }
             catch (Exception ex)
@@ -150,7 +150,7 @@ namespace Projeto
             }
             else
             {
-                LBBaixa.Items.Clear();
+                LBBBaixa.Items.Clear();
             }
         }
         
@@ -340,6 +340,12 @@ namespace Projeto
         {
             Férias ferias = new Férias();
             ferias.ShowDialog();
+        }
+
+        private void BAddFormação_Click(object sender, EventArgs e)
+        {
+            Formação formação = new Formação();
+            formação.ShowDialog();
         }
     }
 }

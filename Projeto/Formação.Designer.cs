@@ -44,25 +44,29 @@ namespace Projeto
             "Salvamento Aquático",
             "Formação e Treinamento",
             "Comando e Gestão"});
-            this.CBForm.Location = new System.Drawing.Point(55, 54);
+            this.CBForm.Location = new System.Drawing.Point(82, 84);
+            this.CBForm.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CBForm.Name = "CBForm";
-            this.CBForm.Size = new System.Drawing.Size(206, 24);
+            this.CBForm.Size = new System.Drawing.Size(307, 33);
             this.CBForm.TabIndex = 33;
             // 
             // BFormExit
             // 
-            this.BFormExit.Location = new System.Drawing.Point(186, 112);
+            this.BFormExit.Location = new System.Drawing.Point(279, 175);
+            this.BFormExit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.BFormExit.Name = "BFormExit";
-            this.BFormExit.Size = new System.Drawing.Size(75, 24);
+            this.BFormExit.Size = new System.Drawing.Size(112, 38);
             this.BFormExit.TabIndex = 37;
             this.BFormExit.Text = "Voltar";
             this.BFormExit.UseVisualStyleBackColor = true;
+            this.BFormExit.Click += new System.EventHandler(this.BFormExit_Click);
             // 
             // BAddFormação
             // 
-            this.BAddFormação.Location = new System.Drawing.Point(55, 112);
+            this.BAddFormação.Location = new System.Drawing.Point(82, 175);
+            this.BAddFormação.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.BAddFormação.Name = "BAddFormação";
-            this.BAddFormação.Size = new System.Drawing.Size(115, 24);
+            this.BAddFormação.Size = new System.Drawing.Size(172, 38);
             this.BAddFormação.TabIndex = 36;
             this.BAddFormação.Text = "Adicionar";
             this.BAddFormação.UseVisualStyleBackColor = true;
@@ -70,23 +74,26 @@ namespace Projeto
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(52, 25);
+            this.label9.Location = new System.Drawing.Point(78, 39);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(76, 16);
+            this.label9.Size = new System.Drawing.Size(119, 25);
             this.label9.TabIndex = 38;
             this.label9.Text = "Formações";
             // 
             // Formação
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(316, 183);
+            this.ClientSize = new System.Drawing.Size(474, 286);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.BFormExit);
             this.Controls.Add(this.BAddFormação);
             this.Controls.Add(this.CBForm);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Formação";
             this.Text = "Formação";
+            this.Load += new System.EventHandler(this.Formação_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -16,5 +16,15 @@ namespace Projeto
         {
             InitializeComponent();
         }
+
+        private void Formação_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BFormExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
