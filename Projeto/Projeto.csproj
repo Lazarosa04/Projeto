@@ -76,6 +76,12 @@
     <Compile Include="Férias.Designer.cs">
       <DependentUpon>Férias.cs</DependentUpon>
     </Compile>
+    <Compile Include="Manutenção.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Manutenção.Designer.cs">
+      <DependentUpon>Manutenção.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ocorrencias.cs">
       <SubType>Form</SubType>
     </Compile>
