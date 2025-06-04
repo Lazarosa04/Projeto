@@ -11,7 +11,7 @@ create table TipoViatura(
 create table Quartel(
 	ID_Quartel			int primary key,
 	Nome_Quartel		varchar(100),
-	Endere�o			varchar(300),
+	Endereço			varchar(300),
 	Telefone			char(12)
 );
 
@@ -34,13 +34,13 @@ create table Equipamento(
 	Quantidade			int
 );
 
---manuten��o
-create table Manuten��o(
-	ID_Manuten��o		int Identity(1,1) primary key,
+--manutenção
+create table Manutenção(
+	ID_Manutenção		int Identity(1,1) primary key,
 	ID_Viatura			int references Viatura(ID_Viatura),
 	ID_Equipamento		int references Equipamento(ID_Equipamento),
-	Data_Manuten��o		date,
-	Descri��o			varchar(300)
+	Data_Manutenção		date,
+	Descrição			varchar(300)
 );
 
 --bombeiro
@@ -52,38 +52,38 @@ create table Bombeiro(
 	Morada				varchar(300),
 	Email				varchar(100),
 	NIF					char(9),
-	Telem�vel			char(12)
+	Telemóvel			char(12)
 );
 
---forma��o
-create table Forma��o(
-	ID_Forma��o			int Identity(1,1) primary key,
+--formação
+create table Formação(
+	ID_Formação			int Identity(1,1) primary key,
 	ID_Quartel			int references Quartel(ID_Quartel),
 	Data_Inicio			date,
 	Data_Fim			date
 );
 
---uma forma��o pode ser participada por v�rios bombeiros
---um bombeiro pode participar de v�rias Forma��es
-create table Bombeiro_Forma��o(
+--uma formação pode ser participada por vários bombeiros
+--um bombeiro pode participar de várias Formações
+create table Bombeiro_Formação(
 	ID_Bombeiro			int references Bombeiro(ID_Bombeiro),
-	ID_Forma��o			int references Forma��o(ID_Forma��o),
+	ID_Formação			int references Formação(ID_Formação),
 );
 
---especializa��o
-create table Especializa��o(
-	ID_Especializa��o	int Identity(1,1) primary key,
-	Nome_Especializa��o	varchar(100)
+--especialização
+create table Especialização(
+	ID_Especialização	int Identity(1,1) primary key,
+	Nome_Especialização	varchar(100)
 );
 
---uma especializa��o pode ser tirada por v�rios bombeiros
---cada bombeiro pode ter v�rias especializa��es
-create table Bombeiro_Especializa��o(
+--uma especializaçã pode ser tirada por vários bombeiros
+--cada bombeiro pode ter várias especializações
+create table Bombeiro_Especialização(
 	ID_Bombeiro			int references Bombeiro(ID_Bombeiro),
-	ID_Especializa��o	int references Especializa��o(ID_Especializa��o)
+	ID_Especialização	int references Especialização(ID_Especialização)
 );
 
---f�rias
+--férias
 create table Férias(
 	ID_Férias			int Identity(1,1) primary key,
 	ID_Bombeiro			int references Bombeiro(ID_Bombeiro),
@@ -100,35 +100,35 @@ create table Baixa(
 	Razão				varchar(300)
 );
 
---ocorr�ncia
+--ocorrência
 create table Ocorrência(
 	ID_Ocorrência		int Identity(1,1) primary key,
 	ID_Quartel			int references Quartel(ID_Quartel),
 	Data_Hora			DateTime
 );
 
---v�rios bombeiros podem acudir a uma ocorr�ncia
---um bombeiro pode acudir a v�rias ocorr�ncias
+--vários bombeiros podem acudir a uma ocorrência
+--um bombeiro pode acudir a várias ocorrências
 create table Bombeiro_Ocorrência(
 	ID_Ocorrência		int references Ocorrência(ID_Ocorrência),
 	ID_Bombeiro			int references Bombeiro(ID_Bombeiro),
 );
 
---v�rias viaturas podem acudir a uma ocorr�ncia
---uma viatura pode acudir a v�rias ocorr�ncias
-create table Viatura_Ocorr�ncia(
-	ID_Ocorr�ncia		int references Ocorr�ncia(ID_Ocorr�ncia),
+--várias viaturas podem acudir a uma ocorrência
+--uma viatura pode acudir a várias ocorrências
+create table Viatura_Ocorrência(
+	ID_Ocorrência		int references Ocorrência(ID_Ocorrência),
 	ID_Viatura			int references Viatura(ID_Viatura)
 );
 
 --chamada
 create table Chamada(
 	ID_Chamada			int Identity(1,1) primary key,
-	ID_Ocorr�ncia		int references Ocorr�ncia(ID_Ocorr�ncia),
+	ID_Ocorrência		int references Ocorrência(ID_Ocorrência),
 	Origem				binary(1),	--chamada direta ou redirecionada
-	Descri��o			varchar(300),
+	Descrição			varchar(300),
 	Nome				varchar(100),
 	Data_Hora_Chamada	DateTime,
-	Localiza��o			varchar(300),
-	N�mero				char(12)
+	Localização			varchar(300),
+	Número				char(12)
 );
