@@ -70,6 +70,18 @@
     <Compile Include="Equipamento.Designer.cs">
       <DependentUpon>Equipamento.cs</DependentUpon>
     </Compile>
+    <Compile Include="Especialização.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Especialização.Designer.cs">
+      <DependentUpon>Especialização.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formação.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formação.Designer.cs">
+      <DependentUpon>Formação.cs</DependentUpon>
+    </Compile>
     <Compile Include="Férias.cs">
       <SubType>Form</SubType>
     </Compile>

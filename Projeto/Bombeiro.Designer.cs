@@ -237,7 +237,7 @@ namespace Projeto
             this.BAddBaixa.TabIndex = 27;
             this.BAddBaixa.Text = "Adicionar";
             this.BAddBaixa.UseVisualStyleBackColor = true;
-            this.BAddBaixa.Click += new System.EventHandler(this.BAddBaixa_Click);
+            this.BAddBaixa.Click += new System.EventHandler(this.BAddBaixa_Click_1);
             // 
             // BAddFerias
             // 
@@ -247,7 +247,7 @@ namespace Projeto
             this.BAddFerias.TabIndex = 28;
             this.BAddFerias.Text = "Adicionar ";
             this.BAddFerias.UseVisualStyleBackColor = true;
-            this.BAddFerias.Click += new System.EventHandler(this.BAddFerias_Click);
+            this.BAddFerias.Click += new System.EventHandler(this.BAddFerias_Click_1);
             // 
             // comboBox1
             // 
