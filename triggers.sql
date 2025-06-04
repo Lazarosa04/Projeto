@@ -1,0 +1,165 @@
+use Teste;
+go
+
+
+-- Triggers Bombeiros
+
+-- Trigger para verificar NIF único
+CREATE TRIGGER TRG_Check_NIF_Unico
+ON Bombeiro
+INSTEAD OF INSERT, UPDATE
+AS
+BEGIN
+    IF EXISTS (
+        SELECT 1 FROM Bombeiro b
+        JOIN inserted i ON b.NIF = i.NIF AND b.ID_Bombeiro != i.ID_Bombeiro
+    )
+    BEGIN
+        RAISERROR('NIF já existe na base de dados.', 16, 1);
+        RETURN;
+    END
+    -- Executa inserção/atualização conforme necessário
+    IF EXISTS(SELECT * FROM inserted)
+    BEGIN
+        MERGE Bombeiro AS target
+        USING inserted AS source
+        ON target.ID_Bombeiro = source.ID_Bombeiro
+        WHEN MATCHED THEN
+            UPDATE SET Nome_Bombeiro = source.Nome_Bombeiro,
+                       Data_Nascimento = source.Data_Nascimento,
+                       Morada = source.Morada,
+                       Email = source.Email,
+                       NIF = source.NIF,
+                       Telemóvel = source.Telemóvel
+        WHEN NOT MATCHED THEN
+            INSERT (Nome_Bombeiro, Data_Nascimento, Morada, Email, NIF, Telemóvel)
+            VALUES (source.Nome_Bombeiro, source.Data_Nascimento, source.Morada, source.Email, source.NIF, source.Telemóvel);
+    END
+END;
+GO
+
+-- Trigger para remoção em cascata
+CREATE TRIGGER TRG_Cascade_Delete_Bombeiro
+ON Bombeiro
+AFTER DELETE
+AS
+BEGIN
+    DELETE FROM Bombeiro_Formação WHERE ID_Bombeiro IN (SELECT ID_Bombeiro FROM deleted);
+    DELETE FROM Bombeiro_Ocorrência WHERE ID_Bombeiro IN (SELECT ID_Bombeiro FROM deleted);
+    DELETE FROM Bombeiro_Especialização WHERE ID_Bombeiro IN (SELECT ID_Bombeiro FROM deleted);
+    DELETE FROM Baixa WHERE ID_Bombeiro IN (SELECT ID_Bombeiro FROM deleted);
+    DELETE FROM Férias WHERE ID_Bombeiro IN (SELECT ID_Bombeiro FROM deleted);
+END;
+GO
+
+
+-- Triggers para CHAMADA
+
+-- 1. Impedir datas futuras
+CREATE TRIGGER TRG_Check_DataHora_Futura
+ON Chamada
+INSTEAD OF INSERT
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM inserted WHERE Data_Hora_Chamada > GETDATE())
+    BEGIN
+        RAISERROR('Não é permitido registar chamadas com data/hora futura.', 16, 1);
+        RETURN;
+    END
+
+    INSERT INTO Chamada (Nome, [Descrição], Data_Hora_Chamada, [Número], [Localização], Origem)
+    SELECT Nome, [Descrição], Data_Hora_Chamada, [Número], [Localização], Origem FROM inserted;
+END;
+GO
+
+-- 2. Registar chamadas apagadas (requer tabela de log)
+-- CREATE TABLE Log_ChamadasRemovidas (ID_Chamada INT, Nome NVARCHAR(100), DataHora DATETIME, RemovidaEm DATETIME);
+
+CREATE TRIGGER TRG_Log_Chamada_Removida
+ON Chamada
+AFTER DELETE
+AS
+BEGIN
+    INSERT INTO Log_ChamadasRemovidas (ID_Chamada, Nome, DataHora, RemovidaEm)
+    SELECT ID_Chamada, Nome, Data_Hora_Chamada, GETDATE() FROM deleted;
+END;
+GO
+
+-- Triggers para EQUIPAMENTO
+
+-- 1. Impedir quantidade negativa
+CREATE TRIGGER TRG_Check_Quantidade_NaoNegativa
+ON Equipamento
+INSTEAD OF INSERT, UPDATE
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM inserted WHERE Quantidade < 0)
+    BEGIN
+        RAISERROR('A quantidade do equipamento não pode ser negativa.', 16, 1);
+        RETURN;
+    END
+
+    IF EXISTS (SELECT * FROM inserted)
+    BEGIN
+        MERGE Equipamento AS target
+        USING inserted AS source
+        ON target.ID_Equipamento = source.ID_Equipamento
+        WHEN MATCHED THEN
+            UPDATE SET Nome_Equipamento = source.Nome_Equipamento,
+                       Quantidade = source.Quantidade,
+                       ID_Viatura = source.ID_Viatura
+        WHEN NOT MATCHED THEN
+            INSERT (Nome_Equipamento, Quantidade, ID_Viatura)
+            VALUES (source.Nome_Equipamento, source.Quantidade, source.ID_Viatura);
+    END
+END;
+GO
+
+-- Triggers para OCORRÊNCIA
+
+-- 1. Impedir ocorrência com data futura
+CREATE TRIGGER TRG_Check_Ocorrencia_Data
+ON Ocorrência
+INSTEAD OF INSERT
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM inserted WHERE Data_Hora > GETDATE())
+    BEGIN
+        RAISERROR('Não é possível criar ocorrência com data futura.', 16, 1);
+        RETURN;
+    END
+    INSERT INTO Ocorrência (ID_Quartel, Data_Hora)
+    SELECT ID_Quartel, Data_Hora FROM inserted;
+END;
+GO
+
+-- Triggers para VIATURA
+
+-- 1. Impedir ano inválido
+CREATE TRIGGER TRG_Check_Ano_Valido
+ON Viatura
+INSTEAD OF INSERT, UPDATE
+AS
+BEGIN
+    IF EXISTS (SELECT * FROM inserted WHERE Ano < 1980 OR Ano > YEAR(GETDATE()))
+    BEGIN
+        RAISERROR('Ano da viatura inválido.', 16, 1);
+        RETURN;
+    END
+
+    -- Inserção ou atualização conforme necessário
+    IF EXISTS(SELECT * FROM inserted)
+    BEGIN
+        MERGE Viatura AS target
+        USING inserted AS source
+        ON target.ID_Viatura = source.ID_Viatura
+        WHEN MATCHED THEN
+            UPDATE SET ID_TipoViatura = source.ID_TipoViatura,
+                       Matricula = source.Matricula,
+                       Ano = source.Ano
+        WHEN NOT MATCHED THEN
+            INSERT (ID_Quartel, ID_TipoViatura, Matricula, Ano)
+            VALUES (source.ID_Quartel, source.ID_TipoViatura, source.Matricula, source.Ano);
+    END
+END;
+GO
