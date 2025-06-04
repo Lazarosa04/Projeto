@@ -35,14 +35,31 @@ namespace Projeto
         private void BViat_Click(object sender, EventArgs e)
         {
             Viatura viatura = new Viatura();
-            viatura.Show();
-            this.Hide();
+            viatura.ShowDialog(); 
         }
 
         private void BBomb_Click(object sender, EventArgs e)
         {
             Bombeiro bombeiro = new Bombeiro();
             bombeiro.ShowDialog();
+        }
+
+        private void BEquip_Click(object sender, EventArgs e)
+        {
+            Equipamento equipamento = new Equipamento();
+            equipamento.ShowDialog();
+        }
+
+        private void Quartel_Load(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void BChamadas_Click_1(object sender, EventArgs e)
+        {
+            Chamada chamada = new Chamada();
+            chamada.ShowDialog();
         }
     }
 }
