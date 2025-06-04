@@ -115,14 +115,43 @@ namespace Projeto
             var ocorrenciaSelecionada = ocorrencias[LBOcorrList.SelectedIndex];
             string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
 
-            string bombeirosInput = textBox1.Text.Trim(); // IDs separados por vírgula
-            string viaturasInput = textBox2.Text.Trim();  // IDs separados por vírgula
+            string bombeirosInput = textBox1.Text.Trim(); // Ex: "1,2"
+            string viaturasInput = textBox2.Text.Trim();  // Ex: "3,4"
             string chamadaInput = textBox3.Text.Trim();
 
             if (!int.TryParse(chamadaInput, out int idChamada))
             {
                 MessageBox.Show("ID de chamada inválido.");
                 return;
+            }
+
+            // Validar chamada
+            if (!ExisteNaBase("Chamada", "ID_Chamada", idChamada))
+            {
+                MessageBox.Show($"A chamada com ID {idChamada} não existe.");
+                return;
+            }
+
+            // Validar bombeiros
+            var idsBombeiros = bombeirosInput.Split(',').Select(x => x.Trim()).Where(x => x != "").ToList();
+            foreach (var idStr in idsBombeiros)
+            {
+                if (!int.TryParse(idStr, out int id) || !ExisteNaBase("Bombeiro", "ID_Bombeiro", id))
+                {
+                    MessageBox.Show($"O bombeiro com ID {idStr} não existe.");
+                    return;
+                }
+            }
+
+            // Validar viaturas
+            var idsViaturas = viaturasInput.Split(',').Select(x => x.Trim()).Where(x => x != "").ToList();
+            foreach (var idStr in idsViaturas)
+            {
+                if (!int.TryParse(idStr, out int id) || !ExisteNaBase("Viatura", "ID_Viatura", id))
+                {
+                    MessageBox.Show($"A viatura com ID {idStr} não existe.");
+                    return;
+                }
             }
 
             try
@@ -133,7 +162,7 @@ namespace Projeto
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@ID_Ocorrencia", ocorrenciaSelecionada.Id);
-                    cmd.Parameters.AddWithValue("@ID_Quartel", 11111); // fixo, ou podes puxar de UI
+                    cmd.Parameters.AddWithValue("@ID_Quartel", 11111); // fixo
                     cmd.Parameters.AddWithValue("@DataHora", DateTime.Now);
                     cmd.Parameters.AddWithValue("@ID_Chamada", idChamada);
                     cmd.Parameters.AddWithValue("@ListaBombeiros", bombeirosInput);
@@ -151,6 +180,24 @@ namespace Projeto
                 MessageBox.Show($"Erro ao editar ocorrência: {ex.Message}");
             }
         }
+
+
+
+        private bool ExisteNaBase(string tabela, string campo, int id)
+        {
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+
+            string query = $"SELECT COUNT(*) FROM {tabela} WHERE {campo} = @id";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@id", id);
+                conn.Open();
+                int count = (int)cmd.ExecuteScalar();
+                return count > 0;
+            }
+        }
+
 
 
         private void CarregarChamadasDaOcorrencia(int idOcorrencia)
