@@ -46,18 +46,22 @@ namespace Projeto
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.LBBaixa = new System.Windows.Forms.ListBox();
-            this.LBFerias = new System.Windows.Forms.ListBox();
-            this.BAddBaixa = new System.Windows.Forms.Button();
-            this.BAddFerias = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.LBEspecializações = new System.Windows.Forms.ListBox();
+            this.LBFormações = new System.Windows.Forms.ListBox();
+            this.BAddEspecializações = new System.Windows.Forms.Button();
+            this.BAddFormações = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.BBRemove = new System.Windows.Forms.Button();
-            this.BFRemove = new System.Windows.Forms.Button();
+            this.BRemoveEspecializações = new System.Windows.Forms.Button();
+            this.BRemoveFormações = new System.Windows.Forms.Button();
+            this.TBBFérias = new System.Windows.Forms.TextBox();
+            this.TBBBaixa = new System.Windows.Forms.TextBox();
+            this.BBRemoveFérias = new System.Windows.Forms.Button();
+            this.BAddFérias = new System.Windows.Forms.Button();
+            this.BRemoveBaixa = new System.Windows.Forms.Button();
+            this.BAddBaixa = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBox1
@@ -85,7 +89,7 @@ namespace Projeto
             // 
             // BBRem
             // 
-            this.BBRem.Location = new System.Drawing.Point(535, 491);
+            this.BBRem.Location = new System.Drawing.Point(536, 521);
             this.BBRem.Name = "BBRem";
             this.BBRem.Size = new System.Drawing.Size(75, 24);
             this.BBRem.TabIndex = 11;
@@ -94,7 +98,7 @@ namespace Projeto
             // 
             // BBEdit
             // 
-            this.BBEdit.Location = new System.Drawing.Point(453, 491);
+            this.BBEdit.Location = new System.Drawing.Point(454, 521);
             this.BBEdit.Name = "BBEdit";
             this.BBEdit.Size = new System.Drawing.Size(75, 24);
             this.BBEdit.TabIndex = 10;
@@ -103,7 +107,7 @@ namespace Projeto
             // 
             // BBReturn
             // 
-            this.BBReturn.Location = new System.Drawing.Point(615, 492);
+            this.BBReturn.Location = new System.Drawing.Point(616, 522);
             this.BBReturn.Name = "BBReturn";
             this.BBReturn.Size = new System.Drawing.Size(75, 24);
             this.BBReturn.TabIndex = 9;
@@ -113,7 +117,7 @@ namespace Projeto
             // 
             // BBAdd
             // 
-            this.BBAdd.Location = new System.Drawing.Point(363, 491);
+            this.BBAdd.Location = new System.Drawing.Point(364, 521);
             this.BBAdd.Name = "BBAdd";
             this.BBAdd.Size = new System.Drawing.Size(80, 24);
             this.BBAdd.TabIndex = 8;
@@ -204,72 +208,55 @@ namespace Projeto
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(277, 491);
+            this.button1.Location = new System.Drawing.Point(278, 521);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(80, 24);
             this.button1.TabIndex = 24;
             this.button1.Text = "Novo";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // LBBaixa
+            // LBEspecializações
             // 
-            this.LBBaixa.FormattingEnabled = true;
-            this.LBBaixa.ItemHeight = 16;
-            this.LBBaixa.Location = new System.Drawing.Point(747, 38);
-            this.LBBaixa.Name = "LBBaixa";
-            this.LBBaixa.Size = new System.Drawing.Size(470, 116);
-            this.LBBaixa.TabIndex = 25;
+            this.LBEspecializações.FormattingEnabled = true;
+            this.LBEspecializações.ItemHeight = 16;
+            this.LBEspecializações.Location = new System.Drawing.Point(747, 38);
+            this.LBEspecializações.Name = "LBEspecializações";
+            this.LBEspecializações.Size = new System.Drawing.Size(470, 116);
+            this.LBEspecializações.TabIndex = 25;
             // 
-            // LBFerias
+            // LBFormações
             // 
-            this.LBFerias.FormattingEnabled = true;
-            this.LBFerias.ItemHeight = 16;
-            this.LBFerias.Location = new System.Drawing.Point(747, 226);
-            this.LBFerias.Name = "LBFerias";
-            this.LBFerias.Size = new System.Drawing.Size(470, 116);
-            this.LBFerias.TabIndex = 26;
+            this.LBFormações.FormattingEnabled = true;
+            this.LBFormações.ItemHeight = 16;
+            this.LBFormações.Location = new System.Drawing.Point(747, 226);
+            this.LBFormações.Name = "LBFormações";
+            this.LBFormações.Size = new System.Drawing.Size(470, 116);
+            this.LBFormações.TabIndex = 26;
             // 
-            // BAddBaixa
+            // BAddEspecializações
             // 
-            this.BAddBaixa.Location = new System.Drawing.Point(747, 160);
-            this.BAddBaixa.Name = "BAddBaixa";
-            this.BAddBaixa.Size = new System.Drawing.Size(117, 24);
-            this.BAddBaixa.TabIndex = 27;
-            this.BAddBaixa.Text = "Adicionar";
-            this.BAddBaixa.UseVisualStyleBackColor = true;
-            this.BAddBaixa.Click += new System.EventHandler(this.BAddBaixa_Click_1);
+            this.BAddEspecializações.Location = new System.Drawing.Point(747, 160);
+            this.BAddEspecializações.Name = "BAddEspecializações";
+            this.BAddEspecializações.Size = new System.Drawing.Size(117, 24);
+            this.BAddEspecializações.TabIndex = 27;
+            this.BAddEspecializações.Text = "Adicionar";
+            this.BAddEspecializações.UseVisualStyleBackColor = true;
+            this.BAddEspecializações.Click += new System.EventHandler(this.BAddBaixa_Click_1);
             // 
-            // BAddFerias
+            // BAddFormações
             // 
-            this.BAddFerias.Location = new System.Drawing.Point(747, 348);
-            this.BAddFerias.Name = "BAddFerias";
-            this.BAddFerias.Size = new System.Drawing.Size(117, 24);
-            this.BAddFerias.TabIndex = 28;
-            this.BAddFerias.Text = "Adicionar ";
-            this.BAddFerias.UseVisualStyleBackColor = true;
-            this.BAddFerias.Click += new System.EventHandler(this.BAddFerias_Click_1);
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Combate a Incêndios Urbanos",
-            "",
-            "Incêndios Florestais",
-            "Salvamento e Desencarceramento",
-            "Salvamento Aquático e Mergulho",
-            "",
-            "Formação e Treinamento",
-            "Comunicações e Comando"});
-            this.comboBox1.Location = new System.Drawing.Point(747, 418);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(206, 24);
-            this.comboBox1.TabIndex = 29;
+            this.BAddFormações.Location = new System.Drawing.Point(747, 348);
+            this.BAddFormações.Name = "BAddFormações";
+            this.BAddFormações.Size = new System.Drawing.Size(117, 24);
+            this.BAddFormações.TabIndex = 28;
+            this.BAddFormações.Text = "Adicionar ";
+            this.BAddFormações.UseVisualStyleBackColor = true;
+            this.BAddFormações.Click += new System.EventHandler(this.BAddFerias_Click_1);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(747, 16);
+            this.label7.Location = new System.Drawing.Point(747, 408);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(48, 16);
             this.label7.TabIndex = 30;
@@ -278,24 +265,16 @@ namespace Projeto
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(747, 207);
+            this.label8.Location = new System.Drawing.Point(379, 408);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(45, 16);
             this.label8.TabIndex = 31;
             this.label8.Text = "Férias";
             // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(747, 482);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(206, 24);
-            this.comboBox2.TabIndex = 32;
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(747, 399);
+            this.label9.Location = new System.Drawing.Point(747, 19);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(107, 16);
             this.label9.TabIndex = 33;
@@ -304,47 +283,101 @@ namespace Projeto
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(747, 463);
+            this.label10.Location = new System.Drawing.Point(747, 207);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(76, 16);
             this.label10.TabIndex = 34;
             this.label10.Text = "Formações";
             // 
-            // BBRemove
+            // BRemoveEspecializações
             // 
-            this.BBRemove.Location = new System.Drawing.Point(870, 160);
-            this.BBRemove.Name = "BBRemove";
-            this.BBRemove.Size = new System.Drawing.Size(109, 24);
-            this.BBRemove.TabIndex = 35;
-            this.BBRemove.Text = "Remover";
-            this.BBRemove.UseVisualStyleBackColor = true;
+            this.BRemoveEspecializações.Location = new System.Drawing.Point(870, 160);
+            this.BRemoveEspecializações.Name = "BRemoveEspecializações";
+            this.BRemoveEspecializações.Size = new System.Drawing.Size(109, 24);
+            this.BRemoveEspecializações.TabIndex = 35;
+            this.BRemoveEspecializações.Text = "Remover";
+            this.BRemoveEspecializações.UseVisualStyleBackColor = true;
             // 
-            // BFRemove
+            // BRemoveFormações
             // 
-            this.BFRemove.Location = new System.Drawing.Point(870, 348);
-            this.BFRemove.Name = "BFRemove";
-            this.BFRemove.Size = new System.Drawing.Size(109, 24);
-            this.BFRemove.TabIndex = 36;
-            this.BFRemove.Text = "Remover";
-            this.BFRemove.UseVisualStyleBackColor = true;
+            this.BRemoveFormações.Location = new System.Drawing.Point(870, 348);
+            this.BRemoveFormações.Name = "BRemoveFormações";
+            this.BRemoveFormações.Size = new System.Drawing.Size(109, 24);
+            this.BRemoveFormações.TabIndex = 36;
+            this.BRemoveFormações.Text = "Remover";
+            this.BRemoveFormações.UseVisualStyleBackColor = true;
+            // 
+            // TBBFérias
+            // 
+            this.TBBFérias.Location = new System.Drawing.Point(379, 427);
+            this.TBBFérias.Name = "TBBFérias";
+            this.TBBFérias.Size = new System.Drawing.Size(262, 22);
+            this.TBBFérias.TabIndex = 37;
+            // 
+            // TBBBaixa
+            // 
+            this.TBBBaixa.Location = new System.Drawing.Point(747, 427);
+            this.TBBBaixa.Name = "TBBBaixa";
+            this.TBBBaixa.Size = new System.Drawing.Size(262, 22);
+            this.TBBBaixa.TabIndex = 38;
+            // 
+            // BBRemoveFérias
+            // 
+            this.BBRemoveFérias.Location = new System.Drawing.Point(517, 455);
+            this.BBRemoveFérias.Name = "BBRemoveFérias";
+            this.BBRemoveFérias.Size = new System.Drawing.Size(109, 24);
+            this.BBRemoveFérias.TabIndex = 40;
+            this.BBRemoveFérias.Text = "Remover";
+            this.BBRemoveFérias.UseVisualStyleBackColor = true;
+            // 
+            // BAddFérias
+            // 
+            this.BAddFérias.Location = new System.Drawing.Point(394, 455);
+            this.BAddFérias.Name = "BAddFérias";
+            this.BAddFérias.Size = new System.Drawing.Size(117, 24);
+            this.BAddFérias.TabIndex = 39;
+            this.BAddFérias.Text = "Adicionar ";
+            this.BAddFérias.UseVisualStyleBackColor = true;
+            // 
+            // BRemoveBaixa
+            // 
+            this.BRemoveBaixa.Location = new System.Drawing.Point(873, 455);
+            this.BRemoveBaixa.Name = "BRemoveBaixa";
+            this.BRemoveBaixa.Size = new System.Drawing.Size(109, 24);
+            this.BRemoveBaixa.TabIndex = 42;
+            this.BRemoveBaixa.Text = "Remover";
+            this.BRemoveBaixa.UseVisualStyleBackColor = true;
+            // 
+            // BAddBaixa
+            // 
+            this.BAddBaixa.Location = new System.Drawing.Point(750, 455);
+            this.BAddBaixa.Name = "BAddBaixa";
+            this.BAddBaixa.Size = new System.Drawing.Size(117, 24);
+            this.BAddBaixa.TabIndex = 41;
+            this.BAddBaixa.Text = "Adicionar ";
+            this.BAddBaixa.UseVisualStyleBackColor = true;
             // 
             // Bombeiro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1229, 567);
-            this.Controls.Add(this.BFRemove);
-            this.Controls.Add(this.BBRemove);
+            this.Controls.Add(this.BRemoveBaixa);
+            this.Controls.Add(this.BAddBaixa);
+            this.Controls.Add(this.BBRemoveFérias);
+            this.Controls.Add(this.BAddFérias);
+            this.Controls.Add(this.TBBBaixa);
+            this.Controls.Add(this.TBBFérias);
+            this.Controls.Add(this.BRemoveFormações);
+            this.Controls.Add(this.BRemoveEspecializações);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.BAddFerias);
-            this.Controls.Add(this.BAddBaixa);
-            this.Controls.Add(this.LBFerias);
-            this.Controls.Add(this.LBBaixa);
+            this.Controls.Add(this.BAddFormações);
+            this.Controls.Add(this.BAddEspecializações);
+            this.Controls.Add(this.LBFormações);
+            this.Controls.Add(this.LBEspecializações);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -391,17 +424,21 @@ namespace Projeto
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ListBox LBBaixa;
-        private System.Windows.Forms.ListBox LBFerias;
-        private System.Windows.Forms.Button BAddBaixa;
-        private System.Windows.Forms.Button BAddFerias;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ListBox LBEspecializações;
+        private System.Windows.Forms.ListBox LBFormações;
+        private System.Windows.Forms.Button BAddEspecializações;
+        private System.Windows.Forms.Button BAddFormações;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Button BBRemove;
-        private System.Windows.Forms.Button BFRemove;
+        private System.Windows.Forms.Button BRemoveEspecializações;
+        private System.Windows.Forms.Button BRemoveFormações;
+        private System.Windows.Forms.TextBox TBBFérias;
+        private System.Windows.Forms.TextBox TBBBaixa;
+        private System.Windows.Forms.Button BBRemoveFérias;
+        private System.Windows.Forms.Button BAddFérias;
+        private System.Windows.Forms.Button BRemoveBaixa;
+        private System.Windows.Forms.Button BAddBaixa;
     }
 }
