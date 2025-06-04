@@ -39,6 +39,7 @@ namespace Projeto
             this.BEAdd.Click += new EventHandler(BEAdd_Click);
             this.button1.Click += new EventHandler(BOcorrNovo_Click);
             this.BERem.Click += new EventHandler(BOcorrRem_Click);
+            this.BEEdit.Click += new EventHandler(BBEdit_Click);
 
         }
 
@@ -95,6 +96,62 @@ namespace Projeto
         {
 
         }
+
+        private void BBEdit_Click(object sender, EventArgs e)
+        {
+            EditarOcorrencia();
+        }
+
+
+
+        private void EditarOcorrencia()
+        {
+            if (LBOcorrList.SelectedIndex < 0)
+            {
+                MessageBox.Show("Selecione uma ocorrência para editar.");
+                return;
+            }
+
+            var ocorrenciaSelecionada = ocorrencias[LBOcorrList.SelectedIndex];
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+
+            string bombeirosInput = textBox1.Text.Trim(); // IDs separados por vírgula
+            string viaturasInput = textBox2.Text.Trim();  // IDs separados por vírgula
+            string chamadaInput = textBox3.Text.Trim();
+
+            if (!int.TryParse(chamadaInput, out int idChamada))
+            {
+                MessageBox.Show("ID de chamada inválido.");
+                return;
+            }
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlCommand cmd = new SqlCommand("spEditarOcorrenciaCompleta", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@ID_Ocorrencia", ocorrenciaSelecionada.Id);
+                    cmd.Parameters.AddWithValue("@ID_Quartel", 11111); // fixo, ou podes puxar de UI
+                    cmd.Parameters.AddWithValue("@DataHora", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@ID_Chamada", idChamada);
+                    cmd.Parameters.AddWithValue("@ListaBombeiros", bombeirosInput);
+                    cmd.Parameters.AddWithValue("@ListaViaturas", viaturasInput);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show("Ocorrência atualizada com sucesso!");
+                    CarregarOcorrencias();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao editar ocorrência: {ex.Message}");
+            }
+        }
+
 
         private void CarregarChamadasDaOcorrencia(int idOcorrencia)
         {
@@ -418,8 +475,77 @@ namespace Projeto
                 CarregarBombeirosDaOcorrencia(selecionada.Id);
                 CarregarViaturasDaOcorrencia(selecionada.Id);
                 CarregarEquipamentosDaOcorrencia(selecionada.Id);
+
+                PreencherCamposComIDs(selecionada.Id);
             }
         }
+
+        private void PreencherCamposComIDs(int idOcorrencia)
+        {
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+
+            // IDs dos bombeiros
+            string bombeiroQuery = @"
+        SELECT ID_Bombeiro 
+        FROM Bombeiro_Ocorrência 
+        WHERE ID_Ocorrência = @idOcorrencia";
+
+            // IDs das viaturas
+            string viaturaQuery = @"
+        SELECT ID_Viatura 
+        FROM Viatura_Ocorrência 
+        WHERE ID_Ocorrência = @idOcorrencia";
+
+            // ID da chamada
+            string chamadaQuery = @"
+        SELECT TOP 1 ID_Chamada 
+        FROM Chamada 
+        WHERE ID_Ocorrência = @idOcorrencia";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                // Bombeiros
+                using (SqlCommand cmd = new SqlCommand(bombeiroQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@idOcorrencia", idOcorrencia);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        List<string> ids = new List<string>();
+                        while (reader.Read())
+                        {
+                            ids.Add(reader["ID_Bombeiro"].ToString());
+                        }
+                        textBox1.Text = string.Join(",", ids);
+                    }
+                }
+
+                // Viaturas
+                using (SqlCommand cmd = new SqlCommand(viaturaQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@idOcorrencia", idOcorrencia);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        List<string> ids = new List<string>();
+                        while (reader.Read())
+                        {
+                            ids.Add(reader["ID_Viatura"].ToString());
+                        }
+                        textBox2.Text = string.Join(",", ids);
+                    }
+                }
+
+                // Chamada
+                using (SqlCommand cmd = new SqlCommand(chamadaQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@idOcorrencia", idOcorrencia);
+                    object result = cmd.ExecuteScalar();
+                    textBox3.Text = result != null ? result.ToString() : "";
+                }
+            }
+        }
+
 
 
 

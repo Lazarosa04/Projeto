@@ -273,6 +273,64 @@ BEGIN
 END;
 GO
 
+--4. Editar ocorrência
+CREATE PROCEDURE spEditarOcorrenciaCompleta
+    @ID_Ocorrencia INT,
+    @ID_Quartel INT,
+    @DataHora DATETIME,
+    @ID_Chamada INT,
+    @ListaBombeiros NVARCHAR(MAX),
+    @ListaViaturas NVARCHAR(MAX)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        -- 1. Atualizar dados da ocorrência
+        UPDATE Ocorrência
+        SET ID_Quartel = @ID_Quartel,
+            Data_Hora = @DataHora
+        WHERE ID_Ocorrência = @ID_Ocorrencia;
+
+        -- 2. Atualizar ligação à chamada
+        UPDATE Chamada
+        SET ID_Ocorrência = NULL
+        WHERE ID_Ocorrência = @ID_Ocorrencia;
+
+        UPDATE Chamada
+        SET ID_Ocorrência = @ID_Ocorrencia
+        WHERE ID_Chamada = @ID_Chamada;
+
+        -- 3. Atualizar bombeiros
+        DELETE FROM Bombeiro_Ocorrência WHERE ID_Ocorrência = @ID_Ocorrencia;
+
+        DECLARE @xmlB NVARCHAR(MAX) = '<root><id>' + REPLACE(@ListaBombeiros, ',', '</id><id>') + '</id></root>';
+        INSERT INTO Bombeiro_Ocorrência (ID_Ocorrência, ID_Bombeiro)
+        SELECT @ID_Ocorrencia, T.N.value('.', 'INT')
+        FROM (SELECT CAST(@xmlB AS XML) AS xmlData) AS X
+        CROSS APPLY xmlData.nodes('/root/id') AS T(N);
+
+        -- 4. Atualizar viaturas
+        DELETE FROM Viatura_Ocorrência WHERE ID_Ocorrência = @ID_Ocorrencia;
+
+        DECLARE @xmlV NVARCHAR(MAX) = '<root><id>' + REPLACE(@ListaViaturas, ',', '</id><id>') + '</id></root>';
+        INSERT INTO Viatura_Ocorrência (ID_Ocorrência, ID_Viatura)
+        SELECT @ID_Ocorrencia, T.N.value('.', 'INT')
+        FROM (SELECT CAST(@xmlV AS XML) AS xmlData) AS X
+        CROSS APPLY xmlData.nodes('/root/id') AS T(N);
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        THROW;
+    END CATCH
+END;
+GO
+
+
 
 
 -- Stored Procedures para VIATURA
