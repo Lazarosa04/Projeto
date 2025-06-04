@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -250,6 +250,18 @@ namespace Projeto
         private void Bombeiro_Load_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void BAddBaixa_Click(object sender, EventArgs e)
+        {
+            Baixa baixa = new Baixa();
+            baixa.ShowDialog();
+        }
+
+        private void BAddFerias_Click(object sender, EventArgs e)
+        {
+            Férias ferias = new Férias();
+            ferias.ShowDialog();    
         }
     }
 }
