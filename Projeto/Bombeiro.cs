@@ -263,5 +263,17 @@ namespace Projeto
             Férias ferias = new Férias();
             ferias.ShowDialog();    
         }
+
+        private void BAddBaixa_Click_1(object sender, EventArgs e)
+        {
+            Baixa baixa = new Baixa();
+            baixa.ShowDialog();
+        }
+
+        private void BAddFerias_Click_1(object sender, EventArgs e)
+        {
+            Férias ferias = new Férias();
+            ferias.ShowDialog();
+        }
     }
 }

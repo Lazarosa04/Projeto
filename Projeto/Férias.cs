@@ -17,9 +17,15 @@ namespace Projeto
             InitializeComponent();
         }
 
-        private void BFeriasVoltar_Click(object sender, EventArgs e)
+
+        private void BFeriasVoltar_Click_1(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void Férias_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

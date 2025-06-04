@@ -96,11 +96,17 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Baixa.resx">
+      <DependentUpon>Baixa.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Bombeiro.resx">
       <DependentUpon>Bombeiro.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Chamada.resx">
       <DependentUpon>Chamada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Férias.resx">
+      <DependentUpon>Férias.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ocorrencias.resx">
       <DependentUpon>Ocorrencias.cs</DependentUpon>

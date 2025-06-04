@@ -21,5 +21,15 @@ namespace Projeto
         {
             this.Close();
         }
+
+        private void BBaixaAdd_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BBaixaVoltar_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
