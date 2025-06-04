@@ -69,19 +69,6 @@ BEGIN
 END;
 GO
 
--- 2. Registar chamadas apagadas (requer tabela de log)
--- CREATE TABLE Log_ChamadasRemovidas (ID_Chamada INT, Nome NVARCHAR(100), DataHora DATETIME, RemovidaEm DATETIME);
-
-CREATE TRIGGER TRG_Log_Chamada_Removida
-ON Chamada
-AFTER DELETE
-AS
-BEGIN
-    INSERT INTO Log_ChamadasRemovidas (ID_Chamada, Nome, DataHora, RemovidaEm)
-    SELECT ID_Chamada, Nome, Data_Hora_Chamada, GETDATE() FROM deleted;
-END;
-GO
-
 DROP TRIGGER TRG_Log_Chamada_Removida
 
 

@@ -91,7 +91,7 @@ namespace Projeto
             string dataHoraStr = textBox2.Text.Trim();
             string numero = textBox3.Text.Trim();
             string localizacao = textBox1.Text.Trim();
-            string origemTexto = TBV1.Text.Trim();
+            string origemTexto = CBChamada.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(nome) || string.IsNullOrWhiteSpace(descricao) ||
                 string.IsNullOrWhiteSpace(dataHoraStr) || string.IsNullOrWhiteSpace(numero) ||
@@ -181,7 +181,7 @@ namespace Projeto
             textBox2.Clear();
             textBox3.Clear();
             textBox1.Clear();
-            TBV1.Clear();
+            CBChamada.SelectedIndex = -1;
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -192,7 +192,7 @@ namespace Projeto
                 textBox2.Text = chamada.DataHora.ToString("g");
                 textBox3.Text = chamada.Numero;
                 textBox5.Text = chamada.Nome;
-                TBV1.Text = chamada.OrigemTexto;
+                CBChamada.Text = chamada.OrigemTexto;
                 richTextBox1.Text = chamada.Descricao;
             }
         }
@@ -223,7 +223,7 @@ namespace Projeto
             string dataHoraStr = textBox2.Text.Trim();
             string numero = textBox3.Text.Trim();
             string localizacao = textBox1.Text.Trim();
-            string origemTexto = TBV1.Text.Trim();
+            string origemTexto = CBChamada.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(nome) || string.IsNullOrWhiteSpace(descricao) ||
                 string.IsNullOrWhiteSpace(dataHoraStr) || string.IsNullOrWhiteSpace(numero) ||
