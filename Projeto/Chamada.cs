@@ -32,7 +32,7 @@ namespace Projeto
             BBAdd.Click += BBAdd_Click;
             BBRem.Click += BBRemove_Click;
             button1.Click += BBNovo_Click;
-          
+            BBEdit.Click += BBEditar_Click;
 
         }
         private void BBReturn_Click(object sender, EventArgs e)
@@ -206,5 +206,72 @@ namespace Projeto
         {
 
         }
+
+
+        private void BBEditar_Click(object sender, EventArgs e)
+        {
+            ChamadaInfo chamadaSelecionada = listBox1.SelectedItem as ChamadaInfo;
+            if (chamadaSelecionada == null)
+            {
+                MessageBox.Show("Selecione uma chamada para editar.");
+                return;
+            }
+
+
+            string nome = textBox5.Text.Trim();
+            string descricao = richTextBox1.Text.Trim();
+            string dataHoraStr = textBox2.Text.Trim();
+            string numero = textBox3.Text.Trim();
+            string localizacao = textBox1.Text.Trim();
+            string origemTexto = TBV1.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(nome) || string.IsNullOrWhiteSpace(descricao) ||
+                string.IsNullOrWhiteSpace(dataHoraStr) || string.IsNullOrWhiteSpace(numero) ||
+                string.IsNullOrWhiteSpace(localizacao) || string.IsNullOrWhiteSpace(origemTexto))
+            {
+                MessageBox.Show("Preencha todos os campos obrigatórios.");
+                return;
+            }
+
+            if (!DateTime.TryParse(dataHoraStr, out DateTime dataHora))
+            {
+                MessageBox.Show("Data/Hora inválida.");
+                return;
+            }
+
+            int origem = origemTexto.Equals("Redirecionada", StringComparison.OrdinalIgnoreCase) ? 1 : 0;
+
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand("spEditarChamada", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@ID_Chamada", chamadaSelecionada.Id);
+                        cmd.Parameters.AddWithValue("@Nome", nome);
+                        cmd.Parameters.AddWithValue("@Descricao", descricao);
+                        cmd.Parameters.AddWithValue("@DataHora", dataHora);
+                        cmd.Parameters.AddWithValue("@Numero", numero);
+                        cmd.Parameters.AddWithValue("@Localizacao", localizacao);
+                        cmd.Parameters.AddWithValue("@Origem", origem);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                MessageBox.Show("Chamada editada com sucesso!");
+                CarregarChamadas();
+                BBNovo_Click(null, null);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao editar chamada: {ex.Message}");
+            }
+        }
+
     }
 }

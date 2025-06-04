@@ -98,6 +98,29 @@ END;
 GO
 
 
+--4. Editar chamadas
+CREATE PROCEDURE spEditarChamada
+    @ID_Chamada INT,
+    @Nome NVARCHAR(100),
+    @Descricao NVARCHAR(MAX),
+    @DataHora DATETIME,
+    @Numero NVARCHAR(20),
+    @Localizacao NVARCHAR(100),
+    @Origem BIT
+AS
+BEGIN
+    UPDATE Chamada
+    SET Nome = @Nome,
+        Descrição = @Descricao,
+        Data_Hora_Chamada = @DataHora,
+        Número = @Numero,
+        Localização = @Localizacao,
+        Origem = @Origem
+    WHERE ID_Chamada = @ID_Chamada;
+END;
+
+
+
 -- Stored Procedures para EQUIPAMENTO
 
 -- 1. Adicionar equipamento
