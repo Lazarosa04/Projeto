@@ -27,6 +27,10 @@ namespace Projeto
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.BVMRemove = new System.Windows.Forms.Button();
+            this.BVMAdd = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.LBVManu = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // listBox1
@@ -35,26 +39,26 @@ namespace Projeto
             this.listBox1.ItemHeight = 16;
             this.listBox1.Location = new System.Drawing.Point(13, 13);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(324, 420);
+            this.listBox1.Size = new System.Drawing.Size(390, 420);
             this.listBox1.TabIndex = 0;
             // 
             // TEV1
             // 
-            this.TEV1.Location = new System.Drawing.Point(379, 63);
+            this.TEV1.Location = new System.Drawing.Point(484, 42);
             this.TEV1.Name = "TEV1";
             this.TEV1.Size = new System.Drawing.Size(332, 22);
             this.TEV1.TabIndex = 5;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(379, 144);
+            this.textBox1.Location = new System.Drawing.Point(484, 97);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(332, 22);
             this.textBox1.TabIndex = 6;
             // 
             // BERem
             // 
-            this.BERem.Location = new System.Drawing.Point(608, 410);
+            this.BERem.Location = new System.Drawing.Point(696, 410);
             this.BERem.Name = "BERem";
             this.BERem.Size = new System.Drawing.Size(99, 23);
             this.BERem.TabIndex = 11;
@@ -63,7 +67,7 @@ namespace Projeto
             // 
             // BEEdit
             // 
-            this.BEEdit.Location = new System.Drawing.Point(510, 410);
+            this.BEEdit.Location = new System.Drawing.Point(598, 410);
             this.BEEdit.Name = "BEEdit";
             this.BEEdit.Size = new System.Drawing.Size(92, 23);
             this.BEEdit.TabIndex = 10;
@@ -72,7 +76,7 @@ namespace Projeto
             // 
             // BEReturn
             // 
-            this.BEReturn.Location = new System.Drawing.Point(713, 410);
+            this.BEReturn.Location = new System.Drawing.Point(801, 410);
             this.BEReturn.Name = "BEReturn";
             this.BEReturn.Size = new System.Drawing.Size(75, 23);
             this.BEReturn.TabIndex = 9;
@@ -81,7 +85,7 @@ namespace Projeto
             // 
             // BEAdd
             // 
-            this.BEAdd.Location = new System.Drawing.Point(417, 410);
+            this.BEAdd.Location = new System.Drawing.Point(505, 410);
             this.BEAdd.Name = "BEAdd";
             this.BEAdd.Size = new System.Drawing.Size(87, 23);
             this.BEAdd.TabIndex = 8;
@@ -90,7 +94,7 @@ namespace Projeto
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(379, 223);
+            this.textBox2.Location = new System.Drawing.Point(487, 156);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(125, 22);
             this.textBox2.TabIndex = 12;
@@ -98,7 +102,7 @@ namespace Projeto
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(379, 44);
+            this.label1.Location = new System.Drawing.Point(484, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 16);
             this.label1.TabIndex = 13;
@@ -107,7 +111,7 @@ namespace Projeto
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(379, 125);
+            this.label2.Location = new System.Drawing.Point(484, 78);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(77, 16);
             this.label2.TabIndex = 14;
@@ -116,7 +120,7 @@ namespace Projeto
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(379, 204);
+            this.label3.Location = new System.Drawing.Point(487, 137);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(49, 16);
             this.label3.TabIndex = 15;
@@ -124,18 +128,61 @@ namespace Projeto
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(343, 410);
+            this.button1.Location = new System.Drawing.Point(431, 410);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(68, 23);
             this.button1.TabIndex = 25;
             this.button1.Text = "Novo";
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // BVMRemove
+            // 
+            this.BVMRemove.Location = new System.Drawing.Point(684, 343);
+            this.BVMRemove.Margin = new System.Windows.Forms.Padding(4);
+            this.BVMRemove.Name = "BVMRemove";
+            this.BVMRemove.Size = new System.Drawing.Size(105, 28);
+            this.BVMRemove.TabIndex = 36;
+            this.BVMRemove.Text = "Remover";
+            this.BVMRemove.UseVisualStyleBackColor = true;
+            // 
+            // BVMAdd
+            // 
+            this.BVMAdd.Location = new System.Drawing.Point(533, 343);
+            this.BVMAdd.Margin = new System.Windows.Forms.Padding(4);
+            this.BVMAdd.Name = "BVMAdd";
+            this.BVMAdd.Size = new System.Drawing.Size(116, 28);
+            this.BVMAdd.TabIndex = 35;
+            this.BVMAdd.Text = "Adicionar";
+            this.BVMAdd.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(484, 201);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(88, 16);
+            this.label4.TabIndex = 34;
+            this.label4.Text = "Manutenções";
+            // 
+            // LBVManu
+            // 
+            this.LBVManu.FormattingEnabled = true;
+            this.LBVManu.ItemHeight = 16;
+            this.LBVManu.Location = new System.Drawing.Point(487, 220);
+            this.LBVManu.Name = "LBVManu";
+            this.LBVManu.Size = new System.Drawing.Size(389, 116);
+            this.LBVManu.TabIndex = 33;
+            // 
             // Equipamento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(927, 450);
+            this.Controls.Add(this.BVMRemove);
+            this.Controls.Add(this.BVMAdd);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.LBVManu);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -168,5 +215,9 @@ namespace Projeto
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BVMRemove;
+        private System.Windows.Forms.Button BVMAdd;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ListBox LBVManu;
     }
 }
