@@ -1,5 +1,4 @@
-use Teste;
-go
+
 
 -- User-Defined Functions bombeiro
 

@@ -1,5 +1,3 @@
-use Teste;
-
 
 -- Índices Bombeiro
 

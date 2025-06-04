@@ -1,5 +1,3 @@
-use Teste;
-go
 
 -- Stored Procedures Bombeiro
 
@@ -103,7 +101,7 @@ GO
 -- Stored Procedures para EQUIPAMENTO
 
 -- 1. Adicionar equipamento
-CREATE PROCEDURE spAdicionarEquipamento
+CREATE PROCEDURE spAdicionarEquipamentoViatura
     @Nome NVARCHAR(100),
     @Quantidade INT,
     @ID_Viatura INT
@@ -111,6 +109,16 @@ AS
 BEGIN
     INSERT INTO Equipamento (Nome_Equipamento, Quantidade, ID_Viatura)
     VALUES (@Nome, @Quantidade, @ID_Viatura);
+END;
+GO
+
+CREATE PROCEDURE spAdicionarEquipamento
+    @Nome NVARCHAR(100),
+    @Quantidade INT
+AS
+BEGIN
+    INSERT INTO Equipamento (Nome_Equipamento, Quantidade)
+    VALUES (@Nome, @Quantidade);
 END;
 GO
 
@@ -123,52 +131,136 @@ BEGIN
 END;
 GO
 
--- 3. Listar equipamentos
-CREATE PROCEDURE spListarEquipamentos
+-- 3. Listar equipamentos (atualizada para incluir equipamentos sem viatura associada)
+CREATE OR ALTER PROCEDURE spListarEquipamentos
 AS
 BEGIN
-    SELECT e.ID_Equipamento, e.Nome_Equipamento, e.Quantidade, v.Matricula, v.ID_Viatura
+    SELECT 
+        e.ID_Equipamento, 
+        e.Nome_Equipamento, 
+        e.Quantidade, 
+        v.Matricula, 
+        v.ID_Viatura
     FROM Equipamento e
-    INNER JOIN Viatura v ON e.ID_Viatura = v.ID_Viatura
+    LEFT JOIN Viatura v ON e.ID_Viatura = v.ID_Viatura
     ORDER BY e.Nome_Equipamento;
 END;
 GO
+
+--4. Editar equipamentos
+CREATE OR ALTER PROCEDURE spEditarEquipamento
+    @ID_Equipamento INT,
+    @Nome NVARCHAR(100),
+    @Quantidade INT,
+    @ID_Viatura INT = NULL
+AS
+BEGIN
+    UPDATE Equipamento
+    SET Nome_Equipamento = @Nome,
+        Quantidade = @Quantidade,
+        ID_Viatura = @ID_Viatura
+    WHERE ID_Equipamento = @ID_Equipamento;
+END;
+GO
+
+
 
 
 
 -- Stored Procedures para OCORRÊNCIA
 
--- 1. Inserir ocorrência
-CREATE PROCEDURE spAdicionarOcorrencia
+CREATE OR ALTER PROCEDURE spAdicionarOcorrenciaCompleta
     @ID_Quartel INT,
     @DataHora DATETIME,
-    @ID_Chamada INT
+    @ID_Chamada INT,
+    @Bombeiros VARCHAR(MAX), -- IDs separados por vírgula
+    @Viaturas VARCHAR(MAX)   -- IDs separados por vírgula
 AS
 BEGIN
-    DECLARE @ID_Ocorrencia INT;
+    SET NOCOUNT ON;
 
-    INSERT INTO Ocorrência (ID_Quartel, Data_Hora)
-    VALUES (@ID_Quartel, @DataHora);
+    BEGIN TRY
+        BEGIN TRANSACTION;
 
-    SET @ID_Ocorrencia = SCOPE_IDENTITY();
+        DECLARE @ID_Ocorrencia INT;
 
-    UPDATE Chamada SET ID_Ocorrência = @ID_Ocorrencia WHERE ID_Chamada = @ID_Chamada;
+        -- 1. Inserir ocorrência
+        INSERT INTO Ocorrência (ID_Quartel, Data_Hora)
+        VALUES (@ID_Quartel, @DataHora);
 
-    SELECT @ID_Ocorrencia AS NovaOcorrenciaID;
+        SET @ID_Ocorrencia = SCOPE_IDENTITY();
+
+        -- 2. Atualizar chamada
+        UPDATE Chamada SET ID_Ocorrência = @ID_Ocorrencia WHERE ID_Chamada = @ID_Chamada;
+
+        -- 3. Limpar associações existentes (se necessário)
+        DELETE FROM Bombeiro_Ocorrência WHERE ID_Ocorrência = @ID_Ocorrencia;
+        DELETE FROM Viatura_Ocorrência WHERE ID_Ocorrência = @ID_Ocorrencia;
+
+        -- 4. Inserir associações de bombeiros
+        IF (LEN(@Bombeiros) > 0)
+        BEGIN
+            DECLARE @xmlBombeiros XML = CAST('<i>' + REPLACE(@Bombeiros, ',', '</i><i>') + '</i>' AS XML);
+
+            INSERT INTO Bombeiro_Ocorrência (ID_Ocorrência, ID_Bombeiro)
+            SELECT @ID_Ocorrencia, x.i.value('.', 'INT')
+            FROM @xmlBombeiros.nodes('i') AS x(i);
+        END
+
+        -- 5. Inserir associações de viaturas
+        IF (LEN(@Viaturas) > 0)
+        BEGIN
+            DECLARE @xmlViaturas XML = CAST('<i>' + REPLACE(@Viaturas, ',', '</i><i>') + '</i>' AS XML);
+
+            INSERT INTO Viatura_Ocorrência (ID_Ocorrência, ID_Viatura)
+            SELECT @ID_Ocorrencia, x.i.value('.', 'INT')
+            FROM @xmlViaturas.nodes('i') AS x(i);
+        END
+
+        COMMIT TRANSACTION;
+
+        -- Retorna o ID da nova ocorrência
+        SELECT @ID_Ocorrencia AS NovaOcorrenciaID;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        THROW;
+    END CATCH
 END;
 GO
+
 
 -- 2. Remover ocorrência (sem apagar chamadas)
-CREATE PROCEDURE spRemoverOcorrencia
-    @ID INT
+CREATE PROCEDURE spRemoverOcorrenciaCompleta
+    @ID_Ocorrencia INT
 AS
 BEGIN
-    DELETE FROM Bombeiro_Ocorrência WHERE ID_Ocorrência = @ID;
-    DELETE FROM Viatura_Ocorrência WHERE ID_Ocorrência = @ID;
-    UPDATE Chamada SET ID_Ocorrência = NULL WHERE ID_Ocorrência = @ID;
-    DELETE FROM Ocorrência WHERE ID_Ocorrência = @ID;
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        -- 1. Remover ligações de bombeiros
+        DELETE FROM Bombeiro_Ocorrência WHERE ID_Ocorrência = @ID_Ocorrencia;
+
+        -- 2. Remover ligações de viaturas
+        DELETE FROM Viatura_Ocorrência WHERE ID_Ocorrência = @ID_Ocorrencia;
+
+        -- 3. Desvincular chamadas
+        UPDATE Chamada SET ID_Ocorrência = NULL WHERE ID_Ocorrência = @ID_Ocorrencia;
+
+        -- 4. Apagar ocorrência
+        DELETE FROM Ocorrência WHERE ID_Ocorrência = @ID_Ocorrencia;
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        THROW;
+    END CATCH
 END;
 GO
+
 
 -- 3. Listar ocorrências
 CREATE PROCEDURE spListarOcorrencias
@@ -225,3 +317,11 @@ BEGIN
     DELETE FROM Viatura WHERE ID_Viatura = @ID;
 END;
 GO
+
+
+DECLARE @sql NVARCHAR(MAX) = N'';
+
+SELECT @sql += 'DROP PROCEDURE [' + SCHEMA_NAME(schema_id) + '].[' + name + '];' + CHAR(13)
+FROM sys.procedures;
+
+EXEC sp_executesql @sql;

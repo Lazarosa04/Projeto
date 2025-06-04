@@ -1,6 +1,3 @@
-use Teste;
-go
-
 
 -- Triggers Bombeiros
 
@@ -85,6 +82,9 @@ BEGIN
 END;
 GO
 
+DROP TRIGGER TRG_Log_Chamada_Removida
+
+
 -- Triggers para EQUIPAMENTO
 
 -- 1. Impedir quantidade negativa
@@ -132,6 +132,8 @@ BEGIN
     SELECT ID_Quartel, Data_Hora FROM inserted;
 END;
 GO
+
+drop trigger TRG_Check_Ocorrencia_Data
 
 -- Triggers para VIATURA
 

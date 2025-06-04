@@ -36,7 +36,7 @@ namespace Projeto
 
         private void CarregarDados()
         {
-            string cs = "Data Source=PC-DIOGO;Initial Catalog=Teste;Integrated Security=True";
+            string cs = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
             try
             {
                 LBV_List.Items.Clear();
@@ -109,7 +109,7 @@ namespace Projeto
             int idTipo = tiposViatura.FirstOrDefault(x => x.Value == tipoSel).Key;
             if (idTipo == 0) { MessageBox.Show("Tipo inválido."); return; }
 
-            string cs = "Data Source=PC-DIOGO;Initial Catalog=Teste;Integrated Security=True";
+            string cs = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
             try
             {
                 using (SqlConnection conn = new SqlConnection(cs))
@@ -139,7 +139,7 @@ namespace Projeto
             var confirm = MessageBox.Show($"Remover viatura '{v.Matricula}'?", "Confirmar", MessageBoxButtons.YesNo);
             if (confirm == DialogResult.Yes)
             {
-                string cs = "Data Source=PC-DIOGO;Initial Catalog=Teste;Integrated Security=True";
+                string cs = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=Teste;Integrated Security=True";
                 try
                 {
                     using (SqlConnection conn = new SqlConnection(cs))
@@ -177,7 +177,7 @@ namespace Projeto
             int idTipo = tiposViatura.FirstOrDefault(x => x.Value == tipoSel).Key;
             if (idTipo == 0) { MessageBox.Show("Tipo inválido."); return; }
 
-            string cs = "Data Source=PC-DIOGO;Initial Catalog=Teste;Integrated Security=True";
+            string cs = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
             try
             {
                 using (SqlConnection conn = new SqlConnection(cs))

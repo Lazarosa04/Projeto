@@ -51,7 +51,7 @@ namespace Projeto
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(1002, 637);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(120, 37);
             this.button1.TabIndex = 42;
@@ -81,7 +81,7 @@ namespace Projeto
             // textBox5
             // 
             this.textBox5.Location = new System.Drawing.Point(618, 154);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox5.Margin = new System.Windows.Forms.Padding(4);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(496, 31);
             this.textBox5.TabIndex = 38;
@@ -119,7 +119,7 @@ namespace Projeto
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(622, 394);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(496, 31);
             this.textBox2.TabIndex = 32;
@@ -127,7 +127,7 @@ namespace Projeto
             // BBRem
             // 
             this.BBRem.Location = new System.Drawing.Point(1388, 637);
-            this.BBRem.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BBRem.Margin = new System.Windows.Forms.Padding(4);
             this.BBRem.Name = "BBRem";
             this.BBRem.Size = new System.Drawing.Size(112, 37);
             this.BBRem.TabIndex = 31;
@@ -137,7 +137,7 @@ namespace Projeto
             // BBEdit
             // 
             this.BBEdit.Location = new System.Drawing.Point(1266, 637);
-            this.BBEdit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BBEdit.Margin = new System.Windows.Forms.Padding(4);
             this.BBEdit.Name = "BBEdit";
             this.BBEdit.Size = new System.Drawing.Size(112, 37);
             this.BBEdit.TabIndex = 30;
@@ -147,7 +147,7 @@ namespace Projeto
             // BBReturn
             // 
             this.BBReturn.Location = new System.Drawing.Point(1508, 637);
-            this.BBReturn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BBReturn.Margin = new System.Windows.Forms.Padding(4);
             this.BBReturn.Name = "BBReturn";
             this.BBReturn.Size = new System.Drawing.Size(112, 37);
             this.BBReturn.TabIndex = 29;
@@ -158,7 +158,7 @@ namespace Projeto
             // BBAdd
             // 
             this.BBAdd.Location = new System.Drawing.Point(1130, 637);
-            this.BBAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BBAdd.Margin = new System.Windows.Forms.Padding(4);
             this.BBAdd.Name = "BBAdd";
             this.BBAdd.Size = new System.Drawing.Size(120, 37);
             this.BBAdd.TabIndex = 28;
@@ -168,7 +168,7 @@ namespace Projeto
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(622, 267);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(496, 31);
             this.textBox1.TabIndex = 27;
@@ -176,7 +176,7 @@ namespace Projeto
             // TBV1
             // 
             this.TBV1.Location = new System.Drawing.Point(618, 54);
-            this.TBV1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TBV1.Margin = new System.Windows.Forms.Padding(4);
             this.TBV1.Name = "TBV1";
             this.TBV1.Size = new System.Drawing.Size(496, 31);
             this.TBV1.TabIndex = 26;
@@ -186,7 +186,7 @@ namespace Projeto
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 25;
             this.listBox1.Location = new System.Drawing.Point(22, 40);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(4);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(544, 629);
             this.listBox1.TabIndex = 25;
@@ -195,7 +195,7 @@ namespace Projeto
             // textBox3
             // 
             this.textBox3.Location = new System.Drawing.Point(622, 529);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(496, 31);
             this.textBox3.TabIndex = 43;
@@ -203,7 +203,7 @@ namespace Projeto
             // richTextBox1
             // 
             this.richTextBox1.Location = new System.Drawing.Point(1204, 54);
-            this.richTextBox1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.richTextBox1.Margin = new System.Windows.Forms.Padding(6);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(412, 510);
             this.richTextBox1.TabIndex = 44;
@@ -242,9 +242,10 @@ namespace Projeto
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.TBV1);
             this.Controls.Add(this.listBox1);
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Chamada";
             this.Text = "Chamada";
+            this.Load += new System.EventHandler(this.Chamada_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 

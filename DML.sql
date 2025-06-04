@@ -1,4 +1,3 @@
-use Teste;
 
 -- TipoViatura
 INSERT INTO TipoViatura (ID_TipoViatura, Nome_TipoViatura) VALUES 
@@ -116,3 +115,42 @@ INSERT INTO Chamada (ID_Ocorrência, Origem, Descrição, Nome, Data_Hora_Chamada, 
 (3, 0x00, 'Fogo florestal', 'Rui Costa', '2024-06-03 19:30:00', 'Serra do Norte', '933333333'),
 (4, 0x01, 'Desabamento de estrutura', 'Carla Lopes', '2024-06-04 10:50:00', 'Rua da Pedra, 87', '934444444'),
 (5, 0x00, 'Resgate aquático', 'Luis Pinho', '2024-06-05 23:00:00', 'Praia Azul', '935555555');
+
+
+
+-- Desativa temporariamente restrições de chave estrangeira
+EXEC sp_msforeachtable "ALTER TABLE ? NOCHECK CONSTRAINT ALL";
+
+-- Apaga os dados das tabelas
+DELETE FROM Viatura_Ocorrência;
+DELETE FROM Bombeiro_Ocorrência;
+DELETE FROM Chamada;
+DELETE FROM Ocorrência;
+DELETE FROM Baixa;
+DELETE FROM Férias;
+DELETE FROM Bombeiro_Especialização;
+DELETE FROM Bombeiro_Formação;
+DELETE FROM Formação;
+DELETE FROM Especialização;
+DELETE FROM Manutenção;
+DELETE FROM Equipamento;
+DELETE FROM Viatura;
+DELETE FROM Bombeiro;
+DELETE FROM Quartel;
+DELETE FROM TipoViatura;
+
+-- Reativa as restrições de chave estrangeira
+EXEC sp_msforeachtable "ALTER TABLE ? CHECK CONSTRAINT ALL";
+
+-- Resetar contadores de IDENTITY (opcional)
+DBCC CHECKIDENT ('TipoViatura', RESEED, 0);
+DBCC CHECKIDENT ('Quartel', RESEED, 0);
+DBCC CHECKIDENT ('Viatura', RESEED, 0);
+DBCC CHECKIDENT ('Equipamento', RESEED, 0);
+DBCC CHECKIDENT ('Manutenção', RESEED, 0);
+DBCC CHECKIDENT ('Bombeiro', RESEED, 0);
+DBCC CHECKIDENT ('Formação', RESEED, 0);
+DBCC CHECKIDENT ('Especialização', RESEED, 0);
+DBCC CHECKIDENT ('Ocorrência', RESEED, 0);
+DBCC CHECKIDENT ('Chamada', RESEED, 0);
+

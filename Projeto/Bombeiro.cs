@@ -37,7 +37,7 @@ namespace Projeto
 
         private void CarregarDados()
         {
-            string connectionString = "Data Source=PC-DIOGO;Initial Catalog=Teste;Integrated Security=True";
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
             try
             {
                 listBox1.Items.Clear();
@@ -125,7 +125,7 @@ namespace Projeto
                 return;
             }
 
-            string connectionString = "Data Source=PC-DIOGO;Initial Catalog=Teste;Integrated Security=True";
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
 
             try
             {
@@ -167,7 +167,7 @@ namespace Projeto
 
             if (confirm == DialogResult.Yes)
             {
-                string connectionString = "Data Source=PC-DIOGO;Initial Catalog=Teste;Integrated Security=True";
+                string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
                 try
                 {
                     using (SqlConnection connection = new SqlConnection(connectionString))
@@ -218,7 +218,7 @@ namespace Projeto
                 return;
             }
 
-            string connectionString = "Data Source=PC-DIOGO;Initial Catalog=Teste;Integrated Security=True";
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
 
             try
             {
@@ -245,6 +245,11 @@ namespace Projeto
             {
                 MessageBox.Show($"Erro ao atualizar bombeiro: {ex.Message}");
             }
+        }
+
+        private void Bombeiro_Load_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

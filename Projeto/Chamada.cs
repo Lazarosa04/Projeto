@@ -42,7 +42,7 @@ namespace Projeto
 
         private void CarregarChamadas()
         {
-            string connectionString = "Data Source=PC-DIOGO;Initial Catalog=Teste;Integrated Security=True";
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
             chamadas.Clear();
             listBox1.Items.Clear();
 
@@ -108,7 +108,7 @@ namespace Projeto
             }
 
             int origem = origemTexto.Equals("Redirecionada", StringComparison.OrdinalIgnoreCase) ? 1 : 0;
-            string connectionString = "Data Source=PC-DIOGO;Initial Catalog=Teste;Integrated Security=True";
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
 
             try
             {
@@ -144,7 +144,7 @@ namespace Projeto
                 var confirm = MessageBox.Show($"Tem certeza que deseja remover a chamada '{chamadaSelecionada.Nome}'?", "Confirmação", MessageBoxButtons.YesNo);
                 if (confirm == DialogResult.Yes)
                 {
-                    string connectionString = "Data Source=PC-DIOGO;Initial Catalog=Teste;Integrated Security=True";
+                    string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
                     try
                     {
                         using (SqlConnection connection = new SqlConnection(connectionString))
@@ -156,6 +156,7 @@ namespace Projeto
                                 command.Parameters.AddWithValue("@Id", chamadaSelecionada.Id);
                                 command.ExecuteNonQuery();
                             }
+                            BBNovo_Click(null, null);
                         }
                         MessageBox.Show("Chamada removida com sucesso!");
                         CarregarChamadas();
@@ -199,6 +200,11 @@ namespace Projeto
         private void Chamada_Load(object sender, EventArgs e)
         {
             CarregarChamadas();
+        }
+
+        private void Chamada_Load_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
