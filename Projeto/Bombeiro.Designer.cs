@@ -56,12 +56,12 @@ namespace Projeto
             this.label10 = new System.Windows.Forms.Label();
             this.BRemoveEspecializações = new System.Windows.Forms.Button();
             this.BRemoveFormações = new System.Windows.Forms.Button();
-            this.TBBFérias = new System.Windows.Forms.TextBox();
-            this.TBBBaixa = new System.Windows.Forms.TextBox();
             this.BBRemoveFérias = new System.Windows.Forms.Button();
             this.BAddFérias = new System.Windows.Forms.Button();
             this.BRemoveBaixa = new System.Windows.Forms.Button();
             this.BAddBaixa = new System.Windows.Forms.Button();
+            this.LBBBaixa = new System.Windows.Forms.ListBox();
+            this.LBBFérias = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // listBox1
@@ -307,23 +307,9 @@ namespace Projeto
             this.BRemoveFormações.Text = "Remover";
             this.BRemoveFormações.UseVisualStyleBackColor = true;
             // 
-            // TBBFérias
-            // 
-            this.TBBFérias.Location = new System.Drawing.Point(379, 427);
-            this.TBBFérias.Name = "TBBFérias";
-            this.TBBFérias.Size = new System.Drawing.Size(262, 22);
-            this.TBBFérias.TabIndex = 37;
-            // 
-            // TBBBaixa
-            // 
-            this.TBBBaixa.Location = new System.Drawing.Point(747, 427);
-            this.TBBBaixa.Name = "TBBBaixa";
-            this.TBBBaixa.Size = new System.Drawing.Size(262, 22);
-            this.TBBBaixa.TabIndex = 38;
-            // 
             // BBRemoveFérias
             // 
-            this.BBRemoveFérias.Location = new System.Drawing.Point(517, 455);
+            this.BBRemoveFérias.Location = new System.Drawing.Point(517, 474);
             this.BBRemoveFérias.Name = "BBRemoveFérias";
             this.BBRemoveFérias.Size = new System.Drawing.Size(109, 24);
             this.BBRemoveFérias.TabIndex = 40;
@@ -332,7 +318,7 @@ namespace Projeto
             // 
             // BAddFérias
             // 
-            this.BAddFérias.Location = new System.Drawing.Point(394, 455);
+            this.BAddFérias.Location = new System.Drawing.Point(394, 474);
             this.BAddFérias.Name = "BAddFérias";
             this.BAddFérias.Size = new System.Drawing.Size(117, 24);
             this.BAddFérias.TabIndex = 39;
@@ -341,7 +327,7 @@ namespace Projeto
             // 
             // BRemoveBaixa
             // 
-            this.BRemoveBaixa.Location = new System.Drawing.Point(873, 455);
+            this.BRemoveBaixa.Location = new System.Drawing.Point(870, 474);
             this.BRemoveBaixa.Name = "BRemoveBaixa";
             this.BRemoveBaixa.Size = new System.Drawing.Size(109, 24);
             this.BRemoveBaixa.TabIndex = 42;
@@ -350,24 +336,42 @@ namespace Projeto
             // 
             // BAddBaixa
             // 
-            this.BAddBaixa.Location = new System.Drawing.Point(750, 455);
+            this.BAddBaixa.Location = new System.Drawing.Point(747, 474);
             this.BAddBaixa.Name = "BAddBaixa";
             this.BAddBaixa.Size = new System.Drawing.Size(117, 24);
             this.BAddBaixa.TabIndex = 41;
             this.BAddBaixa.Text = "Adicionar ";
             this.BAddBaixa.UseVisualStyleBackColor = true;
             // 
+            // LBBBaixa
+            // 
+            this.LBBBaixa.FormattingEnabled = true;
+            this.LBBBaixa.ItemHeight = 16;
+            this.LBBBaixa.Location = new System.Drawing.Point(750, 427);
+            this.LBBBaixa.Name = "LBBBaixa";
+            this.LBBBaixa.Size = new System.Drawing.Size(355, 36);
+            this.LBBBaixa.TabIndex = 43;
+            // 
+            // LBBFérias
+            // 
+            this.LBBFérias.FormattingEnabled = true;
+            this.LBBFérias.ItemHeight = 16;
+            this.LBBFérias.Location = new System.Drawing.Point(379, 427);
+            this.LBBFérias.Name = "LBBFérias";
+            this.LBBFérias.Size = new System.Drawing.Size(355, 36);
+            this.LBBFérias.TabIndex = 44;
+            // 
             // Bombeiro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1229, 567);
+            this.Controls.Add(this.LBBFérias);
+            this.Controls.Add(this.LBBBaixa);
             this.Controls.Add(this.BRemoveBaixa);
             this.Controls.Add(this.BAddBaixa);
             this.Controls.Add(this.BBRemoveFérias);
             this.Controls.Add(this.BAddFérias);
-            this.Controls.Add(this.TBBBaixa);
-            this.Controls.Add(this.TBBFérias);
             this.Controls.Add(this.BRemoveFormações);
             this.Controls.Add(this.BRemoveEspecializações);
             this.Controls.Add(this.label10);
@@ -434,11 +438,11 @@ namespace Projeto
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button BRemoveEspecializações;
         private System.Windows.Forms.Button BRemoveFormações;
-        private System.Windows.Forms.TextBox TBBFérias;
-        private System.Windows.Forms.TextBox TBBBaixa;
         private System.Windows.Forms.Button BBRemoveFérias;
         private System.Windows.Forms.Button BAddFérias;
         private System.Windows.Forms.Button BRemoveBaixa;
         private System.Windows.Forms.Button BAddBaixa;
+        private System.Windows.Forms.ListBox LBBBaixa;
+        private System.Windows.Forms.ListBox LBBFérias;
     }
 }
