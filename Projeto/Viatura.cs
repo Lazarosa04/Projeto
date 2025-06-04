@@ -89,7 +89,7 @@ namespace Projeto
         }
         private void Viatura_Load(object sender, EventArgs e)
         {
-            // Evento de carregamento do formulÃ¡rio Viatura
+            // Evento de carregamento do formulário Viatura
             CarregarDados();
         }
         private void BVReturn_Click(object sender, EventArgs e) => this.Close();
@@ -104,10 +104,10 @@ namespace Projeto
             { MessageBox.Show("Preencha todos os campos."); return; }
 
             if (!int.TryParse(anoStr, out int ano))
-            { MessageBox.Show("Ano invÃ¡lido."); return; }
+            { MessageBox.Show("Ano inválido."); return; }
 
             int idTipo = tiposViatura.FirstOrDefault(x => x.Value == tipoSel).Key;
-            if (idTipo == 0) { MessageBox.Show("Tipo invÃ¡lido."); return; }
+            if (idTipo == 0) { MessageBox.Show("Tipo inválido."); return; }
 
             string cs = "Data Source=PC-DIOGO;Initial Catalog=Teste;Integrated Security=True";
             try
@@ -172,10 +172,10 @@ namespace Projeto
             { MessageBox.Show("Preencha todos os campos."); return; }
 
             if (!int.TryParse(anoStr, out int ano))
-            { MessageBox.Show("Ano invÃ¡lido."); return; }
+            { MessageBox.Show("Ano inválido."); return; }
 
             int idTipo = tiposViatura.FirstOrDefault(x => x.Value == tipoSel).Key;
-            if (idTipo == 0) { MessageBox.Show("Tipo invÃ¡lido."); return; }
+            if (idTipo == 0) { MessageBox.Show("Tipo inválido."); return; }
 
             string cs = "Data Source=PC-DIOGO;Initial Catalog=Teste;Integrated Security=True";
             try

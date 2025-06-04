@@ -1,4 +1,4 @@
-// Ocorrencias.cs com uso de Stored Procedures para listar e remover ocorrências
+﻿// Ocorrencias.cs com uso de Stored Procedures para listar e remover ocorrências
 // Adaptações feitas para utilizar spListarOcorrencias e spRemoverOcorrencia
 
 // IMPORTANTE: Certifica-te de que as SPs estão corretamente criadas na tua base de dados SQL Server.

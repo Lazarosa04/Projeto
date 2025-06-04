@@ -52,6 +52,18 @@
     <Compile Include="Bombeiro.Designer.cs">
       <DependentUpon>Bombeiro.cs</DependentUpon>
     </Compile>
+    <Compile Include="Chamada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chamada.Designer.cs">
+      <DependentUpon>Chamada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Equipamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Equipamento.Designer.cs">
+      <DependentUpon>Equipamento.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ocorrencias.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +86,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Bombeiro.resx">
       <DependentUpon>Bombeiro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chamada.resx">
+      <DependentUpon>Chamada.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ocorrencias.resx">
       <DependentUpon>Ocorrencias.cs</DependentUpon>
