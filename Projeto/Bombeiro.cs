@@ -13,7 +13,7 @@ namespace Projeto
 
         public class BaixaInfo
         {
-            public int ID_Baixa { get; set; }          
+            public int ID_Baixa { get; set; }
             public DateTime DataInicio { get; set; }
             public DateTime DataFim { get; set; }
             public string Razao { get; set; }
@@ -24,9 +24,16 @@ namespace Projeto
             }
         }
 
+        public class EspecializacaoInfo
+        {
+            public int ID_Especializacao { get; set; }
+            public string Nome { get; set; }
+        }
+
+
         public class FeriasInfo
         {
-            public int ID_Ferias { get; set; }          
+            public int ID_Ferias { get; set; }
             public DateTime DataInicio { get; set; }
             public DateTime DataFim { get; set; }
 
@@ -37,7 +44,7 @@ namespace Projeto
         }
 
 
-      
+
         private class BombeiroInfo
         {
             public int Id { get; set; }
@@ -63,6 +70,9 @@ namespace Projeto
             this.BBEdit.Click += BBEdit_Click;
             this.BBRemoveFérias.Click += BBRemoveFerias_Click;
             this.BRemoveBaixa.Click += BBRemoveBaixa_Click;
+            this.BAddBaixa.Click += BAddBaixa_Click_1;
+            this.BAddEspecializações.Click += BaddEspecializacao_Click;
+            this.BRemoveEspecializações.Click += BremEspecializacao_Click;
         }
 
         private void CarregarDados()
@@ -128,7 +138,7 @@ namespace Projeto
                             {
                                 BaixaInfo baixa = new BaixaInfo
                                 {
-                                    ID_Baixa = Convert.ToInt32(reader["ID_Baixa"]), 
+                                    ID_Baixa = Convert.ToInt32(reader["ID_Baixa"]),
                                     DataInicio = Convert.ToDateTime(reader["Data_Inicio"]),
                                     DataFim = Convert.ToDateTime(reader["Data_Fim"]),
                                     Razao = reader["Razão"].ToString()
@@ -174,7 +184,7 @@ namespace Projeto
                             {
                                 FeriasInfo ferias = new FeriasInfo
                                 {
-                                    ID_Ferias = Convert.ToInt32(reader["ID_Férias"]), 
+                                    ID_Ferias = Convert.ToInt32(reader["ID_Férias"]),
                                     DataInicio = Convert.ToDateTime(reader["Data_Inicio"]),
                                     DataFim = Convert.ToDateTime(reader["Data_Fim"])
                                 };
@@ -213,13 +223,14 @@ namespace Projeto
 
                 CarregarBaixas(selecionado.Id);
                 CarregarFerias(selecionado.Id);
+                CarregarEspecializacoes(selecionado.Id);
             }
             else
             {
                 LBBBaixa.Items.Clear();
             }
         }
-        
+
 
         private void BBReturn_Click(object sender, EventArgs e) => this.Close();
 
@@ -494,12 +505,123 @@ namespace Projeto
         }
 
 
+        private List<EspecializacaoInfo> especializacoes = new List<EspecializacaoInfo>();
 
-
-        private void BAddFormação_Click(object sender, EventArgs e)
+        private void CarregarEspecializacoes(int idBombeiro)
         {
-            Formação formação = new Formação();
-            formação.ShowDialog();
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+
+            try
+            {
+                especializacoes.Clear();
+                LBEspecializações.Items.Clear(); // Assumindo que tens um ListBox chamado LBEspecializacoes
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand("spListarEspecializacoesDoBombeiro", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@ID_Bombeiro", idBombeiro);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var esp = new EspecializacaoInfo
+                                {
+                                    ID_Especializacao = Convert.ToInt32(reader["ID_Especialização"]),
+                                    Nome = reader["Nome_Especialização"].ToString()
+                                };
+                                especializacoes.Add(esp);
+                                LBEspecializações.Items.Add($"({esp.ID_Especializacao}) {esp.Nome}");
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar especializações: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
+
+
+
+
+        private void BaddEspecializacao_Click(object sender, EventArgs e)
+        {
+            int idx = listBox1.SelectedIndex; // ou listViewBombeiros.SelectedItems[0].Index;
+
+            if (idx >= 0 && idx < bombeiros.Count)
+            {
+                int idBombeiroSelecionado = bombeiros[idx].Id;
+
+                // Instanciar o formulário da especialização
+                Especialização formEspecializacao = new Especialização();
+
+                // Passar o ID do bombeiro selecionado
+                formEspecializacao.ID_Bombeiro = idBombeiroSelecionado;
+
+                // Mostrar o formulário como modal
+                if (formEspecializacao.ShowDialog() == DialogResult.OK)
+                {
+                    // Se quiseres, atualiza a lista de especializações aqui
+                    CarregarEspecializacoes(idBombeiroSelecionado);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Selecione um bombeiro para adicionar especialização.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+
+        private void BremEspecializacao_Click(object sender, EventArgs e)
+        {
+            int idxEspecializacao = LBEspecializações.SelectedIndex;
+            int idxBombeiro = listBox1.SelectedIndex;
+
+            if (idxBombeiro < 0)
+            {
+                MessageBox.Show("Selecione um bombeiro primeiro.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (idxEspecializacao < 0)
+            {
+                MessageBox.Show("Selecione uma especialização para remover.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int idBombeiro = bombeiros[idxBombeiro].Id;
+            int idEspecializacao = especializacoes[idxEspecializacao].ID_Especializacao; // suposição: tens uma lista com as especializações carregadas
+
+            var confirm = MessageBox.Show($"Tem certeza que deseja remover esta especialização do bombeiro?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirm != DialogResult.Yes) return;
+
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand("DELETE FROM Bombeiro_Especialização WHERE ID_Bombeiro = @ID_Bombeiro AND ID_Especialização = @ID_Especializacao", connection))
+                    {
+                        command.Parameters.AddWithValue("@ID_Bombeiro", idBombeiro);
+                        command.Parameters.AddWithValue("@ID_Especializacao", idEspecializacao);
+                        command.ExecuteNonQuery();
+                    }
+                }
+                MessageBox.Show("Especialização removida com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CarregarEspecializacoes(idBombeiro);  // Atualiza a lista de especializações do bombeiro
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao remover especialização: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 }

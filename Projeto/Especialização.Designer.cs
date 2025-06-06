@@ -44,16 +44,18 @@ namespace Projeto
             "Salvamento Aquático",
             "Formação e Treinamento",
             "Comando e Gestão"});
-            this.CBEsp.Location = new System.Drawing.Point(64, 71);
+            this.CBEsp.Location = new System.Drawing.Point(96, 111);
+            this.CBEsp.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CBEsp.Name = "CBEsp";
-            this.CBEsp.Size = new System.Drawing.Size(206, 24);
+            this.CBEsp.Size = new System.Drawing.Size(307, 33);
             this.CBEsp.TabIndex = 30;
             // 
             // BAddEsp
             // 
-            this.BAddEsp.Location = new System.Drawing.Point(64, 135);
+            this.BAddEsp.Location = new System.Drawing.Point(96, 211);
+            this.BAddEsp.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.BAddEsp.Name = "BAddEsp";
-            this.BAddEsp.Size = new System.Drawing.Size(114, 24);
+            this.BAddEsp.Size = new System.Drawing.Size(171, 38);
             this.BAddEsp.TabIndex = 31;
             this.BAddEsp.Text = "Adicionar";
             this.BAddEsp.UseVisualStyleBackColor = true;
@@ -61,32 +63,36 @@ namespace Projeto
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(61, 52);
+            this.label9.Location = new System.Drawing.Point(92, 81);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(107, 16);
+            this.label9.Size = new System.Drawing.Size(168, 25);
             this.label9.TabIndex = 34;
             this.label9.Text = "Especializações";
             // 
             // BReturnEsp
             // 
-            this.BReturnEsp.Location = new System.Drawing.Point(195, 135);
+            this.BReturnEsp.Location = new System.Drawing.Point(292, 211);
+            this.BReturnEsp.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.BReturnEsp.Name = "BReturnEsp";
-            this.BReturnEsp.Size = new System.Drawing.Size(75, 24);
+            this.BReturnEsp.Size = new System.Drawing.Size(112, 38);
             this.BReturnEsp.TabIndex = 35;
             this.BReturnEsp.Text = "Voltar";
             this.BReturnEsp.UseVisualStyleBackColor = true;
             // 
             // Especialização
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(322, 214);
+            this.ClientSize = new System.Drawing.Size(483, 334);
             this.Controls.Add(this.BReturnEsp);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.BAddEsp);
             this.Controls.Add(this.CBEsp);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Especialização";
             this.Text = "Especialização";
+            this.Load += new System.EventHandler(this.Especialização_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -123,6 +123,9 @@
     <EmbeddedResource Include="Chamada.resx">
       <DependentUpon>Chamada.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Especialização.resx">
+      <DependentUpon>Especialização.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formação.resx">
       <DependentUpon>Formação.cs</DependentUpon>
     </EmbeddedResource>

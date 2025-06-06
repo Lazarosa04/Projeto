@@ -518,6 +518,16 @@ BEGIN
     VALUES (@ID_Viatura, @ID_Equipamento, @Data_Manutencao, @Descricao);
 END
 
+--listar especializações
+CREATE PROCEDURE spListarEspecializacoesDoBombeiro
+    @ID_Bombeiro INT
+AS
+BEGIN
+    SELECT E.ID_Especialização, E.Nome_Especialização
+    FROM Especialização E
+    INNER JOIN Bombeiro_Especialização BE ON E.ID_Especialização = BE.ID_Especialização
+    WHERE BE.ID_Bombeiro = @ID_Bombeiro;
+END
 
 
 
