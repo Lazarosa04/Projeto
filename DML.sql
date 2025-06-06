@@ -1,12 +1,12 @@
 USE QuartelBombeiros;
 
--- TipoViatura (só dois tipos)
+-- TipoViatura (sÃ³ dois tipos)
 INSERT INTO TipoViatura (ID_TipoViatura, Nome_TipoViatura) VALUES
 (1, 'Ligeiro'),
 (2, 'Pesado');
 
 -- Quartel (apenas um, com ID fixo 11111)
-INSERT INTO Quartel (ID_Quartel, Nome_Quartel, Endereço, Telefone) VALUES
+INSERT INTO Quartel (ID_Quartel, Nome_Quartel, EndereÃ§o, Telefone) VALUES
 (11111, 'Quartel Central', 'Rua Principal, 123', '12345678901');
 
 -- Viatura (ligado ao quartel 11111 e aos dois tipos)
@@ -21,30 +21,28 @@ INSERT INTO Viatura (ID_Quartel, ID_TipoViatura, Matricula, Ano) VALUES
 INSERT INTO Equipamento (ID_Quartel, ID_Viatura, Nome_Equipamento, Quantidade) VALUES
 (11111, 1, 'Mangueira', 10),
 (11111, 2, 'Extintor', 5),
-(11111, 3, 'Serra Elétrica', 2),
+(11111, 3, 'Serra ElÃ©trica', 2),
 (11111, 4, 'Lanterna', 8),
 (11111, 5, 'Kit Primeiros Socorros', 4);
 
--- Manutenção (ligada a viaturas ou equipamentos)
-INSERT INTO Manutenção (ID_Viatura, ID_Equipamento, Data_Manutenção, Descrição) VALUES
-(1, NULL, '2025-05-01', 'Revisão geral do motor'),
-(NULL, 1, '2025-04-15', 'Substituição da mangueira principal'),
+-- ManutenÃ§Ã£o (ligada a viaturas ou equipamentos)
+INSERT INTO ManutenÃ§Ã£o (ID_Viatura, ID_Equipamento, Data_ManutenÃ§Ã£o, DescriÃ§Ã£o) VALUES
+(1, NULL, '2025-05-01', 'RevisÃ£o geral do motor'),
+(NULL, 1, '2025-04-15', 'SubstituiÃ§Ã£o da mangueira principal'),
 (2, NULL, '2025-03-20', 'Troca dos pneus'),
-(NULL, 3, '2025-02-10', 'Manutenção da serra elétrica'),
-(3, NULL, '2025-01-05', 'Limpeza completa do veículo');
-
+(NULL, 3, '2025-02-10', 'ManutenÃ§Ã£o da serra elÃ©trica'),
+(3, NULL, '2025-01-05', 'Limpeza completa do veÃ­culo');
 
 -- Bombeiro (vinculado ao quartel 11111)
-INSERT INTO Bombeiro (ID_Quartel, Nome_Bombeiro, Data_Nascimento, Morada, Email, NIF, Telemóvel) VALUES
-(11111, 'João Silva', '1985-03-15', 'Rua das Flores, 10', 'joao.silva@email.com', '123456789', '912345678'),
+INSERT INTO Bombeiro (ID_Quartel, Nome_Bombeiro, Data_Nascimento, Morada, Email, NIF, TelemÃ³vel) VALUES
+(11111, 'JoÃ£o Silva', '1985-03-15', 'Rua das Flores, 10', 'joao.silva@email.com', '123456789', '912345678'),
 (11111, 'Maria Santos', '1990-07-22', 'Avenida Central, 55', 'maria.santos@email.com', '987654321', '923456789'),
 (11111, 'Carlos Pereira', '1982-11-05', 'Rua do Sol, 23', 'carlos.pereira@email.com', '456123789', '934567890'),
 (11111, 'Ana Costa', '1995-01-30', 'Travessa Alegre, 12', 'ana.costa@email.com', '789456123', '945678901'),
 (11111, 'Pedro Alves', '1988-09-14', 'Rua Nova, 77', 'pedro.alves@email.com', '321654987', '956789012');
 
-
--- Férias (para alguns bombeiros)
-INSERT INTO Férias (ID_Bombeiro, Data_Inicio, Data_Fim) VALUES
+-- FÃ©rias (para alguns bombeiros)
+INSERT INTO FÃ©rias (ID_Bombeiro, Data_Inicio, Data_Fim) VALUES
 (1, '2025-07-01', '2025-07-15'),
 (2, '2025-08-10', '2025-08-20'),
 (3, '2025-12-01', '2025-12-10'),
@@ -52,23 +50,23 @@ INSERT INTO Férias (ID_Bombeiro, Data_Inicio, Data_Fim) VALUES
 (5, '2025-09-01', '2025-09-10');
 
 -- Baixa (para alguns bombeiros)
-INSERT INTO Baixa (ID_Bombeiro, Data_Inicio, Data_Fim, Razão) VALUES
+INSERT INTO Baixa (ID_Bombeiro, Data_Inicio, Data_Fim, RazÃ£o) VALUES
 (2, '2025-05-01', '2025-05-10', 'Gripe forte'),
-(4, '2025-06-20', '2025-06-30', 'Lesão no braço'),
-(1, '2025-03-15', '2025-03-20', 'Consulta médica'),
+(4, '2025-06-20', '2025-06-30', 'LesÃ£o no braÃ§o'),
+(1, '2025-03-15', '2025-03-20', 'Consulta mÃ©dica'),
 (3, '2025-04-25', '2025-05-05', 'Cirurgia menor'),
-(5, '2025-07-10', '2025-07-20', 'Recuperação');
+(5, '2025-07-10', '2025-07-20', 'RecuperaÃ§Ã£o');
 
--- Ocorrência (vinculada ao quartel 11111)
-INSERT INTO Ocorrência (ID_Quartel, Data_Hora) VALUES
+-- OcorrÃªncia (vinculada ao quartel 11111)
+INSERT INTO OcorrÃªncia (ID_Quartel, Data_Hora) VALUES
 (11111, '2025-05-10 14:30'),
 (11111, '2025-05-15 09:00'),
 (11111, '2025-06-01 18:45'),
 (11111, '2025-06-05 23:15'),
 (11111, '2025-06-10 08:30');
 
--- Bombeiro_Ocorrência (vários bombeiros em ocorrências)
-INSERT INTO Bombeiro_Ocorrência (ID_Ocorrência, ID_Bombeiro) VALUES
+-- Bombeiro_OcorrÃªncia (vÃ¡rios bombeiros em ocorrÃªncias)
+INSERT INTO Bombeiro_OcorrÃªncia (ID_OcorrÃªncia, ID_Bombeiro) VALUES
 (1, 1),
 (1, 2),
 (2, 3),
@@ -80,8 +78,8 @@ INSERT INTO Bombeiro_Ocorrência (ID_Ocorrência, ID_Bombeiro) VALUES
 (5, 4),
 (5, 5);
 
--- Viatura_Ocorrência (várias viaturas em ocorrências)
-INSERT INTO Viatura_Ocorrência (ID_Ocorrência, ID_Viatura) VALUES
+-- Viatura_OcorrÃªncia (vÃ¡rias viaturas em ocorrÃªncias)
+INSERT INTO Viatura_OcorrÃªncia (ID_OcorrÃªncia, ID_Viatura) VALUES
 (1, 1),
 (1, 2),
 (2, 3),
@@ -89,82 +87,74 @@ INSERT INTO Viatura_Ocorrência (ID_Ocorrência, ID_Viatura) VALUES
 (4, 5),
 (5, 1);
 
--- Chamada (vinculada às ocorrências)
-INSERT INTO Chamada (ID_Ocorrência, Origem, Descrição, Nome, Data_Hora_Chamada, Localização, Número) VALUES
-(1, 0x00, 'Incêndio numa habitação', 'João', '2025-05-10 14:20', 'Rua das Flores, 10', '912345678'),
-(2, 0x01, 'Acidente rodoviário', 'Maria', '2025-05-15 08:50', 'Avenida Central, 100', '923456789'),
+-- Chamada (vinculada Ã s ocorrÃªncias)
+INSERT INTO Chamada (ID_OcorrÃªncia, Origem, DescriÃ§Ã£o, Nome, Data_Hora_Chamada, LocalizaÃ§Ã£o, NÃºmero) VALUES
+(1, 0x00, 'IncÃªndio numa habitaÃ§Ã£o', 'JoÃ£o', '2025-05-10 14:20', 'Rua das Flores, 10', '912345678'),
+(2, 0x01, 'Acidente rodoviÃ¡rio', 'Maria', '2025-05-15 08:50', 'Avenida Central, 100', '923456789'),
 (3, 0x00, 'Alarme falso', 'Carlos', '2025-06-01 18:30', 'Rua do Sol, 25', '934567890'),
-(4, 0x01, 'Incêndio florestal', 'Ana', '2025-06-05 23:00', 'Zona Rural', '945678901'),
-(5, 0x00, 'Pedido de ajuda médica', 'Pedro', '2025-06-6 08:15', 'Rua Nova, 80', '956789012');
+(4, 0x01, 'IncÃªndio florestal', 'Ana', '2025-06-05 23:00', 'Zona Rural', '945678901'),
+(5, 0x00, 'Pedido de ajuda mÃ©dica', 'Pedro', '2025-06-06 08:15', 'Rua Nova, 80', '956789012');
 
-INSERT INTO Especialização (Nome_Especialização) VALUES
-('Incêndio Urbanos'),
-('Incêndios Florestais'),
+-- EspecializaÃ§Ãµes
+INSERT INTO EspecializaÃ§Ã£o (Nome_EspecializaÃ§Ã£o) VALUES
+('IncÃªndio Urbanos'),
+('IncÃªndios Florestais'),
 ('Salvamento e Desencarceramento'),
-('Salvamento Aquático'),
-('Formação e Treinamento'),
-('Comando e Gestão');
+('Salvamento AquÃ¡tico'),
+('FormaÃ§Ã£o e Treinamento'),
+('Comando e GestÃ£o');
 
 -- Bombeiro 1
-INSERT INTO Bombeiro_Especialização (ID_Bombeiro, ID_Especialização) VALUES
-(1, 1), -- Incêndio Urbanos
-(1, 3); -- Salvamento e Desencarceramento
+INSERT INTO Bombeiro_EspecializaÃ§Ã£o (ID_Bombeiro, ID_EspecializaÃ§Ã£o) VALUES
+(1, 1),
+(1, 3);
 
 -- Bombeiro 2
-INSERT INTO Bombeiro_Especialização (ID_Bombeiro, ID_Especialização) VALUES
-(2, 2), -- Incêndios Florestais
-(2, 4); -- Salvamento Aquático
+INSERT INTO Bombeiro_EspecializaÃ§Ã£o (ID_Bombeiro, ID_EspecializaÃ§Ã£o) VALUES
+(2, 2),
+(2, 4);
 
 -- Bombeiro 3
-INSERT INTO Bombeiro_Especialização (ID_Bombeiro, ID_Especialização) VALUES
-(3, 5), -- Formação e Treinamento
-(3, 6); -- Comando e Gestão
+INSERT INTO Bombeiro_EspecializaÃ§Ã£o (ID_Bombeiro, ID_EspecializaÃ§Ã£o) VALUES
+(3, 5),
+(3, 6);
 
 -- Bombeiro 4
-INSERT INTO Bombeiro_Especialização (ID_Bombeiro, ID_Especialização) VALUES
-(4, 1), -- Incêndio Urbanos
-(4, 2); -- Incêndios Florestais
+INSERT INTO Bombeiro_EspecializaÃ§Ã£o (ID_Bombeiro, ID_EspecializaÃ§Ã£o) VALUES
+(4, 1),
+(4, 2);
 
 -- Bombeiro 5
-INSERT INTO Bombeiro_Especialização (ID_Bombeiro, ID_Especialização) VALUES
-(5, 3), -- Salvamento e Desencarceramento
-(5, 4); -- Salvamento Aquático
+INSERT INTO Bombeiro_EspecializaÃ§Ã£o (ID_Bombeiro, ID_EspecializaÃ§Ã£o) VALUES
+(5, 3),
+(5, 4);
 
-
-
-
-
--- Desativa temporariamente restrições de chave estrangeira
+-- Desativa temporariamente restriÃ§Ãµes de chave estrangeira
 EXEC sp_msforeachtable "ALTER TABLE ? NOCHECK CONSTRAINT ALL";
 
 -- Apaga os dados das tabelas
-DELETE FROM Viatura_Ocorrência;
-DELETE FROM Bombeiro_Ocorrência;
+DELETE FROM Viatura_OcorrÃªncia;
+DELETE FROM Bombeiro_OcorrÃªncia;
 DELETE FROM Chamada;
-DELETE FROM Ocorrência;
+DELETE FROM OcorrÃªncia;
 DELETE FROM Baixa;
-DELETE FROM Férias;
-DELETE FROM Bombeiro_Especialização;
-DELETE FROM Bombeiro_Formação;
-DELETE FROM Formação;
-DELETE FROM Especialização;
-DELETE FROM Manutenção;
+DELETE FROM FÃ©rias;
+DELETE FROM Bombeiro_EspecializaÃ§Ã£o;
+DELETE FROM Bombeiro_FormaÃ§Ã£o;
+DELETE FROM FormaÃ§Ã£o;
+DELETE FROM EspecializaÃ§Ã£o;
+DELETE FROM ManutenÃ§Ã£o;
 DELETE FROM Equipamento;
 DELETE FROM Viatura;
 DELETE FROM Bombeiro;
 DELETE FROM Quartel;
 DELETE FROM TipoViatura;
 
--- Reativa as restrições de chave estrangeira
+-- Reativa as restriÃ§Ãµes de chave estrangeira
 EXEC sp_msforeachtable "ALTER TABLE ? CHECK CONSTRAINT ALL";
 
 -- Resetar contadores de IDENTITY (opcional)
 DBCC CHECKIDENT ('Viatura', RESEED, 0);
 DBCC CHECKIDENT ('Equipamento', RESEED, 0);
-DBCC CHECKIDENT ('Manutenção', RESEED, 0);
-DBCC CHECKIDENT ('Bombeiro', RESEED, 0);
-DBCC CHECKIDENT ('Formação', RESEED, 0);
-DBCC CHECKIDENT ('Especialização', RESEED, 0);
-DBCC CHECKIDENT ('Ocorrência', RESEED, 0);
-DBCC CHECKIDENT ('Chamada', RESEED, 0);
-
+DBCC CHECKIDENT ('ManutenÃ§Ã£o', RESEED, 0);
+DBCC CHECKI
