@@ -47,7 +47,13 @@ namespace Projeto
         {
             string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
             string query = @"
-        SELECT o.ID_Ocorrência, d.Descrição, d.Localização, d.Nome, d.Número, o.Data_Hora
+        SELECT 
+            o.ID_Ocorrência AS ID_Ocorrencia,
+            d.Descrição AS Descricao, 
+            d.Localização AS Localizacao, 
+            d.Nome, 
+            d.Número AS Numero, 
+            o.Data_Hora
         FROM Ocorrência o
         INNER JOIN Chamada d ON o.ID_Ocorrência = d.ID_Ocorrência";
 
@@ -55,6 +61,7 @@ namespace Projeto
             {
                 LBOcorrList.Items.Clear();
                 ocorrencias.Clear();
+
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
@@ -66,15 +73,18 @@ namespace Projeto
                             {
                                 var info = new OcorrenciaInfo
                                 {
-                                    Id = Convert.ToInt32(reader["ID_Ocorrência"]),
-                                    Descricao = reader["Descrição"].ToString(),
+                                    Id = Convert.ToInt32(reader["ID_Ocorrencia"]),
+                                    Descricao = reader["Descricao"].ToString(),
                                     Data = Convert.ToDateTime(reader["Data_Hora"]).ToString("dd/MM/yyyy"),
-                                    Local = reader["Localização"].ToString(),
+                                    Local = reader["Localizacao"].ToString(),
                                     Reportada_por = reader["Nome"].ToString(),
-                                    Numero = reader["Número"].ToString()
+                                    Numero = reader["Numero"].ToString()
                                 };
                                 ocorrencias.Add(info);
-                                LBOcorrList.Items.Add(info);
+
+                                // Se a classe OcorrenciaInfo não sobrescreve ToString(),
+                                // adiciona um texto legível aqui:
+                                LBOcorrList.Items.Add($"{info.Data} - {info.Descricao} ({info.Local})");
                             }
                         }
                     }
@@ -85,6 +95,7 @@ namespace Projeto
                 MessageBox.Show($"Erro ao carregar ocorrências: {ex.Message}");
             }
         }
+
 
 
         private void BOcorrReturn_Click(object sender, EventArgs e)

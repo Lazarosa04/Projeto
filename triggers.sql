@@ -113,3 +113,20 @@ BEGIN
     END
 END;
 GO
+
+
+CREATE TRIGGER TRG_Check_DataHora_Futura
+ON Chamada
+AFTER INSERT
+AS
+BEGIN
+    IF EXISTS (
+        SELECT 1 FROM inserted WHERE Data_Hora_Chamada > GETDATE()
+    )
+    BEGIN
+        RAISERROR('A data/hora da chamada não pode ser futura.', 16, 1);
+        ROLLBACK TRANSACTION;
+    END
+END;
+GO
+
