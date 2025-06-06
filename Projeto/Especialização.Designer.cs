@@ -38,12 +38,12 @@ namespace Projeto
             // 
             this.CBEsp.FormattingEnabled = true;
             this.CBEsp.Items.AddRange(new object[] {
-            "Combate a Incêndios Urbanos",
+            "Incêndio Urbanos",
             "Incêndios Florestais",
             "Salvamento e Desencarceramento",
-            "Salvamento Aquático e Mergulho",
+            "Salvamento Aquático",
             "Formação e Treinamento",
-            "Comunicações e Comando"});
+            "Comando e Gestão"});
             this.CBEsp.Location = new System.Drawing.Point(64, 71);
             this.CBEsp.Name = "CBEsp";
             this.CBEsp.Size = new System.Drawing.Size(206, 24);
