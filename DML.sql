@@ -143,8 +143,6 @@ DELETE FROM TipoViatura;
 EXEC sp_msforeachtable "ALTER TABLE ? CHECK CONSTRAINT ALL";
 
 -- Resetar contadores de IDENTITY (opcional)
-DBCC CHECKIDENT ('TipoViatura', RESEED, 0);
-DBCC CHECKIDENT ('Quartel', RESEED, 0);
 DBCC CHECKIDENT ('Viatura', RESEED, 0);
 DBCC CHECKIDENT ('Equipamento', RESEED, 0);
 DBCC CHECKIDENT ('Manutenção', RESEED, 0);

@@ -35,7 +35,7 @@ namespace Projeto
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.BBRem = new System.Windows.Forms.Button();
             this.BBEdit = new System.Windows.Forms.Button();
             this.BBReturn = new System.Windows.Forms.Button();
@@ -111,10 +111,13 @@ namespace Projeto
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(415, 252);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(332, 22);
-            this.textBox2.TabIndex = 32;
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker1.CustomFormat = "dd/MM/yyyy HH:mm";  // Formato data e hora
+            this.dateTimePicker1.ShowUpDown = true; // Mostra control para hora (sem abrir calendário)
+            this.dateTimePicker1.Location = new System.Drawing.Point(415, 252);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(332, 22);
+            this.dateTimePicker1.TabIndex = 32;
             // 
             // BBRem
             // 
@@ -222,7 +225,7 @@ namespace Projeto
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.BBRem);
             this.Controls.Add(this.BBEdit);
             this.Controls.Add(this.BBReturn);
@@ -247,7 +250,7 @@ namespace Projeto
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Button BBRem;
         private System.Windows.Forms.Button BBEdit;
         private System.Windows.Forms.Button BBReturn;

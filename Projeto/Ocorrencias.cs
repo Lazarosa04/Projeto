@@ -468,8 +468,8 @@ namespace Projeto
         {
             string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
 
-            string bombeirosInput = textBox1.Text.Trim(); // IDs separados por vírgula, ex: "1,2,3"
-            string viaturasInput = textBox2.Text.Trim();  // IDs separados por vírgula, ex: "1,4"
+            string bombeirosInput = textBox1.Text.Trim(); // ex: "1,2,3"
+            string viaturasInput = textBox2.Text.Trim();  // ex: "1,4"
             string chamadaInput = textBox3.Text.Trim();
 
             if (!int.TryParse(chamadaInput, out int idChamada))
@@ -494,9 +494,16 @@ namespace Projeto
 
                     try
                     {
-                        int idOcorrencia = (int)cmd.ExecuteScalar();
-                        MessageBox.Show($"Ocorrência adicionada com sucesso! ID: {idOcorrencia}");
-                        CarregarOcorrencias();
+                        var result = cmd.ExecuteScalar();
+                        if (result != null && int.TryParse(result.ToString(), out int idOcorrencia))
+                        {
+                            MessageBox.Show($"Ocorrência adicionada com sucesso! ID: {idOcorrencia}");
+                            CarregarOcorrencias();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ocorrência adicionada, mas não foi possível obter o ID.");
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -505,6 +512,7 @@ namespace Projeto
                 }
             }
         }
+
 
 
 

@@ -33,6 +33,7 @@ namespace Projeto
             BBRem.Click += BBRemove_Click;
             button1.Click += BBNovo_Click;
             BBEdit.Click += BBEditar_Click;
+            
 
         }
         private void BBReturn_Click(object sender, EventArgs e)
@@ -88,24 +89,19 @@ namespace Projeto
         {
             string nome = textBox5.Text.Trim();
             string descricao = richTextBox1.Text.Trim();
-            string dataHoraStr = textBox2.Text.Trim();
+            DateTime dataHora = dateTimePicker1.Value;
             string numero = textBox3.Text.Trim();
             string localizacao = textBox1.Text.Trim();
             string origemTexto = CBChamada.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(nome) || string.IsNullOrWhiteSpace(descricao) ||
-                string.IsNullOrWhiteSpace(dataHoraStr) || string.IsNullOrWhiteSpace(numero) ||
+            if (string.IsNullOrWhiteSpace(nome) || string.IsNullOrWhiteSpace(descricao) 
+                || string.IsNullOrWhiteSpace(numero) ||
                 string.IsNullOrWhiteSpace(localizacao) || string.IsNullOrWhiteSpace(origemTexto))
             {
                 MessageBox.Show("Preencha todos os campos obrigatórios.");
                 return;
             }
 
-            if (!DateTime.TryParse(dataHoraStr, out DateTime dataHora))
-            {
-                MessageBox.Show("Data/Hora inválida.");
-                return;
-            }
 
             int origem = origemTexto.Equals("Redirecionada", StringComparison.OrdinalIgnoreCase) ? 1 : 0;
             string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
@@ -178,7 +174,6 @@ namespace Projeto
             listBox1.ClearSelected();
             textBox5.Clear();
             richTextBox1.Clear();
-            textBox2.Clear();
             textBox3.Clear();
             textBox1.Clear();
             CBChamada.SelectedIndex = -1;
@@ -189,13 +184,14 @@ namespace Projeto
             if (listBox1.SelectedItem is ChamadaInfo chamada)
             {
                 textBox1.Text = chamada.Localizacao;
-                textBox2.Text = chamada.DataHora.ToString("g");
+                dateTimePicker1.Value = chamada.DataHora;  
                 textBox3.Text = chamada.Numero;
                 textBox5.Text = chamada.Nome;
                 CBChamada.Text = chamada.OrigemTexto;
                 richTextBox1.Text = chamada.Descricao;
             }
         }
+
 
         private void Chamada_Load(object sender, EventArgs e)
         {
@@ -220,24 +216,19 @@ namespace Projeto
 
             string nome = textBox5.Text.Trim();
             string descricao = richTextBox1.Text.Trim();
-            string dataHoraStr = textBox2.Text.Trim();
+            DateTime dataHora = dateTimePicker1.Value;  // pegar aqui direto
             string numero = textBox3.Text.Trim();
             string localizacao = textBox1.Text.Trim();
             string origemTexto = CBChamada.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(nome) || string.IsNullOrWhiteSpace(descricao) ||
-                string.IsNullOrWhiteSpace(dataHoraStr) || string.IsNullOrWhiteSpace(numero) ||
+            if (string.IsNullOrWhiteSpace(nome) || string.IsNullOrWhiteSpace(descricao) 
+                || string.IsNullOrWhiteSpace(numero) ||
                 string.IsNullOrWhiteSpace(localizacao) || string.IsNullOrWhiteSpace(origemTexto))
             {
                 MessageBox.Show("Preencha todos os campos obrigatórios.");
                 return;
             }
 
-            if (!DateTime.TryParse(dataHoraStr, out DateTime dataHora))
-            {
-                MessageBox.Show("Data/Hora inválida.");
-                return;
-            }
 
             int origem = origemTexto.Equals("Redirecionada", StringComparison.OrdinalIgnoreCase) ? 1 : 0;
 

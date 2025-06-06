@@ -19,6 +19,8 @@ namespace Projeto
             this.BERem.Click += new EventHandler(BERemove_Click);
             this.button1.Click += new EventHandler(BENovo_Click);
             this.BEEdit.Click += new EventHandler(BEEditar_Click);
+            this.BVMRemove.Click += new EventHandler(BERemoveManutencao_Click);
+            this.BVMAdd.Click += new EventHandler(BEAdicionarManutencao_Click);
         }
 
         private class EquipamentoInfo
@@ -29,6 +31,19 @@ namespace Projeto
             public string Nome_Viatura { get; set; }
             public int ID_Viatura { get; set; }
         }
+
+        private class ManutencaoInfo
+        {
+            public int ID_Manutencao { get; set; }
+            public int ID_Viatura { get; set; }
+            public int ID_Equipamento { get; set; }
+            public DateTime DataManutencao { get; set; }
+            public string Descricao { get; set; }
+        }
+
+        private List<ManutencaoInfo> manutencoes = new List<ManutencaoInfo>();
+
+
         private void Equipamento_Load(object sender, EventArgs e)
         {
             // Evento de carregamento do formulário Equipamento
@@ -262,6 +277,122 @@ namespace Projeto
                 MessageBox.Show("Selecione um equipamento para editar.");
             }
         }
+        private void CarregarManutencoesEquipamento(int idEquipamento)
+        {
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+            try
+            {
+                manutencoes.Clear();
+                LBVManu.Items.Clear();
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand("spListarManutencoesPorEquipamento", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@ID_Equipamento", idEquipamento);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var manut = new ManutencaoInfo
+                                {
+                                    ID_Manutencao = Convert.ToInt32(reader["ID_Manutenção"]),
+                                    ID_Equipamento = Convert.ToInt32(reader["ID_Equipamento"]),
+                                    DataManutencao = Convert.ToDateTime(reader["Data_Manutenção"]),
+                                    Descricao = reader["Descrição"].ToString()
+                                };
+                                manutencoes.Add(manut);
+                                LBVManu.Items.Add($"({manut.ID_Manutencao}) {manut.DataManutencao.ToShortDateString()} - {manut.Descricao}");
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar manutenções: {ex.Message}");
+            }
+        }
+
+        private void BEAdicionarManutencao_Click(object sender, EventArgs e)
+        {
+            int idx = listBox1.SelectedIndex;
+            if (idx >= 0 && idx < equipamentos.Count)
+            {
+                int idEquipamentoSelecionado = equipamentos[idx].ID_Equipamento;
+
+                // Cria a instância do form Manutenção
+                Manutenção manutForm = new Manutenção();
+
+                // Passa o ID do equipamento selecionado
+                manutForm.ID_Equipamento = idEquipamentoSelecionado;
+
+                // Mostra o form como modal
+                if (manutForm.ShowDialog() == DialogResult.OK)
+                {
+                    CarregarManutencoesEquipamento(idEquipamentoSelecionado); // Atualiza a lista de manutenções após adicionar
+                }
+            }
+            else
+            {
+                MessageBox.Show("Selecione um equipamento para adicionar manutenção.");
+            }
+        }
+
+
+
+        private void BERemoveManutencao_Click(object sender, EventArgs e)
+        {
+            int idxManut = LBVManu.SelectedIndex;
+            int idxEquip = listBox1.SelectedIndex;
+
+            if (idxManut >= 0 && idxManut < manutencoes.Count && idxEquip >= 0 && idxEquip < equipamentos.Count)
+            {
+                var manutencaoSelecionada = manutencoes[idxManut];
+                var idEquipSelecionado = equipamentos[idxEquip].ID_Equipamento;
+
+                var confirm = MessageBox.Show(
+                    $"Tem certeza que deseja remover a manutenção: \"{manutencaoSelecionada.Descricao}\"?",
+                    "Confirmação",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (confirm == DialogResult.Yes)
+                {
+                    string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+                    try
+                    {
+                        using (SqlConnection connection = new SqlConnection(connectionString))
+                        {
+                            connection.Open();
+                            using (SqlCommand command = new SqlCommand("spRemoverManutencao", connection))
+                            {
+                                command.CommandType = CommandType.StoredProcedure;
+                                command.Parameters.AddWithValue("@ID_Manutencao", manutencaoSelecionada.ID_Manutencao);
+                                command.ExecuteNonQuery();
+                            }
+                        }
+                        MessageBox.Show("Manutenção removida com sucesso!");
+                        CarregarManutencoesEquipamento(idEquipSelecionado); // Atualiza listagem das manutenções do equipamento
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Erro ao remover manutenção: {ex.Message}");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Selecione uma manutenção para remover.");
+            }
+        }
+
+
+
+
 
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -273,6 +404,7 @@ namespace Projeto
                 TEV1.Text = eq.Nome_Equipamento;
                 textBox1.Text = eq.Quantidade.ToString();
                 textBox2.Text = eq.ID_Viatura.ToString();
+                CarregarManutencoesEquipamento(eq.ID_Equipamento); // Carrega as manutenções relacionadas ao equipamento selecionado
             }
         }
     }

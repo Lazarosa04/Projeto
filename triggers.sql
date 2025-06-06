@@ -50,26 +50,6 @@ END;
 GO
 
 
--- Triggers para CHAMADA
-
--- 1. Impedir datas futuras
-CREATE TRIGGER TRG_Check_DataHora_Futura
-ON Chamada
-INSTEAD OF INSERT
-AS
-BEGIN
-    IF EXISTS (SELECT 1 FROM inserted WHERE Data_Hora_Chamada > GETDATE())
-    BEGIN
-        RAISERROR('Não é permitido registar chamadas com data/hora futura.', 16, 1);
-        RETURN;
-    END
-
-    INSERT INTO Chamada (Nome, [Descrição], Data_Hora_Chamada, [Número], [Localização], Origem)
-    SELECT Nome, [Descrição], Data_Hora_Chamada, [Número], [Localização], Origem FROM inserted;
-END;
-GO
-
-DROP TRIGGER TRG_Log_Chamada_Removida
 
 
 -- Triggers para EQUIPAMENTO
@@ -102,25 +82,6 @@ BEGIN
 END;
 GO
 
--- Triggers para OCORRÊNCIA
-
--- 1. Impedir ocorrência com data futura
-CREATE TRIGGER TRG_Check_Ocorrencia_Data
-ON Ocorrência
-INSTEAD OF INSERT
-AS
-BEGIN
-    IF EXISTS (SELECT 1 FROM inserted WHERE Data_Hora > GETDATE())
-    BEGIN
-        RAISERROR('Não é possível criar ocorrência com data futura.', 16, 1);
-        RETURN;
-    END
-    INSERT INTO Ocorrência (ID_Quartel, Data_Hora)
-    SELECT ID_Quartel, Data_Hora FROM inserted;
-END;
-GO
-
-drop trigger TRG_Check_Ocorrencia_Data
 
 -- Triggers para VIATURA
 

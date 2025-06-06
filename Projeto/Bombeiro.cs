@@ -11,19 +11,33 @@ namespace Projeto
         private List<BombeiroInfo> bombeiros = new List<BombeiroInfo>();
 
 
-        private class BaixaInfo
+        public class BaixaInfo
         {
+            public int ID_Baixa { get; set; }          
             public DateTime DataInicio { get; set; }
             public DateTime DataFim { get; set; }
             public string Razao { get; set; }
 
             public override string ToString()
             {
-                return $"{DataInicio:dd/MM/yyyy} a {DataFim:dd/MM/yyyy} - {Razao}";
+                return $"{DataInicio.ToShortDateString()} - {DataFim.ToShortDateString()} : {Razao}";
+            }
+        }
+
+        public class FeriasInfo
+        {
+            public int ID_Ferias { get; set; }          
+            public DateTime DataInicio { get; set; }
+            public DateTime DataFim { get; set; }
+
+            public override string ToString()
+            {
+                return $"{DataInicio.ToShortDateString()} - {DataFim.ToShortDateString()}";
             }
         }
 
 
+      
         private class BombeiroInfo
         {
             public int Id { get; set; }
@@ -47,6 +61,8 @@ namespace Projeto
             this.button1.Click += button1_Click;
             this.BBAdd.Click += BBAdd_Click;
             this.BBEdit.Click += BBEdit_Click;
+            this.BBRemoveFérias.Click += BBRemoveFerias_Click;
+            this.BRemoveBaixa.Click += BBRemoveBaixa_Click;
         }
 
         private void CarregarDados()
@@ -112,19 +128,21 @@ namespace Projeto
                             {
                                 BaixaInfo baixa = new BaixaInfo
                                 {
+                                    ID_Baixa = Convert.ToInt32(reader["ID_Baixa"]), 
                                     DataInicio = Convert.ToDateTime(reader["Data_Inicio"]),
                                     DataFim = Convert.ToDateTime(reader["Data_Fim"]),
                                     Razao = reader["Razão"].ToString()
                                 };
                                 baixas.Add(baixa);
                             }
+
                         }
                     }
                 }
 
                 foreach (var baixa in baixas)
                 {
-                   LBBBaixa.Items.Add(baixa);
+                    LBBBaixa.Items.Add(baixa);
                 }
             }
             catch (Exception ex)
@@ -132,6 +150,53 @@ namespace Projeto
                 MessageBox.Show($"Erro ao carregar baixas: {ex.Message}");
             }
         }
+
+        private void CarregarFerias(int idBombeiro)
+        {
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+            List<FeriasInfo> feriasList = new List<FeriasInfo>();
+
+            try
+            {
+                LBBFérias.Items.Clear();
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand("spListarFeriasPorBombeiro", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@idBombeiro", idBombeiro);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                FeriasInfo ferias = new FeriasInfo
+                                {
+                                    ID_Ferias = Convert.ToInt32(reader["ID_Férias"]), 
+                                    DataInicio = Convert.ToDateTime(reader["Data_Inicio"]),
+                                    DataFim = Convert.ToDateTime(reader["Data_Fim"])
+                                };
+                                feriasList.Add(ferias);
+                            }
+                        }
+                    }
+                }
+
+                foreach (var ferias in feriasList)
+                {
+                    LBBFérias.Items.Add(ferias);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar férias: {ex.Message}");
+            }
+        }
+
+
+
 
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -147,6 +212,7 @@ namespace Projeto
                 textBox5.Text = selecionado.Nascimento;
 
                 CarregarBaixas(selecionado.Id);
+                CarregarFerias(selecionado.Id);
             }
             else
             {
@@ -338,9 +404,97 @@ namespace Projeto
 
         private void BAddFerias_Click_1(object sender, EventArgs e)
         {
-            Férias ferias = new Férias();
+            if (listBox1.SelectedIndex < 0)
+            {
+                MessageBox.Show("Selecione um bombeiro antes de adicionar Férias.");
+                return;
+            }
+            var selecionado = bombeiros[listBox1.SelectedIndex];
+            Férias ferias = new Férias(selecionado.Id);
             ferias.ShowDialog();
+            CarregarFerias(selecionado.Id);
+
         }
+
+        public void RemoverFerias(int idFerias)
+        {
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand("RemoverFerias", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@ID_Ferias", idFerias);
+                        command.ExecuteNonQuery();
+                    }
+                }
+                MessageBox.Show("Férias removidas com sucesso!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao remover férias: {ex.Message}");
+            }
+        }
+
+
+        public void RemoverBaixa(int idBaixa)
+        {
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QuartelBombeiros;Integrated Security=True";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand("spRemoverBaixa", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@ID_Baixa", idBaixa);
+                        command.ExecuteNonQuery();
+                    }
+                }
+                MessageBox.Show("Baixa removida com sucesso!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao remover baixa: {ex.Message}");
+            }
+        }
+
+        private void BBRemoveBaixa_Click(object sender, EventArgs e)
+        {
+            if (LBBBaixa.SelectedItem is BaixaInfo baixaSelecionada)
+            {
+                RemoverBaixa(baixaSelecionada.ID_Baixa);
+                var selecionado = bombeiros[listBox1.SelectedIndex];
+                CarregarBaixas(selecionado.Id); // Atualiza a lista após remover
+            }
+            else
+            {
+                MessageBox.Show("Por favor selecione uma baixa para remover.");
+            }
+        }
+
+        private void BBRemoveFerias_Click(object sender, EventArgs e)
+        {
+            if (LBBFérias.SelectedItem is FeriasInfo feriasSelecionada)
+            {
+                RemoverFerias(feriasSelecionada.ID_Ferias);
+                var selecionado = bombeiros[listBox1.SelectedIndex];
+                CarregarFerias(selecionado.Id); // Atualiza a lista após remover
+            }
+            else
+            {
+                MessageBox.Show("Por favor selecione umas férias para remover.");
+            }
+        }
+
+
+
 
         private void BAddFormação_Click(object sender, EventArgs e)
         {

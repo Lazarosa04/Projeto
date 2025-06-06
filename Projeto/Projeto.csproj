@@ -129,6 +129,9 @@
     <EmbeddedResource Include="Férias.resx">
       <DependentUpon>Férias.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Manutenção.resx">
+      <DependentUpon>Manutenção.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ocorrencias.resx">
       <DependentUpon>Ocorrencias.cs</DependentUpon>
     </EmbeddedResource>

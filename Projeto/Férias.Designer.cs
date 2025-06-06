@@ -2,15 +2,8 @@ namespace Projeto
 {
     partial class Férias
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,25 +15,20 @@ namespace Projeto
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.BFeriasAdd = new System.Windows.Forms.Button();
             this.BFeriasVoltar = new System.Windows.Forms.Button();
-            this.TBFeriasFim = new System.Windows.Forms.TextBox();
-            this.TBFériasIn = new System.Windows.Forms.TextBox();
+            this.dateTimePickerFim = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerInicio = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(50, 150);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(98, 25);
             this.label2.TabIndex = 14;
@@ -50,7 +38,6 @@ namespace Projeto
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(50, 42);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(113, 25);
             this.label1.TabIndex = 13;
@@ -59,7 +46,6 @@ namespace Projeto
             // BFeriasAdd
             // 
             this.BFeriasAdd.Location = new System.Drawing.Point(54, 306);
-            this.BFeriasAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.BFeriasAdd.Name = "BFeriasAdd";
             this.BFeriasAdd.Size = new System.Drawing.Size(112, 36);
             this.BFeriasAdd.TabIndex = 11;
@@ -69,7 +55,6 @@ namespace Projeto
             // BFeriasVoltar
             // 
             this.BFeriasVoltar.Location = new System.Drawing.Point(236, 306);
-            this.BFeriasVoltar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.BFeriasVoltar.Name = "BFeriasVoltar";
             this.BFeriasVoltar.Size = new System.Drawing.Size(112, 36);
             this.BFeriasVoltar.TabIndex = 10;
@@ -77,21 +62,19 @@ namespace Projeto
             this.BFeriasVoltar.UseVisualStyleBackColor = true;
             this.BFeriasVoltar.Click += new System.EventHandler(this.BFeriasVoltar_Click_1);
             // 
-            // TBFeriasFim
+            // dateTimePickerFim
             // 
-            this.TBFeriasFim.Location = new System.Drawing.Point(54, 180);
-            this.TBFeriasFim.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.TBFeriasFim.Name = "TBFeriasFim";
-            this.TBFeriasFim.Size = new System.Drawing.Size(292, 31);
-            this.TBFeriasFim.TabIndex = 9;
+            this.dateTimePickerFim.Location = new System.Drawing.Point(54, 180);
+            this.dateTimePickerFim.Name = "dateTimePickerFim";
+            this.dateTimePickerFim.Size = new System.Drawing.Size(292, 31);
+            this.dateTimePickerFim.TabIndex = 9;
             // 
-            // TBFériasIn
+            // dateTimePickerInicio
             // 
-            this.TBFériasIn.Location = new System.Drawing.Point(54, 72);
-            this.TBFériasIn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.TBFériasIn.Name = "TBFériasIn";
-            this.TBFériasIn.Size = new System.Drawing.Size(292, 31);
-            this.TBFériasIn.TabIndex = 8;
+            this.dateTimePickerInicio.Location = new System.Drawing.Point(54, 72);
+            this.dateTimePickerInicio.Name = "dateTimePickerInicio";
+            this.dateTimePickerInicio.Size = new System.Drawing.Size(292, 31);
+            this.dateTimePickerInicio.TabIndex = 8;
             // 
             // Férias
             // 
@@ -102,23 +85,22 @@ namespace Projeto
             this.Controls.Add(this.label1);
             this.Controls.Add(this.BFeriasAdd);
             this.Controls.Add(this.BFeriasVoltar);
-            this.Controls.Add(this.TBFeriasFim);
-            this.Controls.Add(this.TBFériasIn);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Controls.Add(this.dateTimePickerFim);
+            this.Controls.Add(this.dateTimePickerInicio);
             this.Name = "Férias";
             this.Text = "Férias";
             this.Load += new System.EventHandler(this.Férias_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
+
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button BFeriasAdd;
         private System.Windows.Forms.Button BFeriasVoltar;
-        private System.Windows.Forms.TextBox TBFeriasFim;
-        private System.Windows.Forms.TextBox TBFériasIn;
+        private System.Windows.Forms.DateTimePicker dateTimePickerFim;
+        private System.Windows.Forms.DateTimePicker dateTimePickerInicio;
     }
 }

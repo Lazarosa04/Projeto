@@ -418,11 +418,115 @@ CREATE or ALTER PROCEDURE spListarBaixasPorBombeiro
     @idBombeiro INT
 AS
 BEGIN
-    SELECT Data_Inicio, Data_Fim, Razão
+    SELECT ID_Baixa, Data_Inicio, Data_Fim, Razão
     FROM Baixa
     WHERE ID_Bombeiro = @idBombeiro
     ORDER BY Data_Inicio DESC
 END
+
+--remover baixa
+CREATE PROCEDURE spRemoverBaixa
+    @ID_Baixa INT
+AS
+BEGIN
+    DELETE FROM Baixa
+    WHERE ID_Baixa = @ID_Baixa;
+END;
+
+--Adicionar Férias
+CREATE or alter PROCEDURE AdicionarFerias
+    @ID_Bombeiro INT,
+    @Data_Inicio DATE,
+    @Data_Fim DATE
+AS
+BEGIN
+    IF @Data_Fim < @Data_Inicio
+    BEGIN
+        RAISERROR('A data de fim não pode ser anterior à data de início.', 16, 1);
+        RETURN;
+    END
+
+    INSERT INTO Férias (ID_Bombeiro, Data_Inicio, Data_Fim)
+    VALUES (@ID_Bombeiro, @Data_Inicio, @Data_Fim);
+END;
+
+--Remover Férias
+CREATE or alter PROCEDURE RemoverFerias
+    @ID_Ferias INT
+AS
+BEGIN
+    DELETE FROM Férias
+    WHERE ID_Férias = @ID_Ferias;
+END;
+
+--Listar férias
+CREATE or alter PROCEDURE spListarFeriasPorBombeiro
+    @idBombeiro INT
+AS
+BEGIN
+    SELECT 
+        ID_Férias,
+        Data_Inicio,
+        Data_Fim
+    FROM Férias
+    WHERE ID_Bombeiro = @idBombeiro
+    ORDER BY Data_Inicio DESC;
+END;
+
+--lista manutenções da viatura
+CREATE PROCEDURE spListarManutencoesPorViatura
+    @ID_Viatura INT
+AS
+BEGIN
+    SELECT ID_Manutenção, ID_Viatura, ID_Equipamento, Data_Manutenção, Descrição
+    FROM Manutenção
+    WHERE ID_Viatura = @ID_Viatura
+    ORDER BY Data_Manutenção DESC;
+END
+
+
+--lista manutenções do equipamento
+CREATE PROCEDURE spListarManutencoesPorEquipamento
+    @ID_Equipamento INT
+AS
+BEGIN
+    SELECT ID_Manutenção, ID_Viatura, ID_Equipamento, Data_Manutenção, Descrição
+    FROM Manutenção
+    WHERE ID_Equipamento = @ID_Equipamento
+    ORDER BY Data_Manutenção DESC;
+END
+
+--remover manutenções
+CREATE PROCEDURE spRemoverManutencao
+    @ID_Manutencao INT
+AS
+BEGIN
+    DELETE FROM Manutenção
+    WHERE ID_Manutenção = @ID_Manutencao;
+END
+
+
+--adicionar manutenção
+CREATE or alter PROCEDURE spAdicionarManutencao
+    @ID_Viatura INT = NULL,
+    @ID_Equipamento INT = NULL,
+    @Data_Manutencao DATE,
+    @Descricao NVARCHAR(255)
+AS
+BEGIN
+    INSERT INTO Manutenção (ID_Viatura, ID_Equipamento, Data_Manutenção, Descrição)
+    VALUES (@ID_Viatura, @ID_Equipamento, @Data_Manutencao, @Descricao);
+END
+
+
+
+
+
+
+
+
+
+
 
 
 

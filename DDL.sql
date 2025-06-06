@@ -55,20 +55,6 @@ create table Bombeiro(
 	Telemóvel			char(12)
 );
 
---formação
-create table Formação(
-	ID_Formação			int Identity(1,1) primary key,
-	ID_Quartel			int references Quartel(ID_Quartel),
-	Data_Inicio			date,
-	Data_Fim			date
-);
-
---uma formação pode ser participada por vários bombeiros
---um bombeiro pode participar de várias Formações
-create table Bombeiro_Formação(
-	ID_Bombeiro			int references Bombeiro(ID_Bombeiro),
-	ID_Formação			int references Formação(ID_Formação),
-);
 
 --especialização
 create table Especialização(
@@ -87,7 +73,7 @@ create table Bombeiro_Especialização(
 create table Férias(
 	ID_Férias			int Identity(1,1) primary key,
 	ID_Bombeiro			int references Bombeiro(ID_Bombeiro),
-	Data_Inicio			date primary key,
+	Data_Inicio			date,
 	Data_Fim			date
 );
 
@@ -95,7 +81,7 @@ create table Férias(
 create table Baixa(
 	ID_Baixa			int Identity(1,1) primary key,
 	ID_Bombeiro			int references Bombeiro(ID_Bombeiro),
-	Data_Inicio			date primary key,
+	Data_Inicio			date,
 	Data_Fim			date,
 	Razão				varchar(300)
 );
