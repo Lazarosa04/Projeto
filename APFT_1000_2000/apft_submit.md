@@ -1,8 +1,8 @@
 # BD: Trabalho Prático APF-T
 
-**Grupo**: PXGY
-- António Fictício, MEC: 1000
-- João Inventado, MEC: 2000
+**Grupo**: P7G9
+- Lázaro Sá, MEC: 115884
+- Diogo Soares, MEC: 103521
 
 
 ## Introdução / Introduction
