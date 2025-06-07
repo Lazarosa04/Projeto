@@ -8,8 +8,9 @@ namespace Projeto
     public partial class Manutenção : Form
     {
 
-        public int ID_Equipamento { get; set; }
-        public int ID_Viatura { get; set; } 
+        public int? ID_Equipamento { get; set; }
+        public int? ID_Viatura { get; set; }
+
 
         public Manutenção()
         {
@@ -42,15 +43,15 @@ namespace Projeto
                     {
                         command.CommandType = CommandType.StoredProcedure;
 
-                        // Se ID_Viatura estiver definido (> 0), usa esse, senão usa ID_Equipamento
-                        if (ID_Viatura >= 0)
+                        // Se ID_Viatura estiver definido (>= 0), usa esse, senão usa ID_Equipamento
+                        if (ID_Viatura.HasValue)
                         {
-                            command.Parameters.AddWithValue("@ID_Viatura", ID_Viatura);
+                            command.Parameters.AddWithValue("@ID_Viatura", ID_Viatura.Value);
                             command.Parameters.AddWithValue("@ID_Equipamento", DBNull.Value);
                         }
-                        else if (ID_Equipamento >= 0)
+                        else if (ID_Equipamento.HasValue)
                         {
-                            command.Parameters.AddWithValue("@ID_Equipamento", ID_Equipamento);
+                            command.Parameters.AddWithValue("@ID_Equipamento", ID_Equipamento.Value);
                             command.Parameters.AddWithValue("@ID_Viatura", DBNull.Value);
                         }
                         else
@@ -58,6 +59,7 @@ namespace Projeto
                             MessageBox.Show("Nenhum equipamento ou viatura selecionado para a manutenção.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
+
 
                         command.Parameters.AddWithValue("@Data_Manutencao", data);
                         command.Parameters.AddWithValue("@Descricao", descricao);
@@ -82,6 +84,11 @@ namespace Projeto
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void Manutenção_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

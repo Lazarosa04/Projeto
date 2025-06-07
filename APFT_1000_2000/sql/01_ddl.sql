@@ -35,13 +35,16 @@ create table Equipamento(
 );
 
 --manutenção
-create table Manutenção(
-	ID_Manutenção		int Identity(1,1) primary key,
-	ID_Viatura			int references Viatura(ID_Viatura),
-	ID_Equipamento		int references Equipamento(ID_Equipamento),
-	Data_Manutenção		date,
-	Descrição			varchar(300)
+CREATE TABLE Manutenção (
+    ID_Manutenção INT PRIMARY KEY IDENTITY,
+    ID_Viatura INT NULL,
+    ID_Equipamento INT NULL,
+    Data_Manutenção DATE NOT NULL,
+    Descrição NVARCHAR(255) NOT NULL,
+    FOREIGN KEY (ID_Viatura) REFERENCES Viatura(ID_Viatura),
+    FOREIGN KEY (ID_Equipamento) REFERENCES Equipamento(ID_Equipamento)
 );
+
 
 --bombeiro
 create table Bombeiro(

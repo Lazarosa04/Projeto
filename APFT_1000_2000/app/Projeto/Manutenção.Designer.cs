@@ -68,7 +68,7 @@
             this.labelData.AutoSize = true;
             this.labelData.Location = new System.Drawing.Point(50, 15);
             this.labelData.Name = "labelData";
-            this.labelData.Size = new System.Drawing.Size(48, 25);
+            this.labelData.Size = new System.Drawing.Size(57, 25);
             this.labelData.TabIndex = 4;
             this.labelData.Text = "Data";
             // 
@@ -77,7 +77,7 @@
             this.labelDescricao.AutoSize = true;
             this.labelDescricao.Location = new System.Drawing.Point(50, 75);
             this.labelDescricao.Name = "labelDescricao";
-            this.labelDescricao.Size = new System.Drawing.Size(83, 25);
+            this.labelDescricao.Size = new System.Drawing.Size(108, 25);
             this.labelDescricao.TabIndex = 5;
             this.labelDescricao.Text = "Descrição";
             // 
@@ -94,8 +94,10 @@
             this.Controls.Add(this.BEAdicionar);
             this.Name = "Manutenção";
             this.Text = "Adicionar Manutenção";
+            this.Load += new System.EventHandler(this.Manutenção_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
     }
 }
